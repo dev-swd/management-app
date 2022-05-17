@@ -1,0 +1,71 @@
+@charset "utf-8";
+
+.div-upd-container {
+  width: 500px;
+  height: 280px;
+  background-color: #fff;
+}
+
+.div-upd-container .header-area {
+  height: 30px;
+  width: auto;
+  background-color: #c9e9f1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.div-upd-container .header-area .header-title {
+  width: 50%;
+  height:30px;
+  background-color: #c9e9f1;
+  color: #00f;
+  font-family: sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+  padding: 2px 0 0 5px;
+}
+
+.div-upd-form {
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.div-upd-form .button-area {
+  width: auto;
+  height: auto;
+  margin: 0 0 10px 0;
+  text-align: left;
+}
+
+.div-upd-form .div-upd-area {
+  width: auto;
+  display: grid;
+  grid-template-columns: 100px 300px;
+  grid-template-rows: repeat(3, 40px);
+}
+
+.div-upd-form .div-upd-area .title-cell,
+.div-upd-form .div-upd-area .data-cell {
+  padding-top: 4px;
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+.div-upd-form .div-upd-area .text-base {
+  padding-left: 5px;
+  font-family: sans-serif;
+  font-size: 12px;
+  height: 20px;
+  border: 1px solid #000;
+}
+
+.div-upd-form .div-upd-area .code {
+  width: 40px;
+  background-color: #fee;
+}
+
+.div-upd-form .div-upd-area .name {
+  width: 270px;
+  background-color: #fee;
+}

@@ -1,0 +1,45 @@
+@charset "utf-8";
+
+.mem-add-container {
+  width: 300px;
+  height: 150px;
+  background-color: #fff;
+}
+
+.mem-add-container .header-area {
+  height: 30px;
+  width: auto;
+  background-color: #c9e9f1;
+}
+
+.mem-add-container .header-area .header-title {
+  width: 50%;
+  height:30px;
+  background-color: #c9e9f1;
+  color: #00f;
+  font-family: sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+  padding: 2px 0 0 5px;
+}
+
+.mem-add-container .mem-entry-area {
+  width: auto;
+  padding-top: 20px;
+  padding-left: 50px;
+}
+
+.mem-add-container .mem-entry-area .emp-list {
+  font-family: sans-serif;
+  font-size: 12px;
+  background-color: #fee;
+  height: 20px;
+}
+
+.mem-add-container .button-area {
+  width: auto;
+  height: 60px;
+  padding-top: 20px;
+  padding-right: 30px;
+  text-align: right;
+}

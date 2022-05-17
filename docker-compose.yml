@@ -1,0 +1,35 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: postgres
+      TZ: Asia/Tokyo
+  api:
+    build:
+      context: ./api/
+      dockerfile: Dockerfile
+    command: bash -c "rm -f /myapp/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - ./api:/myapp
+      - ./api/vendor/bundle:/myapp/vendor/bundle
+    environment:
+      TZ: Asia/Tokyo
+      RAILS_ENV: development
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+  front:
+    build:
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./front:/src/front
+    command: sh -c "PORT=3001 yarn start"
+    ports:
+      - 3001:3001
+    stdin_open: true
