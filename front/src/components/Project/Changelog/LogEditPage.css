@@ -4,6 +4,8 @@
   width: 550px;
   height: 350px;
   background-color: #fff;
+  font-family: sans-serif;
+  font-size: 11px;
 }
 
 .log-edit-container .header-area {
@@ -41,23 +43,11 @@
 
 .log-edit-container .log-entry-area .title-cell {
   padding-top: 4px;
-  font-family: sans-serif;
-  font-size: 11px;
-}
-
-.log-edit-container .log-entry-area .changer_id {
-  font-family: sans-serif;
-  font-size: 11px;
-  background-color: #fee;
-  height: 20px;
 }
 
 .log-edit-container .log-entry-area .date-field {
   width: 120px;
-  background-color: #fee;
   padding-left: 5px;
-  font-family: sans-serif;
-  font-size: 11px;
   height: 20px;
   border: 1px solid #000;
 }
@@ -68,8 +58,5 @@
   width: 300px;
   border: 1px solid #000;
   overflow: hidden;
-  background-color: #fee;
   padding: 2px 2px 2px 5px;
-  font-family: sans-serif;
-  font-size: 11px;
 }

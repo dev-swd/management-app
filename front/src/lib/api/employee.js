@@ -25,7 +25,18 @@ export const deleteEmp = (id) => {
   return client.delete(`/employees/${id}`);
 };
 
-// 
-export const getEmpDevise = (id) => {
-  return client.get(`/employees/show_by_devise?id=${id}`);
+// 詳細（権限ID指定）
+export const getEmpDevise = (devise_id) => {
+//  return client.get(`/employees/show_by_devise?id=${id}`);
+return client.get(`/employees/${devise_id}/show_by_devise/`);
 };
+
+// 一覧（承認権限対象）
+export const getEmpsByApproval = (emp_id) => {
+  return client.get(`/employees/${emp_id}/index_by_approval/`)
+}
+
+// 一覧（課ID指定）
+export const getEmpsByDivision = (div_id) => {
+  return client.get(`/employees/${div_id}/index_by_div/`)
+}

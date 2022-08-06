@@ -292,21 +292,23 @@ const AuditEditPage = (props) => {
                   <td className={'auditor-id-td ' + (audit.del ? 'delete' : '')}>
                     <SelectEmployee
                       name="auditor_id" 
-                      id="auditor_id" 
-                      className={'text-base auditor_id ' + (audit.del ? 'delete' : '')}
                       value={audit.auditor_id || ''} 
-                      handleChange={handleChange}
+                      setValue={handleChange}
                       index={i}
+                      width={110}
+                      height={30}
+                      border="none"
                     />
                   </td>
                   <td className={'accept-id-td ' + (audit.del ? 'delete' : '')}>
                     <SelectEmployee
                       name="accept_id" 
-                      id="accept_id" 
-                      className={'text-base accept_id ' + (audit.del ? 'delete' : '')} 
                       value={audit.accept_id || ''} 
-                      handleChange={handleChange}
+                      setValue={handleChange}
                       index={i}
+                      width={110}
+                      height={30}
+                      border="none"
                     />
                   </td>
                 </tr>                

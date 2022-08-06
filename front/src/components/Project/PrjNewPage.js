@@ -7,7 +7,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Alert from "@mui/material/Alert";
 import Button from '@mui/material/Button'
 import CustomDatePicker from "../common/customDatePicker";
-import { formatDate } from "../../lib/common/datotostr";
+import { formatDate } from "../../lib/common/datetostr";
 
 const initDate = new Date();
 const initDatestr = formatDate(initDate, "YYYY-MM-DD 00:00:00");
@@ -119,10 +119,8 @@ const PrjNewPage = (props) => {
               <div className="data-cell">
                 <SelectEmployee
                   name="pl_id" 
-                  id="pl_id" 
-                  className="pl_id" 
-                  value={prj.pl_id} 
-                  handleChange={handleChange}
+                  value={prj.pl_id || ''} 
+                  setValue={handleChange}
                 />
               </div>
               <div className="title-cell">

@@ -15,6 +15,8 @@
   height: calc(100vh - 42px - 40px);
   width: 800px;
   background-color: #fff;
+  font-family: sans-serif;
+  font-size: 11px;
 }
 
 .div-index-container .header-area {
@@ -38,16 +40,21 @@
 }
 
 .div-index-container .table-frame {
-  margin-top: 20px;
   margin-left: 20px;
-  width: 600px;
+  width: 670px;
   height: auto;
   max-height:400px;
   overflow-y: auto;
 }
 
-.div-index-container .table {
-  width: 600px;
+.div-index-container .table-hd {
+  width: 670px;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.div-index-container .table-bd {
+  width: 670px;
 }
 
 .div-index-container .head-tr{
@@ -58,12 +65,22 @@
   height: 30px;
 }
 
+.div-index-container .table-hd th,
+.div-index-container .table-bd td {
+  border: 0.5px solid #000;
+}
+
 .div-index-container .head-td {
   padding: 0;
   text-align: center;
-  font-family: sans-serif;
-  font-size: 11px;
   vertical-align: middle;
+  background-color: #c9e9f1;
+  border-collapse:collapse;
+}
+
+.div-index-container .dep-td,
+.div-index-container .div-td {
+  width: 250px;
 }
 
 .div-index-container .dep-code-td,
@@ -71,8 +88,6 @@
   padding: 0;
   width: 50px;
   text-align: center;
-  font-family: sans-serif;
-  font-size: 11px;
   vertical-align: middle;
 }
 
@@ -80,9 +95,14 @@
 .div-index-container .div-name-td {
   padding: 0px 0px 0px 5px;
   width: 200px;
-  font-family: sans-serif;
-  font-size: 11px;
   vertical-align: middle;
+}
+
+.div-index-container .div-auth-td {
+  padding: 0;
+  width: 70px;
+  vertical-align: middle;
+  text-align: center;
 }
 
 .div-index-container .button-td {

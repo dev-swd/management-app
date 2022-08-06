@@ -6,17 +6,24 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Alert from "@mui/material/Alert";
 import Button from '@mui/material/Button'
+import SelectEmployee from "../../common/SelectEmployee";
+import DoneIcon from '@mui/icons-material/Done';
+import Chip from '@mui/material/Chip';
 
-const initDiv = {code: "", name: "", dep_name: ""}
+const initData = {div: {code: "", name: "", dep_name: ""}, auths: []}
+const initEmp = {id: "", name: ""}
 
 const DivUpdatePage = (props) => {
   const { updateId, setUpdateId, handleGetDivs } = props;
-  const [div, setDiv] = useState(initDiv);
+  const [data, setData] = useState(initData)
   const [message, setMessage] = useState("");
   const [message_var, setMessageVar] = useState("");
+  const [emp, setEmp] = useState(initEmp);
 
-  const clearDiv = () => {
-    setDiv({...initDiv});
+  const clearData = () => {
+    setData({...initData});
+    setMessage("");
+    setMessageVar("");
   }
 
   useEffect(() => {
@@ -29,11 +36,22 @@ const DivUpdatePage = (props) => {
   const handleGetDiv = async (id) => {
     try {
       const res = await getDiv(id);
-      setDiv({
-        ...div,
-        code: res.data.code,
-        name: res.data.name,
-        dep_name: res.data.dep_name
+      const tmpAuths = res.data.auths.map(auth => {
+        const tmpAuth = {};
+        tmpAuth.id = auth.id;
+        tmpAuth.emp_id = auth.employee_id;
+        tmpAuth.emp_name = auth.emp_name;
+        tmpAuth.del = false;
+        return tmpAuth;
+      });
+      setData({
+        ...data,
+        div: {...data.div,
+          code: res.data.div.code,
+          name: res.data.div.name,
+          dep_name: res.data.div.dep_name
+        },
+        auths: tmpAuths
       })
       setMessage("");
       setMessageVar("");
@@ -44,23 +62,25 @@ const DivUpdatePage = (props) => {
   }
 
   const handleChange = (name, value) => {
-    setDiv({
-      ...div,
-      [name]: value
+    setData({
+      ...data,
+      div: {...data.div,
+        [name]: value
+      }
     });
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await updateDiv(updateId,div)
+      const res = await updateDiv(updateId,data)
       if (res.data.status === 500) {
         setMessage("課情報更新エラー(500)");
         setMessageVar("error");
       } else {
         setUpdateId("");
         handleGetDivs();
-        clearDiv();
+        clearData();
       }
     } catch (e) {
       setMessage("課情報更新エラー");
@@ -70,7 +90,38 @@ const DivUpdatePage = (props) => {
 
   const handleBack = (e) => {
     setUpdateId("");
-    clearDiv();
+    clearData();
+  }
+
+  const handleSetEmp = (empid, empname) => {
+    setEmp({id: empid, name: empname});
+  }
+
+  const handleAdd = (e) =>{
+    if(emp.id!=="") {
+      setData({
+        ...data,
+        auths: [...data.auths,
+          {id: "",
+            emp_id: emp.id,
+            emp_name: emp.name,
+            del: false
+          }
+        ],
+      });
+      setEmp(initEmp);
+    }
+  }
+
+  const handleDelAuth = (i, value) => {
+    const tempAuths = [...data.div.auths];
+    tempAuths[i]["del"] = value;
+    setData({
+      ...data,
+      div: {...data.div,
+        auths: tempAuths,
+      }
+    })
   }
 
   return (
@@ -91,7 +142,7 @@ const DivUpdatePage = (props) => {
                 size="small" 
                 variant="contained" 
                 onClick={(e) => handleSubmit(e)}
-                disabled={!div.code || !div.name ? true : false}
+                disabled={!data.div.code || !data.div.name ? true : false}
                 >
                 更新
               </Button>
@@ -100,7 +151,7 @@ const DivUpdatePage = (props) => {
               <div className="title-cell">
                 {"事業部"}
               </div>
-              <div className="data-cell">{div.dep_name || ''}</div>
+              <div className="data-cell">{data.div.dep_name || ''}</div>
               <div className="title-cell">
                 {"課コード"}
                 <label className="required">*</label>
@@ -113,7 +164,7 @@ const DivUpdatePage = (props) => {
                   maxLength="3"
                   className="text-base code"
                   onChange={(e) => handleChange(e.target.name,integerValidator(e))} 
-                  value={div.code || ''} 
+                  value={data.div.code || ''} 
                 />
               </div>
               <div className="title-cell">
@@ -128,9 +179,53 @@ const DivUpdatePage = (props) => {
                   maxLength="20"
                   className="text-base name"
                   onChange={(e) => handleChange(e.target.name, e.target.value)} 
-                  value={div.name || ''} 
+                  value={data.div.name || ''} 
                 />
               </div>
+
+              <div className="title-cell">
+                {"承認者"}
+              </div>
+              <div className="auth-container">
+                <div className="auth-add">
+                  <SelectEmployee
+                    value={emp.id}
+                    setValue={handleSetEmp}
+                    width={110}
+                    height={20}
+                  />
+                  <Button size="small" onClick={(e) => handleAdd(e)}>追加</Button>
+                </div>
+                <div className="auth-chips">
+                {data.auths ? (
+                  data.auths.map((auth, i) =>
+                    <>
+                    {auth.del ? (
+                      <Chip 
+                        label={auth.emp_name || ''}
+                        color="error"
+                        size="small"
+                        sx={{fontSize: 11, fontFamily: 'sans-serif'}}
+                        deleteIcon={<DoneIcon />}
+                        onDelete={() => handleDelAuth(i,false)}
+                      />  
+                    ) : (
+                      <Chip
+                        label={auth.emp_name || ''}
+                        variant="outlined"
+                        size="small"
+                        sx={{fontSize: 11, fontFamily: 'sans-serif'}}
+                        onDelete={() => handleDelAuth(i,true)}
+                      />  
+                    )}
+                    </>
+                  )
+                ) : (
+                  <></>
+                )}
+                </div>
+              </div>
+
             </div>
           </div>
         </div>

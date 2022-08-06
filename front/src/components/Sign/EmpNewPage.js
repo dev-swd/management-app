@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../../App";
 import Alert from "@mui/material/Alert";
 import EmpEntryForm from "../Organization/Employee/EmpEntryForm";
-import { formatDate } from "../../lib/common/datotostr";
+import { formatDate } from "../../lib/common/datetostr";
 import { setAuhority } from "../../lib/authority";
 
 const initDate = new Date();

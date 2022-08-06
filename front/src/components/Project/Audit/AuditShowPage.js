@@ -2,7 +2,7 @@ import "./AuditShowPage.css";
 import { useEffect, useState } from 'react';
 import { getAudits } from '../../../lib/api/audit';
 import { toDate } from "../../../lib/common/ToDate";
-import { displayDate } from '../../../lib/common/datotostr';
+import { displayDate } from '../../../lib/common/datetostr';
 import Alert from "@mui/material/Alert";
 
 const AuditShowPage = (props) => {

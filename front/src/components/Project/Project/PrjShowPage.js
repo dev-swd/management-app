@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { getPrj } from '../../../lib/api/project';
 import { toDate } from "../../../lib/common/ToDate";
 import Alert from "@mui/material/Alert";
-import { displayDate } from '../../../lib/common/datotostr';
+import { displayDate } from '../../../lib/common/datetostr';
 
 const initData = {prj: {status: "",
                         approval: "",

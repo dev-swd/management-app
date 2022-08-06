@@ -84,6 +84,10 @@ const Header = () => {
         <Nav as="ul" className="menu">
           <OrganizationMenu />
           {authInfo.prjindex && <Nav.Item as="li"><Nav.Link href="/prj">Project</Nav.Link></Nav.Item>}
+          {authInfo.dailyindex && <Nav.Item as="li"><Nav.Link href="/daily">日報入力</Nav.Link></Nav.Item>}
+          {authInfo.dailyselect && <Nav.Item as="li"><Nav.Link href="/daily/select">日報承認</Nav.Link></Nav.Item>}
+          {authInfo.proguserindex && <Nav.Item as="li"><Nav.Link href="/progress/user">進捗入力</Nav.Link></Nav.Item>}
+          {authInfo.progmanaindex && <Nav.Item as="li"><Nav.Link href="/progress/management">進捗管理</Nav.Link></Nav.Item>}
         </Nav>
       </div>
       <div className="right-item">

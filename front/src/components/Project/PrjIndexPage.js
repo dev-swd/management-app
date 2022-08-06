@@ -10,7 +10,7 @@ import Alert from "@mui/material/Alert";
 import IconButton from '@mui/material/IconButton';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { displayDate } from '../../lib/common/datotostr';
+import { displayDate } from '../../lib/common/datetostr';
 import PrjNewPage from './PrjNewPage';
 import ModalConfirm from '../common/ModalConfirm';
 
@@ -105,7 +105,7 @@ const PrjIndexPage = () => {
                 <th rowSpan="2" className="head-td">承認日</th>
                 <th rowSpan="2" className="head-td">担当PL</th>
                 <th rowSpan="2" className="head-td">状況</th>
-                <th colSpan="2" className="head-td">予定期間</th>
+                <th colSpan="2" className="head-td">計画期間</th>
                 <th rowSpan="2" className="head-td"></th>
               </tr>
               <tr className="head-tr">

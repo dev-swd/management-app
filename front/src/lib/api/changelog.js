@@ -1,8 +1,8 @@
 import client from './client';
 
 // 一覧
-export const getChangelogs = (project) => {
-  return client.get(`/changelogs/index_by_project?project_id=${project}`);
+export const getChangelogs = (prj_id) => {
+  return client.get(`/changelogs/${prj_id}/index_by_project`);
 };
 
 // 新規作成

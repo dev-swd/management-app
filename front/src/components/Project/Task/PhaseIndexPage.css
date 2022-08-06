@@ -1,0 +1,159 @@
+@charset "utf-8";
+
+.phase-index-container {
+  margin-left: 5px;
+  border: 0.5px solid #000;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  height: calc(100vh - 42px - 10px);
+  width: 670px;
+  background-color: #fff; 
+  font-size: 11px;
+  font-family: sans-serif;
+}
+
+.phase-index-container .header-title {
+  height: 30px;
+  width: auto;
+  background-color: #c9e9f1;
+  color: #00f;
+  font-family: sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+  padding: 2px 0 0 5px;
+}
+
+.phase-index-container .button-area {
+  width: auto;
+  height: auto;
+  margin-top: 10px;
+  margin-left: 10px;
+  text-align: left;
+}
+
+.phase-index-container .prj-name {
+  padding-top: 20px;
+  padding-left: 10px;
+  width: auto;
+}
+
+.phase-index-container .prj-info {
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-bottom: 20px;
+  width: auto;
+  display: grid;
+  grid-template-columns: 50px 100px 60px 100px 60px 100px;
+  grid-template-rows: repeat(2, 25px);
+}
+
+.phase-index-container .prj-info .p-title {
+  border: 0.5px solid #000;
+  background-color: #c9e9f1;
+  padding-left: 5px;
+  padding-top: 4px;
+}
+
+.phase-index-container .prj-info .data {
+  border: 0.5px solid #000;
+  text-align: right;
+  padding-right: 5px;
+  padding-top: 4px;
+}
+
+.phase-index-container .phase-table-hd,
+.phase-index-container .phase-table {
+  width: 620px;
+}
+
+.phase-index-container .phase-table-hd {
+  margin-left: 10px;
+}
+
+.phase-index-container .phase-table {
+  margin-left: -0.5px;
+}
+
+.phase-index-container .table-frame {
+  border: 0.5px solid #000;
+  width: 620px;
+  margin-left: 10px;
+  max-height: calc(100vh - 260px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.phase-index-container .header-tr {
+  height: 25px;
+}
+
+.phase-index-container .body-tr {
+  height: 30px;
+  padding: 0;
+}
+
+.phase-index-container .phase-table-hd td,
+.phase-index-container .phase-table td {
+  border: 0.5px solid #000;
+}
+
+.phase-index-container .header-td {
+  background-color: #c9e9f1;
+  font-weight: bold;
+  text-align: center;
+}
+
+.phase-index-container .name-td {
+  width: 120px;
+  padding-left: 5px;
+}
+
+.phase-index-container .period-td {
+  width: 110px;
+  text-align: center;
+}
+
+.phase-index-container .workload-td,
+.phase-index-container .outsourcing-td {
+  text-align: right;
+  width: 100px;
+  padding-right: 5px;
+}
+
+.phase-index-container .task-td {
+  width: 80px;
+  text-align: center;
+}
+
+.phase-index-container .planned_workload,
+.phase-index-container .planned_outsourcing_workload {
+  width: 50px;
+  height: 25px;
+  text-align: right;
+  padding-right: 5px;
+  border: none;
+}
+
+.phase-index-container .sum-area {
+  margin-left: 10px;
+  display: grid;
+  width: auto;
+  grid-template-columns: 340px 100px 100px;
+  grid-template-rows: 25px;
+}
+
+.phase-index-container .sum-area .sum-title,
+.phase-index-container .sum-area .sum {
+  border: 0.5px solid #000;
+  text-align: right;
+  padding-right: 5px;
+  padding-top: 5px;
+}
+
+.phase-index-container .sum-area .sum-title {
+  background-color: #c9e9f1;
+}
+
+.phase-index-container .sum-area .err-field {
+  color: #f00;
+  background-color: #f6d5d5;
+}

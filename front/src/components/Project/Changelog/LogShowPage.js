@@ -2,7 +2,7 @@ import './LogShowPage.css';
 import { useEffect, useState } from 'react';
 import { getChangelogs } from '../../../lib/api/changelog';
 import { toDate } from "../../../lib/common/ToDate";
-import { displayDate } from '../../../lib/common/datotostr';
+import { displayDate } from '../../../lib/common/datetostr';
 import Alert from "@mui/material/Alert";
 
 const LogShowPage = (props) => {

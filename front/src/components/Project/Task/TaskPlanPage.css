@@ -1,0 +1,252 @@
+@charset "utf-8";
+
+.task-plan-container {
+  width: 60%;
+  height: 90%;
+  background-color: #fff;
+}
+
+.task-plan-container .header-area {
+  height: 30px;
+  width: auto;
+  background-color: #c9e9f1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-plan-container .header-area .header-title {
+  width: 50%;
+  height:30px;
+  background-color: #c9e9f1;
+  color: #00f;
+  font-family: sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+  padding: 2px 0 0 5px;
+}
+
+.task-plan-container .button-area {
+  width: auto;
+  height: auto;
+  margin-top: 10px;
+  margin-left: 10px;
+  text-align: left;
+}
+
+.task-plan-container .prj-name {
+  margin-top: 10px;
+  margin-left: 10px;
+  width: auto;
+  height: 25px;
+  padding-top: 4px;
+}
+
+.task-plan-container .phase-info {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  width: auto;
+  height: 25px;
+  display: flex;
+}
+
+.task-plan-container .phase-info .name-t {
+  width: 40px;
+  height: 25px;
+  border: 0.5px solid #000;
+  background-color: #c9e9f1;
+  padding-left: 5px;
+  padding-top: 4px;
+}
+
+.task-plan-container .phase-info .name {
+  width: 120px;
+  height: 25px;
+  border: 0.5px solid #000;
+  padding-left: 5px;
+  padding-top: 4px;
+}
+
+.task-plan-container .phase-info .period-t {
+  width: 60px;
+  height: 25px;
+  border: 0.5px solid #000;
+  background-color: #c9e9f1;
+  padding-left: 5px;
+  padding-top: 4px;
+}
+
+.task-plan-container .phase-info .period {
+  width: 200px;
+  height: 25px;
+  border: 0.5px solid #000;
+  padding-left: 5px;
+  padding-top: 4px;
+}
+
+.task-plan-container .phase-info .workload-t {
+  width: 80px;
+  height: 25px;
+  border: 0.5px solid #000;
+  background-color: #c9e9f1;
+  padding-left: 5px;
+  padding-top: 4px;
+}
+
+.task-plan-container .phase-info .workload {
+  width: 100px;
+  height: 25px;
+  border: 0.5px solid #000;
+  text-align: right;
+  padding-right: 5px;
+  padding-top: 4px;
+}
+
+.task-plan-container .sum-area {
+  margin-left: 430px;
+  margin-bottom: 20px;
+  display: grid;
+  width: auto;
+  grid-template-columns: 80px 100px 80px 100px;
+  grid-template-rows: repeat(2, 25px);
+}
+
+.task-plan-container .sum-area .task-sum-title {
+  border: 0.5px solid #000;
+  text-align: center;
+  background-color: #c9e9f1;
+  padding-top: 15px;
+}
+
+.task-plan-container .sum-area .ttl1 {
+  grid-row: 1/3;
+  grid-column: 1;
+}
+
+.task-plan-container .sum-area .ttl2 {
+  grid-row: 1/3;
+  grid-column: 3;
+}
+
+.task-plan-container .sum-area .task-sum {
+  border: 0.5px solid #000;
+  text-align: right;
+  padding-right: 5px;
+  padding-top: 4px;
+}
+
+.task-plan-container .sum-area .err-field {
+  color: #f00;
+  background-color: #f6d5d5;
+}
+
+.task-plan-container .task-table-hd,
+.task-plan-container .task-table {
+  width: 805px;
+}
+
+.task-plan-container .task-table-hd {
+  margin-left: 10px;
+}
+
+.task-plan-container .task-table {
+  margin-left: -0.5px;
+}
+
+.task-plan-container .table-frame {
+  border: 0.5px solid #000;
+  width: 805px;
+  margin-left: 10px;
+  max-height: calc(100vh - 260px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.task-plan-container .header-tr {
+  height: 25px;
+}
+
+.task-plan-container .body-tr {
+  height: 25px;
+}
+
+.task-plan-container .task-table-hd td,
+.task-plan-container .task-table td {
+  border: 0.5px solid #000;
+  padding: 0;
+}
+
+.task-plan-container .header-td {
+  background-color: #c9e9f1;
+  font-weight: bold;
+  text-align: center;
+}
+
+.task-plan-container .add-td {
+  width: 65px;
+  padding: 0;
+}
+
+.task-plan-container .name-td {
+  padding: 0;
+  width: 200px;
+}
+
+.task-plan-container .outsourcing-td {
+  width: 40px;
+  padding: 0;
+  text-align: center;
+}
+
+.task-plan-container .worker-td {
+  width: 120px;
+}
+
+.task-plan-container .workload-td {
+  width: 100px;
+}
+
+.task-plan-container .period-td {
+  width: 110px;
+}
+
+.task-plan-container .del-td {
+  width: 40px;
+  padding: 0;
+  text-align: center;
+}
+
+.task-plan-container .name {
+  width: 200.5px;
+  height: 25px;
+  padding-left: 5px;
+  border: none;
+}
+
+.task-plan-container .worker_id {
+  width: 120px;
+  height: 25px;
+  border: none;
+}
+
+.task-plan-container .planned_workload {
+  width: 100px;
+  height: 25px;
+  text-align: right;
+  padding-right: 5px;
+  border: none;
+}
+
+.task-plan-container .date-field {
+  width: 110px;
+  height: 25px;
+  border: none;
+  text-align: center;
+}
+
+.task-plan-container .button-area-bottom {
+  width: 786px;
+  margin: 10px 5px 10px 5px;
+  text-align: center;
+}

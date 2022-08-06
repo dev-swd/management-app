@@ -1,8 +1,7 @@
 import "./DivIndexPage.css";
 import { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../../App';
-import { getDivs, deleteDiv } from '../../../lib/api/division';
-import { Table } from 'react-bootstrap';
+import { getDivsWithAuthcnt, deleteDiv } from '../../../lib/api/division';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Alert from "@mui/material/Alert";
 import IconButton from '@mui/material/IconButton';
@@ -28,8 +27,8 @@ const DivIndexPage = () => {
 
   const handleGetDivs = async () => {
     try {
-      const res = await getDivs();
-      setDivs(res.data);
+      const res = await getDivsWithAuthcnt();
+      setDivs(res.data.divs);
     } catch (e) {
       setMessage("課情報取得エラー");
       setMessageVar("error");
@@ -74,15 +73,18 @@ const DivIndexPage = () => {
           <div className="header-title">Divisions</div>
         </div>
         { message_var && <Alert severity={message_var}>{message}</Alert>}
+        <table className="table-hd">
+          <thead>
+            <tr className="head-tr">
+              <th colSpan="2" className="head-td dep-td">事業部</th>
+              <th colSpan="2" className="head-td div-td">課</th>
+              <th className="head-td div-auth-td">承認者</th>
+              <th className="head-td button-td"></th>
+            </tr>
+          </thead>
+        </table>
         <div className="table-frame">
-          <Table striped bordered hover>
-            <thead>
-              <tr className="head-tr">
-                <th colSpan="2" className="head-td">事業部</th>
-                <th colSpan="2" className="head-td">課</th>
-                <th className="head-td"></th>
-              </tr>
-            </thead>
+          <table className="table-bd StripeTable">
             <tbody>
               {divs.map((div) => 
                 <tr key={div.id} className="body-tr">
@@ -90,6 +92,7 @@ const DivIndexPage = () => {
                   <td className="dep-name-td">{div.dep_name}</td>
                   <td className="div-code-td">{div.code}</td>
                   <td className="div-name-td">{div.name}</td>
+                  <td className="div-auth-td">{div.auth_cnt + "名"}</td>
                   <td className="button-td">
                     <IconButton aria-label="edit" color="primary" size="small" onClick={() => setUpdateId(div.id)} disabled={!authInfo.divupdate}>
                       <EditIcon fontSize="inherit" />
@@ -101,7 +104,7 @@ const DivIndexPage = () => {
                 </tr>
               )}
             </tbody>
-          </Table>
+          </table>
         </div>
         <div className="button-area">
           {authInfo.divnew && 

@@ -4,6 +4,8 @@
   width: 550px;
   height: 350px;
   background-color: #fff;
+  font-size: 11px;
+  font-family: sans-serif;
 }
 
 .prj-new-container .header-area {
@@ -47,41 +49,26 @@
 
 .prj-new-form .prj-new-area .title-cell {
   padding-top: 4px;
-  font-family: sans-serif;
-  font-size: 11px;
 }
 
 .prj-new-form .prj-new-area .text-base {
   padding-left: 5px;
-  font-family: sans-serif;
-  font-size: 11px;
   height: 20px;
   border: 1px solid #000;
 }
 
 .prj-new-form .prj-new-area .number {
   width: 70px;
-  background-color: #fee;
 }
 
 .prj-new-form .prj-new-area .name {
   width: 370px;
-  background-color: #fee;
-}
-
-.prj-new-form .prj-new-area .pl_id {
-  font-family: sans-serif;
-  font-size: 11px;
-  background-color: #fee;
-  height: 20px;
 }
 
 .prj-new-form .prj-new-area .date-field {
   width: 120px;
-  background-color: #fee;
 }
 
 .prj-new-form .prj-new-area  .approval {
   width: 150px;
-  background-color: #fee;
 }

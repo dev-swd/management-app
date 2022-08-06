@@ -9,11 +9,13 @@
   box-sizing: border-box;
 }
 
+/* 必須項目強調 */
 .required {
   color: #f00;
   font-weight: bold;
 }
 
+/* メイン部の背景 */
 .background {
   height: inherit;
   max-width: inherit;
@@ -23,6 +25,7 @@
   align-items: center;
 }
 
+/* モーダル画面時の背景 */
 .overlay {
   position: fixed;
   top: 0;
@@ -33,6 +36,32 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* ストライプイメージのテーブル */
+.StripeTable {
+  border-collapse:collapse;
+}
+.StripeTable tr:nth-child(odd) {
+  background-color:#fff;
+}
+.StripeTable tr:nth-child(even) {
+  background-color:#f0f0f0;
+}
+.StripeTable tr td {
+  border: 1px solid #C0C0C0;
+}
+
+/* リンク風のボタン */
+button.link-style-btn{
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: #0033cc;
+}
+button.link-style-btn:hover{
+  text-decoration: underline;
+  color: #002080;
 }
 
 /* App.js固有 */

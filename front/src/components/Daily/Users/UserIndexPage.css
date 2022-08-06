@@ -1,0 +1,162 @@
+@charset "utf-8";
+
+.user-index-background {
+  height: inherit;
+  max-width: inherit;
+  background-color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-index-container {
+  border: 0.5px solid #000;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  height: calc(100vh - 42px - 20px);
+  width: 1160px;
+  background-color: #fff;
+  font-family: sans-serif;
+  font-size: 11px;
+}
+
+.user-index-container .header-title {
+  width: calc(100% - 20px);
+  height:25px;
+  margin: 10px 10px 0px 10px;
+  border-left: 10px solid #08f;
+  border-bottom: 1px solid #08f;
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 3px;
+  padding-left: 5px;
+}
+
+.user-index-container .search-area {
+  height: 30px;
+  width: calc(100% - 40px);
+  margin: 20px;
+  display: flex;
+}
+
+.user-index-container .select-year,
+.user-index-container .select-month {
+  height: 20px;
+  margin-top: 3px;
+}
+
+.user-index-container .select-month {
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.user-index-container .yyyymm {
+  margin: 0px 0px 5px 20px;
+  display: flex;
+}
+
+.user-index-container .yyyy {
+  width: 30px;
+}
+
+.user-index-container .mm {
+  width: 15px;
+}
+
+.user-index-container .header-td {
+  background-color: #c9e9f1;
+}
+
+.user-index-container .summary-table {
+  margin: 0px 0px 10px 20px;
+  width: 800px;
+}
+
+.user-index-container .summary-table tr {
+  height: 20px;
+}
+
+.user-index-container .summary-table td {
+  border: 0.5px solid #000;
+  width: 100px;
+  text-align: center;
+}
+
+.user-index-container .daily-table-hd, 
+.user-index-container .daily-table-frame,
+.user-index-container .daily-table {
+  width: 1120px;
+}
+
+.user-index-container .daily-table-hd, 
+.user-index-container .daily-table-frame {
+  margin-left: 20px;
+}
+
+.user-index-container .daily-table-hd td {
+  border: 0.5px solid #000;
+}
+
+.user-index-container .daily-table-frame,
+.user-index-container .daily-table {
+  margin-top: -0.5px;
+}
+
+.user-index-container .daily-table-frame {
+  height: calc(100vh - 300px);
+  border: 0.5px solid #000;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.user-index-container .daily-table-hd tr,
+.user-index-container .daily-table tr {
+  height: 20px;
+}
+
+.user-index-container .daily-table td {
+  border-top: 0.5px solid #000;
+  border-right: 0.5px solid #000;
+}
+
+.user-index-container .date-td,
+.user-index-container .day-td,
+.user-index-container .kbn-td {
+  width: 50px;
+  text-align: center;
+}
+
+.user-index-container .time-td {
+  width: 70px;
+  text-align: center;
+}
+
+.user-index-container .mark-td {
+  width: 40px;
+  text-align: center;
+}
+
+.user-index-container .status-td {
+  width: 70px;
+  text-align: center;
+}
+
+.user-index-container .link-td {
+  width: 60px;
+  text-align: center;
+}
+
+.user-index-container .request-td {
+  width: 60px;
+  text-align: center;
+}
+
+.user-index-container .alert-td {
+  width: 250px;
+  padding-left: 3px;
+  color: #f00;
+  font-weight: bold;
+}
+
+.user-index-container .request-btn {
+  width: 56px;
+}

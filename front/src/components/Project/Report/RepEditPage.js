@@ -3,7 +3,7 @@ import "./RepEditPage.css";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getRep, updateRep } from '../../../lib/api/report';
-import { displayDate, formatDate } from '../../../lib/common/datotostr';
+import { displayDate, formatDate } from '../../../lib/common/datetostr';
 import { integerValidator } from '../../../lib/common/inputValidator.js';
 import SelectEmployee from "../../common/SelectEmployee";
 import CustomDatePicker from "../../common/customDatePicker";
@@ -406,10 +406,11 @@ const RepEditPage = (props) => {
               />
               <SelectEmployee
                 name="make_id" 
-                id="make_id" 
-                className="make_id" 
                 value={data.rep.make_id || ''} 
-                handleChange={handleChange}
+                setValue={handleChange}
+                width={100}
+                height={19}
+                border="0.5px solid #aaa"
               />
             </div>
             {/* 3行目 */}

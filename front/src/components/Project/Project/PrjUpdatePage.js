@@ -10,7 +10,7 @@ import SendIcon from '@mui/icons-material/Send';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DoneIcon from '@mui/icons-material/Done';
 import Chip from '@mui/material/Chip';
-import { displayDate, formatDate } from '../../../lib/common/datotostr';
+import { displayDate, formatDate } from '../../../lib/common/datetostr';
 import CustomDatePicker from "../../common/customDatePicker";
 import SelectEmployee from "../../common/SelectEmployee";
 import InputNumber from '../../common/InputNumber';
@@ -338,7 +338,6 @@ const PrjUpdatePage = (props) => {
       ...data,
       mems: tempMems,
     });
-
   }
 
   const handleChangeLog = (name, value) => {
@@ -429,7 +428,6 @@ const PrjUpdatePage = (props) => {
   return (
     <div className="prj-upd-container">
       { message_var && <Alert severity={message_var}>{message}</Alert>}
-
       <div className="prj-entry-container">
 
         <div className="button-area">
@@ -446,7 +444,6 @@ const PrjUpdatePage = (props) => {
             </>
           } 
         </div>
-
         <div className="prj-entry-container1">
           {/* 1行目 */}
           <div className="prj-title-cell">プロジェクト計画書</div>
@@ -475,10 +472,11 @@ const PrjUpdatePage = (props) => {
               />
               <SelectEmployee
                 name="make_id" 
-                id="make_id" 
-                className="make_id" 
                 value={data.prj.make_id || ''} 
-                handleChange={handleChange}
+                setValue={handleChange}
+                width={100}
+                height={19}
+                border="0.5px solid #aaa"
               />
             </div>
             {/* 3行目 */}
@@ -495,10 +493,11 @@ const PrjUpdatePage = (props) => {
               />
               <SelectEmployee
                 name="update_id" 
-                id="update_id" 
-                className="update_id" 
                 value={data.prj.update_id || ''} 
-                handleChange={handleChange}
+                setValue={handleChange}
+                width={100}
+                height={19}
+                border="0.5px solid #aaa"
               />
             </div>
           </div>
@@ -1087,10 +1086,11 @@ const PrjUpdatePage = (props) => {
             <div className="data-cell pl-cell">
               <SelectEmployee
                 name="pl_id" 
-                id="pl_id" 
-                className="pl_id" 
                 value={data.prj.pl_id || ''} 
-                handleChange={handleChange}
+                setValue={handleChange}
+                width={100}
+                height={19}
+                border="0.5px solid #aaa"
               />
             </div>
             {/* <div className="title-cell"></div> */}
@@ -1109,6 +1109,7 @@ const PrjUpdatePage = (props) => {
                     label={mem.member_name || ''}
                     color="error"
                     size="small"
+                    sx={{fontSize: 11, fontFamily: 'sans-serif'}}
                     deleteIcon={<DoneIcon />}
                     onDelete={() => handleDelMem(i,false)}
                   />
@@ -1117,6 +1118,7 @@ const PrjUpdatePage = (props) => {
                     label={mem.member_name || ''}
                     variant="outlined"
                     size="small"
+                    sx={{fontSize: 11, fontFamily: 'sans-serif'}}
                     onDelete={() => handleDelMem(i,true)}
                   />
                 )}

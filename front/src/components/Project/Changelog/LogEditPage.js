@@ -35,11 +35,11 @@ const LogEditPage = (props) => {
             </div>
             <div className="data-cell">
               <SelectEmployee
-                  name="changer_id" 
-                  id="changer_id" 
-                  className="changer_id" 
-                  value={log.changer_id || ''} 
-                  handleChange={handleChange}
+                name="changer_id" 
+                value={log.changer_id || ''} 
+                setValue={handleChange}
+                width={110}
+                height={20}
               />
             </div>
             <div className="title-cell">

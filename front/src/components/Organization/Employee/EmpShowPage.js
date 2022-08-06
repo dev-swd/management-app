@@ -1,7 +1,7 @@
 import "./EmpShowPage.css";
 import { useEffect, useState } from 'react';
 import { getEmp } from '../../../lib/api/employee';
-import { displayDate } from '../../../lib/common/datotostr';
+import { displayDate } from '../../../lib/common/datetostr';
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Alert from "@mui/material/Alert";

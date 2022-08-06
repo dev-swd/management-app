@@ -1,0 +1,89 @@
+@charset "utf-8";
+
+.work-show-container {
+  height: calc(100vh - 300px);
+  width: auto;
+  background-color: #fff;
+  font-family: sans-serif;
+  font-size: 11px;
+}
+
+.work-show-container .daily-date {
+  margin-bottom: 10px;
+}
+
+.work-show-container .summary-area {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.work-show-container .summary-area div {
+  border: 0.5px solid #000;
+  width: 100px;
+  height: 20px;
+  text-align: center;
+  padding-top: 2px;
+}
+
+.work-show-container .header-td {
+  background-color: #c9e9f1;
+}
+
+.work-show-container .work-table-hd, 
+.work-show-container .table-frame,
+.work-show-container .work-table {
+  width: 940px;
+}
+
+.work-show-container .work-table-hd td {
+  border: 0.5px solid #000;
+  text-align: center;
+  padding-top: 2px;
+}
+
+.work-show-container .table-frame,
+.work-show-container .work-table {
+  margin-top: -0.5px;
+}
+
+.work-show-container .table-frame {
+  border: 0.5px solid #000;
+  max-height: calc(100vh - 300px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.work-show-container .work-table-hd tr,
+.work-show-container .work-table tr {
+  height: 20px;
+}
+
+.work-show-container .work-table td {
+  border-top: 0.5px solid #000;
+  border-right: 0.5px solid #000;
+}
+
+.work-show-container .prj-td {
+  padding-left: 3px;
+  width: 300px;
+}
+
+.work-show-container .phase-td {
+  padding-left: 3px;
+  width: 120px;
+}
+
+.work-show-container .task-td {
+  padding-left: 3px;
+  width: 200px;
+}
+
+.work-show-container .time-td {
+  width: 60px;
+  text-align: center;
+}
+
+.work-show-container .comments-td {
+  padding-left: 3px;
+  width: 200px;
+}

@@ -25,7 +25,17 @@ export const deleteDiv = (id) => {
   return client.delete(`/divisions/${id}`);
 };
 
+// 一覧（承認権限件数付き）
+export const getDivsWithAuthcnt = () => {
+  return client.get(`/divisions/index_with_authcnt/`);
+}
+
 // 一覧（事業部別）
-export const getDivsFilterDepid = (dep_id) => {
-  return client.get(`/divisions/filterdepid?depid=${dep_id}`);
+export const getDivsByDep = (dep_id) => {
+  return client.get(`/divisions/${dep_id}/index_by_dep/`);
+}
+
+// 一覧（承認管轄）
+export const getDivsByApproval = (emp_id) => {
+  return client.get(`/divisions/${emp_id}/index_by_approval/`);
 }

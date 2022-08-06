@@ -12,6 +12,11 @@ import DivIndexPage from './components/Organization/Division/DivIndexPage';
 import EmpIndexPage from './components/Organization/Employee/EmpIndexPage';
 import PrjIndexPage from './components/Project/PrjIndexPage';
 import PrjTopPage from './components/Project/PrjTopPage';
+import UserIndexPage from './components/Daily/Users/UserIndexPage';
+import EmpSelectPage from './components/Daily/Management/EmpSelectPage';
+import ProgUserPage from './components/Progress/Users/PrjIndexPage';
+import ProgManaPage from './components/Progress/Management/PrjIndexPage';
+
 import Cookies from "js-cookie";
 import { initAuth } from './lib/authority';
 import { getEmpDevise } from "./lib/api/employee";
@@ -92,8 +97,11 @@ const App = () => {
             <Route exact path='/div' element={!loading && <Private><DivIndexPage /></Private>} />
             <Route exact path='/emp' element={!loading && <Private><EmpIndexPage /></Private>} />
             <Route exact path='/prj' element={!loading && <Private><PrjIndexPage /></Private>} />
-            <Route exact path='/prj/index' element={!loading && <Private><PrjIndexPage /></Private>} />
             <Route exact path='/prj/top' element={!loading && <Private><PrjTopPage /></Private>} />
+            <Route exact path='/daily' element={!loading && <Private><UserIndexPage /></Private>} />
+            <Route exact path='/daily/select' element={!loading && <Private><EmpSelectPage /></Private>} />
+            <Route exact path='/progress/user' element={!loading && <Private><ProgUserPage /></Private>} />
+            <Route exact path='/progress/management' element={!loading && <Private><ProgManaPage /></Private>} />
           </Routes>
         </main>
       </AuthContext.Provider>

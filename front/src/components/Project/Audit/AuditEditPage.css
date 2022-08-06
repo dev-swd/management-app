@@ -7,6 +7,8 @@
   height: calc(100vh - 42px - 10px);
   width: 630px;
   background-color: #fff;
+  font-family: sans-serif;
+  font-size: 11px;
 }
 
 .audit-edit-container .text-base {

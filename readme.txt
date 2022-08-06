@@ -38,11 +38,17 @@
  ④' React-tabs
  docker-compose run --rm front sh -c "npm install react-tabs"
 
+ ④' React-select
+ docker-compose run --rm front sh -c "npm install react-select"
+
  ④' js-cookie
  docker-compose run --rm front sh -c "npm install js-cookie"
 
  ④' lodash
  docker-compose run --rm front sh -c "npm install lodash"
+
+④' lodash
+ docker-compose run --rm front sh -c "npm install chart.js react-chartjs-2"
 
  ⑤config/database.ymlを編集
   host: db #docker-composeのサービス名

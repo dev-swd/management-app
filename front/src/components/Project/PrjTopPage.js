@@ -10,6 +10,7 @@ import RepCreatePage from "./RepCreatePage";
 import PrjModifyPage from "./PrjModifyPage";
 import PrjAuditPage from "./PrjAuditPage";
 import RepAuditPage from "./RepAuditPage";
+import PhaseIndexPage from "./Task/PhaseIndexPage";
 
 const PrjTopPage = () => {
   const { authInfo } = useContext(AuthContext)
@@ -127,12 +128,14 @@ const PrjTopPage = () => {
       { menu===1 && <PrjShowPage prj_id={params.id} />}
       { menu===2 && <PrjCreatePage prj_id={params.id} />}
       { menu===3 && <PrjModifyPage prj_id={params.id} />}
+      { menu===4 && <PhaseIndexPage prj_id={params.id} />}
 
       { menu===5 && <RepShowPage prj_id={params.id} />}
       { menu===6 && <RepCreatePage prj_id={params.id} />}
 
       { menu===7 && <PrjAuditPage prj_id={params.id} />}
       { menu===8 && <RepAuditPage prj_id={params.id} />}
+
     </div>
   )
 }

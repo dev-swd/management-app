@@ -24,3 +24,18 @@ export const updatePrj = (id, params) => {
 export const deletePrj = (id) => {
   return client.delete(`/projects/${id}`);
 };
+
+// 一覧（プロジェクトメンバーになっている開発期間中のプロジェクト）
+export const getPrjsByMem = (emp_id, thisDate) => {
+  return client.get(`/projects/index_by_member?emp_id=${emp_id}&thisDate=${thisDate}`);
+}
+
+// 一覧（プロジェクトメンバーになっている推進中のプロジェクト）
+export const getPrjsByMemRunning = (id) => {
+  return client.get(`/projects/${id}/index_by_member_running/`);
+}
+
+// 一覧（条件：status,pl_id　並び順指定）
+export const getPrjsByConditional = (status, pl, order) => {
+  return client.get(`/projects/index_by_conditional?status=${status}&pl=${pl}&order=${order}`);
+}

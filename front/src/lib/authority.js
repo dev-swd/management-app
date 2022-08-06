@@ -22,7 +22,11 @@ export const masterAuth = {
   repshow: true,
   repcreate: true,
   repaudit: true,
-  taskentry: true
+  taskentry: true,
+  dailyindex: true,
+  dailyselect: true,
+  proguserindex: true,
+  progmanaindex: true
 }
 
 // 全権限なし
@@ -49,7 +53,11 @@ export const initAuth = {
   repshow: false,
   repcreate: false,
   repaudit: false,
-  taskentry: false
+  taskentry: false,
+  dailyindex: false,
+  dailyselect: false,
+  proguserindex: false,
+  progmanaindex: false
 }
 
 // 一般権限
@@ -76,7 +84,11 @@ export const normalAuth = {
   repshow: true,
   repcreate: true,
   repaudit: false,
-  taskentry: true
+  taskentry: true,
+  dailyindex: true,
+  dailyselect: false,
+  proguserindex: true,
+  progmanaindex: true
 }
 
 // 内部監査権限
@@ -103,7 +115,11 @@ export const auditAuth = {
   repshow: true,
   repcreate: true,
   repaudit: true,
-  taskentry: true
+  taskentry: true,
+  dailyindex: true,
+  dailyselect: false,
+  proguserindex: true,
+  progmanaindex: true
 }
 
 // 管理職権限
@@ -130,7 +146,11 @@ export const managerAuth = {
   repshow: true,
   repcreate: true,
   repaudit: true,
-  taskentry: true
+  taskentry: true,
+  dailyindex: true,
+  dailyselect: true,
+  proguserindex: true,
+  progmanaindex: true
 }
 
 // 組織管理権限
@@ -157,7 +177,11 @@ export const organizationAuth = {
   repshow: true,
   repcreate: true,
   repaudit: false,
-  taskentry: false
+  taskentry: false,
+  dailyindex: true,
+  dailyselect: false,
+  proguserindex: true,
+  progmanaindex: true
 }
 
 export const setAuhority = (authority) => {

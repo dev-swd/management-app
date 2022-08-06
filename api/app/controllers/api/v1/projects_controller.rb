@@ -172,6 +172,58 @@ class Api::V1::ProjectsController < ApplicationController
     render json: prj
   end
 
+  # パラメータ指定の社員が参画するプロジェクトで、パラメータ指定の日付が開発期間内の一覧
+  def index_by_member
+    projects = Project
+                .joins(:members)
+                .select("projects.id, projects.number, projects.name")
+                .where(members: { level: 'emp', member_id: params[:emp_id] })
+                .where("development_period_fr <= ? and development_period_to >= ?", params[:thisDate], params[:thisDate])
+                .order(:number)
+    render json: { status: 200, projects: projects }
+  end
+
+  # パラメータ指定の社員が参画する推進中のプロジェクト一覧
+  def index_by_member_running
+    projects = Project
+                .joins("LEFT OUTER JOIN employees AS plemp ON plemp.id=pl_id")
+                .joins(:members)
+                .select("projects.*, plemp.name as pl_name")
+                .where(members: { level: 'emp', member_id: params[:id] })
+                .where(projects: { status: 'PJ推進中'})
+                .order(:number)
+    render json: { status: 200, projects: projects }
+  end
+
+  # 条件指定でのプロジェクト一覧 
+  def index_by_conditional
+    where = ""
+
+    # 状態の条件指定あり
+    if params[:status].present? then
+      where = "projects.status='" + params[:status] + "' "
+    end
+
+    # PLの条件指定あり
+    if params[:pl].present? then
+      where += "projects.pl_id=" + params[:pl] + " "
+    end
+
+    # 並び順指定
+    if params[:order].present? then
+      order = "projects." + params[:order]
+    else
+      order = "projects.number"
+    end
+
+    projects = Project
+                .joins("LEFT OUTER JOIN employees AS plemp ON plemp.id=pl_id")
+                .select("projects.*, plemp.name as pl_name")
+                .where(where)
+                .order(order)
+    render json: { status: 200, projects: projects }
+  end
+
   private
   def prj_params
     params.permit(prj: [:status, :approval, :approval_date, :pl_id, :number, :name, 

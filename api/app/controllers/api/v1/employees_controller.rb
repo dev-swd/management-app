@@ -49,6 +49,26 @@ class Api::V1::EmployeesController < ApplicationController
     end
   end
 
+  def index_by_approval
+#    emps = Employee.joins({:division => :approvalauths}).where("approvalauths.employee_id = ?", params[:id]).order("employees.number")
+    emps = Division
+      .joins(:department, :employees, :approvalauths)
+      .select("departments.name AS dep_name, divisions.name As div_name, employees.*")
+      .where("approvalauths.employee_id = ?", params[:id]).order("employees.number")
+      .order("employees.number")
+    render json: { status: 200, emps: emps }
+  end
+
+  def index_by_div
+#    emps = Employee.where(division_id: params[:id]).order("employees.number")
+    emps = Division
+      .joins(:department, :employees)
+      .select("departments.name AS dep_name, divisions.name As div_name, employees.*")
+      .where(id: params[:id])
+      .order("employees.number")
+    render json: { status: 200, emps: emps }
+  end
+
   private
   def emp_params
     params.require(:employee).permit(:number, :name, :name2, :birthday, :address, :phone, :joining_date, :division_id, :devise_id, :authority)

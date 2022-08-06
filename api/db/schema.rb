@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_05_124127) do
+ActiveRecord::Schema.define(version: 2022_08_02_142307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "approvalauths", force: :cascade do |t|
+    t.bigint "employee_id"
+    t.bigint "division_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["division_id"], name: "index_approvalauths_on_division_id"
+    t.index ["employee_id"], name: "index_approvalauths_on_employee_id"
+  end
 
   create_table "audits", force: :cascade do |t|
     t.bigint "project_id"
@@ -40,6 +49,58 @@ ActiveRecord::Schema.define(version: 2022_05_05_124127) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_changelogs_on_project_id"
+  end
+
+  create_table "dailyreports", force: :cascade do |t|
+    t.bigint "employee_id"
+    t.string "ym"
+    t.date "date"
+    t.string "kbn"
+    t.string "kbn_reason"
+    t.integer "prescribed_frh"
+    t.integer "prescribed_frm"
+    t.integer "prescribed_toh"
+    t.integer "prescribed_tom"
+    t.integer "lunch_frh"
+    t.integer "lunch_frm"
+    t.integer "lunch_toh"
+    t.integer "lunch_tom"
+    t.string "over_reason"
+    t.integer "over_frh"
+    t.integer "over_frm"
+    t.integer "over_toh"
+    t.integer "over_tom"
+    t.integer "rest_frh"
+    t.integer "rest_frm"
+    t.integer "rest_toh"
+    t.integer "rest_tom"
+    t.string "late_reason"
+    t.integer "late_h"
+    t.integer "late_m"
+    t.string "goout_reason"
+    t.integer "goout_frh"
+    t.integer "goout_frm"
+    t.integer "goout_toh"
+    t.integer "goout_tom"
+    t.string "early_reason"
+    t.integer "early_h"
+    t.integer "early_m"
+    t.integer "prescribed_h"
+    t.integer "prescribed_m"
+    t.integer "over_h"
+    t.integer "over_m"
+    t.integer "midnight_h"
+    t.integer "midnight_m"
+    t.integer "work_prescribed_h"
+    t.integer "work_prescribed_m"
+    t.integer "work_over_h"
+    t.integer "work_over_m"
+    t.string "status"
+    t.bigint "approval_id"
+    t.date "approval_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_dailyreports_on_employee_id"
   end
 
   create_table "departments", force: :cascade do |t|
@@ -73,6 +134,35 @@ ActiveRecord::Schema.define(version: 2022_05_05_124127) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "evms", force: :cascade do |t|
+    t.bigint "progressreport_id"
+    t.string "level"
+    t.bigint "phase_id"
+    t.date "date_fr"
+    t.date "date_to"
+    t.decimal "bac", precision: 8, scale: 2
+    t.decimal "pv", precision: 8, scale: 2
+    t.decimal "ev", precision: 8, scale: 2
+    t.decimal "ac", precision: 8, scale: 2
+    t.decimal "sv", precision: 8, scale: 2
+    t.decimal "cv", precision: 8, scale: 2
+    t.decimal "spi", precision: 8, scale: 2
+    t.decimal "cpi", precision: 8, scale: 2
+    t.decimal "pv_sum", precision: 8, scale: 2
+    t.decimal "ev_sum", precision: 8, scale: 2
+    t.decimal "ac_sum", precision: 8, scale: 2
+    t.decimal "sv_sum", precision: 8, scale: 2
+    t.decimal "cv_sum", precision: 8, scale: 2
+    t.decimal "spi_sum", precision: 8, scale: 2
+    t.decimal "cpi_sum", precision: 8, scale: 2
+    t.decimal "etc", precision: 8, scale: 2
+    t.decimal "eac", precision: 8, scale: 2
+    t.decimal "vac", precision: 8, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["progressreport_id"], name: "index_evms_on_progressreport_id"
+  end
+
   create_table "members", force: :cascade do |t|
     t.bigint "project_id"
     t.string "number"
@@ -82,6 +172,16 @@ ActiveRecord::Schema.define(version: 2022_05_05_124127) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_members_on_project_id"
+  end
+
+  create_table "phasecopies", force: :cascade do |t|
+    t.bigint "progressreport_id"
+    t.bigint "phase_id"
+    t.string "number"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["progressreport_id"], name: "index_phasecopies_on_progressreport_id"
   end
 
   create_table "phases", force: :cascade do |t|
@@ -97,13 +197,29 @@ ActiveRecord::Schema.define(version: 2022_05_05_124127) do
     t.integer "review_count"
     t.bigint "planned_cost"
     t.decimal "planned_workload", precision: 5, scale: 2
+    t.bigint "planned_outsourcing_cost"
+    t.decimal "planned_outsourcing_workload", precision: 5, scale: 2
     t.bigint "actual_cost"
     t.decimal "actual_workload", precision: 5, scale: 2
+    t.bigint "actual_outsourcing_cost"
+    t.decimal "actual_outsourcing_workload", precision: 5, scale: 2
     t.string "ship_number"
     t.date "accept_comp_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_phases_on_project_id"
+  end
+
+  create_table "progressreports", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "make_id"
+    t.string "totaling_day"
+    t.string "outsourcing"
+    t.date "development_period_fr"
+    t.date "development_period_to"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_progressreports_on_project_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -217,6 +333,42 @@ ActiveRecord::Schema.define(version: 2022_05_05_124127) do
     t.index ["project_id"], name: "index_risks_on_project_id"
   end
 
+  create_table "taskcopies", force: :cascade do |t|
+    t.bigint "progressreport_id"
+    t.bigint "number"
+    t.bigint "phase_id"
+    t.bigint "task_id"
+    t.string "task_name"
+    t.bigint "worker_name"
+    t.boolean "outsourcing", default: false, null: false
+    t.decimal "planned_workload", precision: 6, scale: 2
+    t.date "planned_periodfr"
+    t.date "planned_periodto"
+    t.decimal "actual_workload", precision: 6, scale: 2
+    t.date "actual_periodfr"
+    t.date "actual_periodto"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["progressreport_id"], name: "index_taskcopies_on_progressreport_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.bigint "phase_id"
+    t.bigint "number"
+    t.string "name"
+    t.bigint "worker_id"
+    t.boolean "outsourcing", default: false, null: false
+    t.decimal "planned_workload", precision: 6, scale: 2
+    t.date "planned_periodfr"
+    t.date "planned_periodto"
+    t.decimal "actual_workload", precision: 6, scale: 2
+    t.date "actual_periodfr"
+    t.date "actual_periodto"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["phase_id"], name: "index_tasks_on_phase_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -242,12 +394,37 @@ ActiveRecord::Schema.define(version: 2022_05_05_124127) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  create_table "workreports", force: :cascade do |t|
+    t.bigint "dailyreport_id"
+    t.integer "number"
+    t.bigint "project_id"
+    t.bigint "phase_id"
+    t.bigint "task_id"
+    t.integer "hour"
+    t.integer "minute"
+    t.integer "over_h"
+    t.integer "over_m"
+    t.string "comments"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dailyreport_id"], name: "index_workreports_on_dailyreport_id"
+  end
+
+  add_foreign_key "approvalauths", "divisions"
+  add_foreign_key "approvalauths", "employees"
   add_foreign_key "audits", "projects"
   add_foreign_key "changelogs", "projects"
+  add_foreign_key "dailyreports", "employees"
   add_foreign_key "divisions", "departments"
+  add_foreign_key "evms", "progressreports"
   add_foreign_key "members", "projects"
+  add_foreign_key "phasecopies", "progressreports"
   add_foreign_key "phases", "projects"
+  add_foreign_key "progressreports", "projects"
   add_foreign_key "qualitygoals", "projects"
   add_foreign_key "reports", "projects"
   add_foreign_key "risks", "projects"
+  add_foreign_key "taskcopies", "progressreports"
+  add_foreign_key "tasks", "phases"
+  add_foreign_key "workreports", "dailyreports"
 end
