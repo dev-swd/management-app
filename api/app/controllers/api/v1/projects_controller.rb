@@ -1,4 +1,17 @@
 class Api::V1::ProjectsController < ApplicationController
+
+  # プロジェクトToDo取得（empId指定）
+  def index_todo
+    # 対象＝PLになっていて、計画未提出、計画書差戻、PJ推進中且つ予定期間（至）経過、完了報告書差戻
+    prjs = Project
+            .where(pl_id: params[:id])
+            .where("(status = '計画未提出') or (status = '計画書差戻') or (status= 'PJ推進中' and development_period_to <= ?) or (status = '完了報告書差戻')", Date.today)
+    render json: { status: 200, prjs: prjs }
+  end
+
+
+# ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑　再確認済み
+
   def index
 #    render json: Project.all.order(:number)
     render json: Project.joins("LEFT OUTER JOIN employees AS plemp ON plemp.id=pl_id").select("projects.*, plemp.name as pl_name").order(:number)

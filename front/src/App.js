@@ -3,13 +3,9 @@ import { useEffect, useState, createContext } from "react";
 import { getCurrentUser } from "./lib/api/auth";
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Header from "./components/Header/Header";
-import SignUpPage from "./components/Sign/SignUpPage";
 import SignInPage from "./components/Sign/SignInPage";
-import EmpNewPage from "./components/Sign/EmpNewPage";
 import Home from "./components/Home/HomePage";
-import DepIndexPage from './components/Organization/Department/DepIndexPage';
-import DivIndexPage from './components/Organization/Division/DivIndexPage';
-import EmpIndexPage from './components/Organization/Employee/EmpIndexPage';
+import OrgMainPage from './components/Organization/OrgMainPage';
 import PrjIndexPage from './components/Project/PrjIndexPage';
 import PrjTopPage from './components/Project/PrjTopPage';
 import UserIndexPage from './components/Daily/Users/UserIndexPage';
@@ -89,13 +85,9 @@ const App = () => {
         <Header />
         <main className='app-main'>
           <Routes>
-            <Route exact path='/signup' element={<SignUpPage />} />
             <Route exact path='/signin' element={<SignInPage />} />
-            <Route exact path='/empinit' element={!loading && <Private><EmpNewPage /></Private>} />
             <Route exact path='/' element={!loading && <Private><Home /></Private>} />
-            <Route exact path='/dep' element={!loading && <Private><DepIndexPage /></Private>} />
-            <Route exact path='/div' element={!loading && <Private><DivIndexPage /></Private>} />
-            <Route exact path='/emp' element={!loading && <Private><EmpIndexPage /></Private>} />
+            <Route exact path='/organization' element={!loading && <Private><OrgMainPage /></Private>} />
             <Route exact path='/prj' element={!loading && <Private><PrjIndexPage /></Private>} />
             <Route exact path='/prj/top' element={!loading && <Private><PrjTopPage /></Private>} />
             <Route exact path='/daily' element={!loading && <Private><UserIndexPage /></Private>} />

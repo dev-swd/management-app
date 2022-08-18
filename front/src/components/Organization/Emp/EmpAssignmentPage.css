@@ -1,0 +1,82 @@
+@charset "utf-8";
+
+.m18-assign-container {
+  width: 100vw;
+  margin-left: 30px;
+  margin-right: 10px;
+  padding: 0;
+  height: 400px;
+  background-color: #fff;
+  font-size: 11px;
+  font-family: sans-serif;
+}
+
+.m18-header-area {
+  width: auto;
+  height: 25px;
+  border-left: 10px solid #08f;
+  border-bottom: 1px solid #08f;
+  display: flex;
+  justify-content: space-between;
+}
+
+.m18-header-title {
+  margin: 0;
+  height: 24px;
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 1px;
+  padding-left: 5px;
+}
+
+.m18-link-close {
+  width: 100px;
+  font-size: 14px;
+}
+
+.m18-add-emp-area {
+  margin: 30px 0 30px 20px;
+  display: flex;
+}
+
+.m18-emp-list-pos {
+  padding-top: 4px;
+  margin-right: 30px;
+}
+
+.m18-emps-table-hd,
+.m18-emps-table {
+  margin-left: 20px;
+  width: 340px;
+}
+
+.m18-emps-table-hd tr {
+  height: 25px
+}
+
+.m18-emps-table tr {
+  height: 40px
+}
+
+.m18-emps-table-hd td {
+  border-bottom: 2px inset #c8c8c8;
+}
+
+.m18-emps-table td {
+  padding-top: 15px;
+  border-bottom: 1px inset #c8c8c8;
+}
+
+.m18-number-td {
+  width: 100px;
+}
+
+.m18-name-td {
+  width: 200px;
+}
+
+.m18-button-td {
+  width: 40px;
+  text-align: right;
+}
+

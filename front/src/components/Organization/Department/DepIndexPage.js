@@ -29,7 +29,7 @@ const DepIndexPage = () => {
   const handleGetDeps = async () => {
     try {
       const res = await getDeps();
-      setDeps(res.data);
+      setDeps(res.data.deps);
     } catch (e) {
       setMessage("事業部情報取得エラー");
       setMessageVar("error");

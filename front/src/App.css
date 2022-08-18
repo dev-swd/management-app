@@ -27,7 +27,9 @@
 
 /* モーダル画面時の背景 */
 .overlay {
-  position: fixed;
+/*  position: fixed; */
+  position:absolute;
+  z-index: 1;
   top: 0;
   left: 0;
   width: 100%;

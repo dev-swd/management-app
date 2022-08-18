@@ -1,5 +1,19 @@
 class Api::V1::TasksController < ApplicationController
 
+  # タスクToDo取得（empId指定）
+  def index_todo
+    # 対象＝指定empIDが担当になっていて、開始日経過
+    tasks = Task
+            .joins(phase: :project)
+            .select("tasks.*, phases.name as phase_name, phases.project_id as prj_id, projects.number as prj_number, projects.name as prj_name")
+            .where(worker_id: params[:id])
+            .where("tasks.planned_periodfr <= ?", Date.today)
+            .order(:planned_periodto, :planned_periodfr)
+    render json: { status: 200, tasks: tasks }
+  end
+
+# ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑　再確認済み
+
   # PhaseIdを条件とした一覧取得（工程情報を別途添付）
   def index_by_phase
     phase = Phase

@@ -29,7 +29,7 @@ const EmpIndexPage = () => {
   const handleGetEmps = async () => {
     try {
       const res = await getEmps();
-      setEmps(res.data);
+      setEmps(res.data.emps);
     } catch (e) {
       setMessage("社員情報取得エラー");
       setMessageVar("error");

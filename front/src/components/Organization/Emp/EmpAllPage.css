@@ -1,0 +1,80 @@
+@charset "utf-8";
+
+.m16-allemp-container {
+  width: 100vw;
+  margin-left: 30px;
+  margin-right: 10px;
+  padding: 0;
+  height: 400px;
+  background-color: #fff;
+  font-size: 11px;
+  font-family: sans-serif;
+}
+
+.m16-header-area {
+  width: auto;
+  height: 25px;
+  border-left: 10px solid #08f;
+  border-bottom: 1px solid #08f;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.m16-header-title {
+  margin: 0;
+  height: 25px;
+  border-left: 10px solid #08f;
+  border-bottom: 1px solid #08f;
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 1px;
+  padding-left: 5px;
+}
+
+.m16-link-close {
+  width: 100px;
+  font-size: 14px;
+}
+
+.m16-emps-table-hd,
+.m16-emps-table {
+  margin-left: 20px;
+  width: 700px;
+}
+
+.m16-emps-table-hd tr {
+  height: 25px
+}
+.m16-emps-table tr {
+  height: 40px
+}
+
+.m16-emps-table-hd td {
+  border-bottom: 2px inset #c8c8c8;
+}
+
+.m16-emps-table td {
+  padding-top: 15px;
+  border-bottom: 1px inset #c8c8c8;
+}
+
+.m16-number-td {
+  width: 100px;
+}
+
+.m16-name-td {
+  width: 150px;
+}
+
+.m16-org-td {
+  width: 300px;
+}
+
+.m16-devise-name-td {
+  width: 100px;
+}
+
+.m16-devise-reset-td {
+  width: 50px;
+}

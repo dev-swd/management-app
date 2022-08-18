@@ -1,5 +1,13 @@
 import client from './client';
 
+// 一覧（ToDoリスト／empId指定）
+export const getTasksToDo = (empId) => {
+  return client.get(`/tasks/${empId}/index_todo`);  
+};
+
+
+// ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑　再確認済
+
 //一覧
 export const getTasks = (phase_id) => {
   return client.get(`/tasks/${phase_id}/index_by_phase/`);

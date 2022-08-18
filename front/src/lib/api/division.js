@@ -1,26 +1,33 @@
+// 課情報用API呼出
+
 import client from './client';
 
-// 一覧
+// 一覧（未確認）
 export const getDivs = () => {
   return client.get('/divisions');
 };
 
-// 詳細
+// 詳細【未確認】
 export const getDiv = (id) => {
   return client.get(`/divisions/${id}`);
 };
+
+// 詳細（事業部ダミー課）
+export const getDivByDepDummy = (dep_id) => {
+  return client.get(`/divisions/${dep_id}/show_by_depdummy/`);
+}
 
 // 新規作成
 export const createDiv = (params) => {
   return client.post('/divisions', params);
 };
 
-// 更新
+// 更新（ID指定）
 export const updateDiv = (id, params) => {
   return client.patch(`/divisions/${id}`, params);
 };
 
-// 削除
+// 削除（ID指定）
 export const deleteDiv = (id) => {
   return client.delete(`/divisions/${id}`);
 };
@@ -31,8 +38,8 @@ export const getDivsWithAuthcnt = () => {
 }
 
 // 一覧（事業部別）
-export const getDivsByDep = (dep_id) => {
-  return client.get(`/divisions/${dep_id}/index_by_dep/`);
+export const getDivsByDepartment = (dep_id) => {
+  return client.get(`/divisions/${dep_id}/index_by_department/`);
 }
 
 // 一覧（承認管轄）

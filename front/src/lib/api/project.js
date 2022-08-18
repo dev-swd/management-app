@@ -1,5 +1,13 @@
 import client from './client';
 
+// 一覧（ToDoリスト／empId指定）
+export const getPrjsToDo = (empId) => {
+  return client.get(`/projects/${empId}/index_todo`);  
+};
+
+
+// ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑　再確認済
+
 // 一覧
 export const getPrjs = () => {
   return client.get('/projects');

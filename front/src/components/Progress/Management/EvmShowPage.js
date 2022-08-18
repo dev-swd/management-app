@@ -22,7 +22,7 @@ const EvmShowPage = (props) => {
       const res = await getEvmsByConditional(Number(progId), level, Number(phaseId));
       setData(res.data);
       setYms(setGroupYm(res.data));
-} catch (e) {
+    } catch (e) {
       setMessage({kbn: "error", msg: "EVM取得エラー"});
     }
   }

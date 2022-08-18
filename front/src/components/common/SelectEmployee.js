@@ -17,7 +17,7 @@ const SelectEmployee = (props) => {
   const handleGetEmps = async () => {
     try {
       const res = await getEmps();
-      let tmpEmps = res.data.map(emp => {
+      let tmpEmps = res.data.emps.map(emp => {
         const tmpEmp = {};
         tmpEmp.value = emp.id;
         tmpEmp.label = emp.name;

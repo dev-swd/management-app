@@ -1,0 +1,35 @@
+@charset "utf-8";
+
+.m13-div-new-container {
+  width: 100vw;
+  margin-left: 30px;
+  margin-right: 10px;
+  padding: 0;
+  height: 400px;
+  background-color: #fff;
+  font-size: 11px;
+  font-family: sans-serif;
+}
+
+.m13-header-area {
+  width: auto;
+  height: 25px;
+  border-left: 10px solid #08f;
+  border-bottom: 1px solid #08f;
+  display: flex;
+  justify-content: space-between;
+}
+
+.m13-header-title {
+  margin: 0;
+  height: 24px;
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 1px;
+  padding-left: 5px;
+}
+
+.m13-link-close {
+  width: 100px;
+  font-size: 14px;
+}

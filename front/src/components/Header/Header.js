@@ -38,22 +38,6 @@ const Header = () => {
     }
   }
   
-  const OrganizationMenu = () => {
-    if(authInfo.depindex || authInfo.divindex || authInfo.empindex){
-      return (
-        <Nav.Item as="li">
-          <NavDropdown title="Organization" id="nav-dropdown">
-            {authInfo.depindex && <NavDropdown.Item href="/dep">Department</NavDropdown.Item>}
-            {authInfo.divindex && <NavDropdown.Item href="/div">Division</NavDropdown.Item>}
-            {authInfo.empindex && <NavDropdown.Item href="/emp">Employee</NavDropdown.Item>}
-          </NavDropdown>
-        </Nav.Item>
-      );
-    } else {
-      return <></>
-    }
-  }
-
   const AuthButtons = () => {
     // 認証完了後はサインアウト用のボタンを表示
     // 未認証時は認証用のボタンを表示
@@ -64,10 +48,7 @@ const Header = () => {
         );
       } else {
         return (
-          <>
-            <Button component={Link} to="/signin" sx={{textTransform: 'none'}}>SignIn</Button>
-            <Button component={Link} to="/signup" sx={{textTransform: 'none'}}>SignUp</Button>
-          </>
+          <Button component={Link} to="/signin" sx={{textTransform: 'none'}}>SignIn</Button>
         );
       }
     } else {
@@ -82,8 +63,8 @@ const Header = () => {
           <img  src={logo} alt='ManagementApp' />
         </a>
         <Nav as="ul" className="menu">
-          <OrganizationMenu />
-          {authInfo.prjindex && <Nav.Item as="li"><Nav.Link href="/prj">Project</Nav.Link></Nav.Item>}
+          {authInfo.depindex && <Nav.Item as="li"><Nav.Link href="/organization">組織管理</Nav.Link></Nav.Item>}
+          {authInfo.prjindex && <Nav.Item as="li"><Nav.Link href="/prj">プロジェクト計画</Nav.Link></Nav.Item>}
           {authInfo.dailyindex && <Nav.Item as="li"><Nav.Link href="/daily">日報入力</Nav.Link></Nav.Item>}
           {authInfo.dailyselect && <Nav.Item as="li"><Nav.Link href="/daily/select">日報承認</Nav.Link></Nav.Item>}
           {authInfo.proguserindex && <Nav.Item as="li"><Nav.Link href="/progress/user">進捗入力</Nav.Link></Nav.Item>}

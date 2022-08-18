@@ -31,9 +31,12 @@
  docker-compose run --rm front sh -c "npm install @mui/material @emotion/react @emotion/styled @mui/icons-material"
  docker-compose run --rm front sh -c "npm install @mui/styles"
 
- ④' MUI/Date pickers日本語化
+ ④' + MUI/DatePicker(日本語化)
  ※Material-UI導入済を前提
  docker-compose run --rm front sh -c "npm install @mui/lab @date-io/date-fns date-fns"
+
+ ④' + Material-UI(MUI v5) DatePicker(日本語化) ※New
+ docker-compose run --rm front sh -c "npm install @mui/x-date-pickers date-fns @date-io/date-fns"
 
  ④' React-tabs
  docker-compose run --rm front sh -c "npm install react-tabs"
@@ -47,7 +50,7 @@
  ④' lodash
  docker-compose run --rm front sh -c "npm install lodash"
 
-④' lodash
+ ④' react-chartjs-2
  docker-compose run --rm front sh -c "npm install chart.js react-chartjs-2"
 
  ⑤config/database.ymlを編集
