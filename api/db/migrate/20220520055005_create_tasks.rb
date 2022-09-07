@@ -12,6 +12,7 @@ class CreateTasks < ActiveRecord::Migration[6.1]
       t.decimal "actual_workload", precision: 6, scale: 2
       t.date "actual_periodfr"
       t.date "actual_periodto"
+      t.string "tag"
       t.timestamps
     end
   end

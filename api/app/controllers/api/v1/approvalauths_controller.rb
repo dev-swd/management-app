@@ -5,7 +5,7 @@ class Api::V1::ApprovalauthsController < ApplicationController
     render jeson: { status: 200, auth: auth }
   end
 
-##↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 再確認未実施
+##　上記、未使用　＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
   # 承認権限一覧（課ID指定）
   def index_by_division
@@ -53,7 +53,6 @@ class Api::V1::ApprovalauthsController < ApplicationController
   # ストロングパラメータ
   def auth_params
     params.permit(:employee_id, :division_id)
-#    params.require(:approvalauth).permit(:employee_id, :division_id)
   end
 
 end

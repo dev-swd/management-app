@@ -1,0 +1,177 @@
+@charset "utf-8";
+
+.m2e-container {
+  margin-left: 5px;
+  border: 0.5px solid #000;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  height: calc(100vh - 52px);
+  width: 800px;
+  background-color: #fff; 
+  font-size: 11px;
+  font-family: sans-serif;
+}
+
+.m2e-header-title {
+  margin: 5px 10px 20px 5px;
+  height: 25px;
+  border-left: 10px solid #08f;
+  border-bottom: 1px solid #08f;
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 1px;
+  padding-left: 5px;
+}
+
+
+.m2e-prj-name {
+  padding-top: 20px;
+  padding-left: 20px;
+  width: auto;
+}
+
+.m2e-prj {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+.m2e-prj tr {
+  height: 25px;
+}
+.m2e-prj td {
+  border: 0.5px solid #000;
+}
+.m2e-prj-ttl {
+  width: 100px;
+  background-color: #c9e9f1;
+  text-align: center;
+}
+.m2e-prj-val1 {
+  width: 120px;
+  text-align: right;
+  padding-right: 5px;
+}
+.m2e-prj-val2 {
+  width: 100px;
+  text-align: right;
+  padding-right: 5px;
+}
+
+.m2e-table-hd,
+.m2e-table-frame,
+.m2e-table {
+  width: 700px;
+}
+
+.m2e-table-hd {
+  margin-top: 20px;
+}
+
+.m2e-table-hd,
+.m2e-table-frame {
+  margin-left: 20px;
+}
+
+.m2e-table-frame {
+  border: 0.5px solid #000;
+  width: 700px;
+  max-height: 520px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.m2e-table-hd tr {
+  height: 25px;
+}
+
+.m2e-table tr {
+  height: 30px;
+}
+
+.m2e-table-hd td {
+  border-top: 0.5px solid #000;
+  border-left: 0.5px solid #000;
+  border-right: 0.5px solid #000;
+}
+
+.m2e-table td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m2e-table tr:last-child td {
+  border-bottom: none;
+}
+
+.m2e-th {
+  text-align: center;
+  background-color: #c9e9f1;
+}
+
+.m2e-name-td {
+  width: 120px;
+  padding-left: 3px;
+}
+
+.m2e-period-td {
+  width: 110px;
+  text-align: center;
+}
+
+.m2e-workload-td {
+  width: 140px;
+  text-align: center;
+}
+.m2e-workload {
+  width: 100px;
+  height: 20px;
+  text-align: right;
+  padding-right: 3px;  
+  border: 0.5px solid #aaa;
+}
+
+.m2e-outsourcing-td {
+  width: 140px;
+  text-align: center;
+}
+.m2e-outsourcing {
+  width: 100px;
+  height: 20px;
+  text-align: right;
+  padding-right: 3px;  
+  border: 0.5px solid #aaa;
+}
+
+.m2e-task-td {
+  width: 80px;
+  text-align: center;
+}
+
+.m2e-sum-area {
+  margin-top: 5px;
+  margin-left: 20px;
+  display: flex;
+}
+
+.m2e-sum-title {
+  background-color: #c9e9f1;
+  border: 0.5px solid #000;
+  width: 340px;
+  height: 25px;
+  text-align: right;
+  padding-top: 4px;
+  padding-right: 5px;
+}
+
+.m2e-sum {
+  border: 0.5px solid #000;
+  border-left: none;
+  width: 140px;
+  height: 25px;
+  text-align: right;
+  padding-top: 4px;
+  padding-right: 5px;
+}
+
+.m2e-alert {
+  color: #f00;
+  font-weight: bold;
+  background-color: #f6d5d5;
+}

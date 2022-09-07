@@ -5,13 +5,14 @@ export const getTasksToDo = (empId) => {
   return client.get(`/tasks/${empId}/index_todo`);  
 };
 
+//一覧（工程ID指定／一部工程情報も取得）
+export const getTasks = (phaseId) => {
+  return client.get(`/tasks/${phaseId}/index_by_phase/`);
+};
+
 
 // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑　再確認済
 
-//一覧
-export const getTasks = (phase_id) => {
-  return client.get(`/tasks/${phase_id}/index_by_phase/`);
-};
 
 // 更新
 export const updateTasksForPlan = (phase_id, params) => {

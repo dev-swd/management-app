@@ -13,8 +13,8 @@ export const getDiv = (id) => {
 };
 
 // 詳細（事業部ダミー課）
-export const getDivByDepDummy = (dep_id) => {
-  return client.get(`/divisions/${dep_id}/show_by_depdummy/`);
+export const getDivByDepDummy = (depId) => {
+  return client.get(`/divisions/${depId}/show_by_depdummy/`);
 }
 
 // 新規作成
@@ -37,12 +37,12 @@ export const getDivsWithAuthcnt = () => {
   return client.get(`/divisions/index_with_authcnt/`);
 }
 
-// 一覧（事業部別）
-export const getDivsByDepartment = (dep_id) => {
-  return client.get(`/divisions/${dep_id}/index_by_department/`);
+// 一覧（事業部別/事業部ID指定）
+export const getDivsByDepartment = (depId) => {
+  return client.get(`/divisions/${depId}/index_by_department/`);
 }
 
-// 一覧（承認管轄）
-export const getDivsByApproval = (emp_id) => {
-  return client.get(`/divisions/${emp_id}/index_by_approval/`);
+// 一覧（承認管轄/社員ID指定）
+export const getDivsByApproval = (empId) => {
+  return client.get(`/divisions/${empId}/index_by_approval/`);
 }

@@ -1,0 +1,151 @@
+@charset "utf-8";
+
+.m41-background {
+  position: fixed;
+  top: 42px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 42px);
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.m5-prog-edit-container {
+  border: 0.5px solid #000;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  height: calc(100vh - 42px - 10px);
+  width: 1200px;
+  background-color: #fff;
+  font-family: sans-serif;
+  font-size: 11px;
+}
+
+.m41-header-area {
+  width: calc(100% - 20px);
+  height:25px;
+  margin: 10px 10px 0px 10px;
+  border-left: 10px solid #08f;
+  border-bottom: 1px solid #08f;
+  display: flex;
+  justify-content: space-between;
+}
+
+.m41-header-title {
+  margin: 0;
+  height: 24px;
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 1px;
+  padding-left: 5px;
+}
+
+.m41-link-return {
+  padding-right: 10px;
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+.m41-prj-name {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.m41-search-area {
+  margin-top: 20px;
+  margin-left: 20px;
+  height: 30px;
+  display: flex;
+}
+
+.m41-select-title {
+  height: 30px;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.m41-select-phase {
+  height: 25px;
+  margin-right: 20px;
+  margin-top: 1px;
+}
+
+.m41-table-hd, 
+.m41-frame,
+.m41-table-bd {
+  width: 1000px;
+}
+.m41-table-hd {
+  margin-top: 5px;
+}
+.m41-table-hd,
+.m41-frame {
+  margin-left: 20px;
+}
+.m41-table-hd td {
+  border: 0.5px solid #000;
+  border-bottom: none;
+}
+.m41-frame {
+  max-height: calc(100vh - 300px);
+  border: 0.5px solid #000;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.m41-table-bd {
+  margin-left: -0.3px;
+}
+.m41-table-hd tr {
+  height: 25px;
+}
+.m41-table-bd tr {
+  height: 30px;
+}
+.m41-table-bd td {
+  border-bottom: 0.5px solid #000;
+  border-right: 0.5px solid #000;
+}
+.m41-table-bd tr:last-child td {
+  border-bottom: none;
+}
+
+.m41-th {
+  background-color: #c9e9f1;
+  text-align: center;
+}
+
+.m41-phase-td {
+  width: 120px;
+  padding-left: 3px;
+}
+.m41-name-td {
+  width: 180px;
+  padding-left: 3px;
+}
+.m41-outsourcing-td {
+  width: 40px;
+  text-align: center;
+}
+.m41-worker-td {
+  width: 120px;
+  text-align: center;
+}
+.m41-load-th {
+  width: 100px;
+}
+.m41-load-td {
+  width: 100px;
+  text-align: right;
+  padding-right: 10px;
+}
+.m41-date-td {
+  width: 110px;
+  text-align: center;
+}
+.m41-date {
+  width: 104px;
+  height: 20px;
+  border: 0.5px solid #aaa;
+  text-align: center;
+}

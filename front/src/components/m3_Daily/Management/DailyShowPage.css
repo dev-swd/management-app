@@ -1,0 +1,49 @@
+@charset "utf-8";
+
+.m36-container {
+  height: calc(100vh - 300px);
+  width: auto;
+  background-color: #fff;
+  font-family: sans-serif;
+  font-size: 11px;
+}
+
+.m36-date {
+  margin-bottom: 10px;
+}
+
+.m36-section-frame {
+  width: 650px;
+  margin-left: 0;
+  margin-bottom: 10px;
+  border: 1px solid #000;
+  border-radius: 5px; /* def-style解除：丸角なし */
+  padding: 5px 0px 20px 5px;
+}
+
+.m36-display-row {
+  display: flex;
+  margin: 10px 0px 0px 10px;
+}
+
+.m36-title {
+  padding-top: 2px;
+  width: 80px;
+}
+
+.m36-kbn {
+  width: 100px;
+  padding-top: 2px;
+}
+
+.m36-time {
+  text-align: left;
+  width: 100px;
+  padding-top: 2px;
+}
+
+
+.m36-reason {
+  width: 350px;
+  padding-top: 2px;
+}

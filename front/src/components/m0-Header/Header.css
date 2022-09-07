@@ -1,0 +1,37 @@
+@charset "utf-8";
+
+.m00-app-header {
+  border: 0.5px solid #000;
+  max-width: 1440px;
+  height: 42px;
+  font-family: sans-serif;
+  font-size: 14px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 10px;
+  background-color: #c9e9f1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.m00-left-item {
+  width: 60%;
+  display: flex;
+}
+
+.m00-logo {
+  display: block;
+  width: 30px;
+  padding: 0;
+  margin-top: 5px;
+}
+
+.m00-img {
+  max-width: 100%;
+}
+
+.m00-right-item {
+  height: inherit;
+  width: auto;
+  text-align: right;
+}

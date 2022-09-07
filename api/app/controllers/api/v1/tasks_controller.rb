@@ -12,8 +12,6 @@ class Api::V1::TasksController < ApplicationController
     render json: { status: 200, tasks: tasks }
   end
 
-# ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑　再確認済み
-
   # PhaseIdを条件とした一覧取得（工程情報を別途添付）
   def index_by_phase
     phase = Phase
@@ -29,18 +27,7 @@ class Api::V1::TasksController < ApplicationController
     render json: { status: 200, phase: phase, tasks: tasks }
   end
 
-  # ProjectIdを条件とした一覧取得（工程名付）
-  def index_by_project
-    tasks = Task
-            .joins(phase: :project)
-            .joins("LEFT OUTER JOIN employees AS emp ON emp.id=worker_id")
-            .select("tasks.*, emp.name as worker_name, phases.name as phase_name")
-            .where(projects: { id: params[:id]})
-            .order(:number)
-    render json: { status: 200, tasks: tasks }
-  end
-  
-  # タスク作成時の登録処理
+  # タスク作成時の登録処理（追加 or 更新 or 削除）
   def update_for_planned
     ActiveRecord::Base.transaction do
 
@@ -57,6 +44,7 @@ class Api::V1::TasksController < ApplicationController
           task.planned_workload = task_param[:planned_workload]
           task.planned_periodfr = task_param[:planned_periodfr]
           task.planned_periodto = task_param[:planned_periodto]
+          task.tag = task_param[:tag]
           task.save!
         else
           if task_param[:id].present? then
@@ -74,6 +62,21 @@ class Api::V1::TasksController < ApplicationController
     render json: { status:500, message: "Update Error"}
 
   end
+
+# ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑　再確認済み
+
+
+  # ProjectIdを条件とした一覧取得（工程名付）
+  def index_by_project
+    tasks = Task
+            .joins(phase: :project)
+            .joins("LEFT OUTER JOIN employees AS emp ON emp.id=worker_id")
+            .select("tasks.*, emp.name as worker_name, phases.name as phase_name")
+            .where(projects: { id: params[:id]})
+            .order(:number)
+    render json: { status: 200, tasks: tasks }
+  end
+  
 
 
   # タスク実績日付更新
@@ -101,6 +104,6 @@ class Api::V1::TasksController < ApplicationController
   def task_params
     params.permit(tasks: [:id, :name, :worker_id, :outsourcing, 
                           :planned_workload, :planned_periodfr, :planned_periodto,
-                          :actual_workload, :actual_periodfr, :actual_periodto, :del])
+                          :actual_workload, :actual_periodfr, :actual_periodto, :tag, :del])
   end
 end

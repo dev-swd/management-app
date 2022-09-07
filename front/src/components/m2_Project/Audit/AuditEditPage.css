@@ -1,0 +1,139 @@
+@charset "utf-8";
+
+.m29-container {
+  border: 0.5px solid #000;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  height: calc(100vh - 52px);
+  width: 630px;
+  background-color: #fff;
+  font-family: sans-serif;
+  font-size: 11px;
+}
+
+.m29-delete {
+  background-color: #d32f2f;
+  color: #fff;
+}
+
+.m29-header-title {
+  margin: 5px 10px 10px 10px;
+  height: 25px;
+  border-left: 10px solid #08f;
+  border-bottom: 1px solid #08f;
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 1px;
+  padding-left: 5px;
+}
+
+.m29-table-hd,
+.m29-table-frame,
+.m29-table {
+  width: 610px;
+}
+
+.m29-table-hd {
+  margin-top: 10px;
+}
+
+.m29-table-hd,
+.m29-table-frame {
+  margin-left: 10px;
+}
+
+.m29-table-frame {
+  border: 0.5px solid #000;
+  width: 610px;
+  max-height: 520px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.m29-table-hd tr {
+  height: 25px;
+}
+
+.m29-table tr {
+  height: 30px;
+}
+
+.m29-table-hd td {
+  border-top: 0.5px solid #000;
+  border-left: 0.5px solid #000;
+  border-right: 0.5px solid #000;
+}
+
+.m29-table td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+
+.m29-th {
+  text-align: center;
+  background-color: #c9e9f1;
+}
+
+.m29-title-td {
+  width: 120px;
+  padding-left: 2px;
+}
+.m29-title {
+  border: 0.5px solid #aaa;
+  width: 116px;
+  height: 20px;
+  padding-left: 3px;
+}
+
+.m29-contents-td {
+  vertical-align: top;
+  padding-top: 2px;
+  padding-left: 2px;
+  width: 205px;
+}
+.m29-contents {
+  border: 0.5px solid #aaa;
+  width: 201px;
+  height: 56px;
+  resize: none;
+  overflow-y: auto;
+  overflow-x: none;
+  padding: 2px 2px 2px 3px;
+}
+
+.m29-audit-td {
+  width: 105px;
+  padding-left: 2px;
+}
+/* 日付入力項目 */
+.m29-date {
+  width: 100px;
+  height: 20px;
+  border: 0.5px solid #aaa;
+  padding-left: 2px;
+}
+
+.m29-result-td {
+  width: 45px;
+  text-align: center;
+}
+.m29-result {
+  width: 40px;
+  height: 20px;
+  border: 0.5px solid #aaa;
+}
+
+.m29-accept-td {
+  width: 105px;
+  padding-left: 2px;
+}
+
+.m29-del-td {
+  text-align: center;
+  width: 30px;  
+}
+
+.m29-button-area {
+  width: 610px;
+  margin: 10px 5px 10px 5px;
+  text-align: center;
+}

@@ -5,26 +5,24 @@ export const getDailyReps = (emp_id, y, m) => {
   return client.get(`/dailyreports/index_by_emp?emp_id=${emp_id}&y=${y}&m=${m}`);
 };
 
-// 勤務日報詳細
-export const getDailyRep = (id) => {
-  return client.get(`/dailyreports/${id}`);
+// 勤務日報詳細（勤務日報ID指定）
+export const getDailyRep = (dailyId) => {
+  return client.get(`/dailyreports/${dailyId}`);
 };
 
-// 勤務日報更新
-export const updateDailyRep = (id, params) => {
-  return client.patch(`/dailyreports/${id}`, params);
+// 勤務日報更新（勤務日報ID指定）
+export const updateDailyRep = (dailyId, params) => {
+  return client.patch(`/dailyreports/${dailyId}`, params);
 }
 
-// 作業日報一覧
-//export const getDailyRepChildren = (daily_id) => {
-export const getWorkReps = (daily_id) => {
-    return client.get(`/workreports/${daily_id}/index_by_daily`);
+// 作業日報一覧（勤務日報ID指定）
+export const getWorkReps = (dailyId) => {
+    return client.get(`/workreports/${dailyId}/index_by_daily`);
 };
 
-// 作業日報更新
-//export const updateDailyRepChildren = (daily_id, params) => {
-export const updateWorkReps = (daily_id, params) => {
-    return client.patch(`/workreports/${daily_id}`, params);
+// 作業日報更新（勤務日報ID指定）
+export const updateWorkReps = (dailyId, params) => {
+    return client.patch(`/workreports/${dailyId}`, params);
 }
 
 // 勤務日報状態更新

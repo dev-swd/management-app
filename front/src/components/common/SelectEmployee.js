@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { getEmps } from '../../lib/api/employee';
-import { isEmptyNum } from '../../lib/common/numberCom';
-import { isEmptyStr } from '../../lib/common/stringCom';
+import { isEmpty } from '../../lib/common/isEmpty';
 
 const initOptions = [{value: "", label: "(未選択)"}];
 
@@ -30,10 +29,10 @@ const SelectEmployee = (props) => {
   }
 
   const handleChange = (selectedOption) => {
-    if(isEmptyStr(name)) {
+    if(isEmpty(name)) {
       setValue(selectedOption.value, selectedOption.label);
     } else {
-      if(isEmptyNum(index)) {
+      if(isEmpty(index)) {
         setValue(name, selectedOption.value);
       } else {
         setValue(index, name, selectedOption.value);
@@ -57,14 +56,14 @@ const SelectEmployee = (props) => {
       marginTop: 0,
       paddingLeft: 3,
       border: "0.5px solid #000",
-      width: (isEmptyNum(width)) ? 150 : width,
-      fontSize: (isEmptyNum(fontsize))? 11 : fontsize,
+      width: (isEmpty(width)) ? 150 : width,
+      fontSize: (isEmpty(fontsize))? 11 : fontsize,
     }),
     control: () => ({
-      border: (isEmptyStr(border)) ? "1px solid #000": border,
+      border: (isEmpty(border)) ? "1px solid #000": border,
       padding: 0,
-      width: (isEmptyNum(width)) ? 150 : width,
-      height: (isEmptyNum(height)) ? 20 : height,
+      width: (isEmpty(width)) ? 150 : width,
+      height: (isEmpty(height)) ? 20 : height,
       display: "flex",
     }),
     indicatorSeparator: (base) => ({
@@ -86,12 +85,12 @@ const SelectEmployee = (props) => {
       margin: 0,
       padding: 0,
       paddingLeft: 2,
-      width: (isEmptyNum(width)) ? 150 : width,
+      width: (isEmpty(width)) ? 150 : width,
     }),
     valueContainer: (base) => ({
       ...base,
       padding: 0,
-      width: (isEmptyNum(width)) ? 150 : width,
+      width: (isEmpty(width)) ? 150 : width,
     }),
   }
 

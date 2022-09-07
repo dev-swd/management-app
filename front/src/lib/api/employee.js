@@ -6,13 +6,13 @@ export const getEmps = () => {
 };
 
 // 詳細（社員ID指定）
-export const getEmp = (emp_id) => {
-  return client.get(`/employees/${emp_id}`);
+export const getEmp = (empId) => {
+  return client.get(`/employees/${empId}`);
 };
 
 // 詳細（Devise UserName付／社員ID指定）
-export const getEmpWithDevise = (emp_id) => {
-  return client.get(`/employees/${emp_id}/show_with_devise/`);
+export const getEmpWithDevise = (empId) => {
+  return client.get(`/employees/${empId}/show_with_devise/`);
 }
 
 // 新規作成
@@ -31,23 +31,23 @@ export const deleteEmp = (id) => {
 };
 
 // 詳細（devise_id指定）
-export const getEmpDevise = (devise_id) => {
-return client.get(`/employees/${devise_id}/show_by_devise/`);
+export const getEmpDevise = (deviseId) => {
+return client.get(`/employees/${deviseId}/show_by_devise/`);
 };
 
-// 一覧（承認権限対象）【再確認未実施】
-export const getEmpsByApproval = (emp_id) => {
-  return client.get(`/employees/${emp_id}/index_by_approval/`)
+// 一覧（承認権限対象）
+export const getEmpsByApproval = (empId) => {
+  return client.get(`/employees/${empId}/index_by_approval/`)
 }
 
 // 一覧（課ID指定）
-export const getEmpsByDivision = (div_id) => {
-  return client.get(`/employees/${div_id}/index_by_div/`)
+export const getEmpsByDivision = (divId) => {
+  return client.get(`/employees/${divId}/index_by_div/`)
 }
 
 // 一覧（事業部直属／事業部ID指定）
-export const getEmpsByDepDirect = (dep_id) => {
-  return client.get(`/employees/${dep_id}/index_by_dep_direct/`)
+export const getEmpsByDepDirect = (depId) => {
+  return client.get(`/employees/${depId}/index_by_dep_direct/`)
 }
 
 // 一覧（未所属）
@@ -56,8 +56,8 @@ export const getEmpsByNotAssign = () => {
 }
 
 // Deviseパスワード変更(社員ID指定)
-export const updatePassword = (emp_id, params) => {
-  return client.patch(`/employees/${emp_id}/update_devise_password/`, params);
+export const updatePassword = (empId, params) => {
+  return client.patch(`/employees/${empId}/update_devise_password/`, params);
 }
 
 // DEVISE一覧

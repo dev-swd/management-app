@@ -1,11 +1,16 @@
 class Api::V1::PhasesController < ApplicationController
 
+  # 一覧取得（プロジェクトID指定）
+  # 工程情報の一覧とプロジェクト情報の作業費、作業工数、外注費、外注工数を取得
   def index_by_project
     prj = Project.find(params[:id])
-    phases = Phase.where(project_id: params[:id]).order(:number)
+    phases = Phase
+              .where(project_id: params[:id])
+              .order(:number)
     render json: { status: 200, prj: prj, phases: phases }
   end
 
+  # 工程情報更新（工程IDをパラメータ指定）
   def update
     ActiveRecord::Base.transaction do
 

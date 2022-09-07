@@ -1,12 +1,23 @@
 class Api::V1::ReportsController < ApplicationController
+
+  # 詳細情報取得（プロジェクトID指定／プロジェクト情報、工程情報、完了報告書情報を取得）
   def show
-    project = Project.joins("LEFT OUTER JOIN employees AS memps ON memps.id=make_id LEFT OUTER JOIN employees AS uemps ON uemps.id=update_id LEFT OUTER JOIN employees AS plemp ON plemp.id=pl_id").select("projects.*, memps.name as make_name, uemps.name as update_name, plemp.name as pl_name").find(params[:id])
-    phases = Phase.where(project_id: params[:id]).order(:number)
-    report = Report.joins("LEFT OUTER JOIN employees AS memps ON memps.id=make_id").select("reports.*, memps.name as make_name").find_by(project_id: params[:id])
+    project = Project
+              .joins("LEFT OUTER JOIN employees AS aemps ON aemps.id=approval LEFT OUTER JOIN employees AS memps ON memps.id=make_id LEFT OUTER JOIN employees AS uemps ON uemps.id=update_id LEFT OUTER JOIN employees AS plemp ON plemp.id=pl_id")
+              .select("projects.*, aemps.name as approval_name, memps.name as make_name, uemps.name as update_name, plemp.name as pl_name")
+              .find(params[:id])
+    phases = Phase
+              .where(project_id: params[:id])
+              .order(:number)
+    report = Report
+              .joins("LEFT OUTER JOIN employees AS memps ON memps.id=make_id")
+              .select("reports.*, memps.name as make_name")
+              .find_by(project_id: params[:id])
     
     render json: { status: 200, prj: project, phases: phases, rep: report }
   end
 
+  # 更新（プロジェクトID指定で、完了報告書、工程、計画書の状態を更新する）
   def update
 
     ActiveRecord::Base.transaction do

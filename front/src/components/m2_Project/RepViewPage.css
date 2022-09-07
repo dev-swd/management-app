@@ -1,0 +1,32 @@
+@charset "utf-8";
+
+.m2j-container {
+  display: flex;
+}
+
+.m2j-left {
+  margin-left: 5px;
+  height: calc(100vh - 52px);
+  width: 670px;
+}
+
+.m2j-right {
+  background-color: #fff;
+  border: 0.5px solid #000;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  height: calc(100vh - 52px);
+  width: 630px;
+  margin-left: 5px;
+  padding-left: 10px;
+}
+
+.m2j-right-title {
+  margin: 5px 10px 10px 0px;
+  height: 25px;
+  border-left: 10px solid #08f;
+  border-bottom: 1px solid #08f;
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 1px;
+  padding-left: 5px;
+}

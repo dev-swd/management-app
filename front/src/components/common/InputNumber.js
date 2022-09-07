@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { integerValidator } from '../../lib/common/inputValidator';
+import { integerOnly } from '../../lib/common/InputRegulation';
 
 const InputNumber = (props) => {
   const { name, id, maxLength, className, toValue, procChange, index } = props;
@@ -45,7 +45,7 @@ const InputNumber = (props) => {
       type="text"
       onFocus={handleFocus}
       onBlur={handleBlur}
-      onChange={(e) => handleChange(e, integerValidator(e))}
+      onChange={(e) => handleChange(e, integerOnly(e.target.value))}
       value={displayValue}
 /*
       style={displayStyle}

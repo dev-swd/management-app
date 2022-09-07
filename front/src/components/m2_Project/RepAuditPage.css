@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+.m2k-container {
+  display: flex;
+}
+
+.m2k-left {
+  margin-left: 5px;
+  height: calc(100vh - 52px);
+  width: 670px;
+}
+
+.m2k-right {
+  height: calc(100vh - 52px);
+  width: 630px;
+  margin-left: 5px;
+}

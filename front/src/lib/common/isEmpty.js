@@ -11,9 +11,20 @@ export const isEmpty = (v) => {
 
 // 0も未設定判定
 export const isEmptyOrZero = (v) => {
-  if(v===undefined || v===null || v===0) {
+  if(v===undefined || v===null || v==="" || v===0) {
     return true;
   } else {
     return false;
   }
 }
+
+/*
+// 空文字判定をtrimで判定
+export const isEmpty2 = (v) => {
+  if(v===undefined || v===null || v.trim()==="") {
+    return true;
+  } else {
+    return false;
+  }
+}
+*/

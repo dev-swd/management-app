@@ -70,6 +70,7 @@ class Api::V1::ProgressreportsController < ApplicationController
         tcopy.actual_workload = task.actual_workload
         tcopy.actual_periodfr = task.actual_periodfr
         tcopy.actual_periodto = task.actual_periodto
+        tcopy.tag = task.tag
         tcopy.save!
       end
 

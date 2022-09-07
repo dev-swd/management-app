@@ -110,6 +110,7 @@ Rails.application.routes.draw do
           get :index_todo
         end
         collection do
+          get :index_pl
           get :index_by_member
           get :index_by_conditional
         end

@@ -1,0 +1,381 @@
+@charset "utf-8";
+
+.m2i-container {
+  border: 0.5px solid #000;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  height: calc(100vh - 52px);
+  width: 670px;
+  background-color: #fff;
+  font-family: sans-serif;
+  font-size: 11px;
+}
+
+/* セクション１ */
+.m2i-sec01 {
+  margin: 10px 10px 0 10px;
+  width: 650px;
+  height: 30px;
+  border: 0.5px solid #000;
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 4px;
+  text-align: center;
+}
+
+/* スクロール */
+.m2i-frame {
+  margin: 0 10px 0 10px;
+  width: 650px;
+  border-left: 0.5px solid #000;
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* セクション２ */
+.m2i-sec02 {
+  width: 650px;
+}
+.m2i-sec02 tr {
+  height: 25px;
+}
+.m2i-sec02 td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m2i-sec02-ttl1 {
+  width: 100px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m2i-sec02-val1 {
+  width: 290px;
+  padding-left: 3px;
+}
+.m2i-sec02-ttl2 {
+  width: 50px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m2i-sec02-val2 {
+  width: 210px;
+  padding-left: 3px;
+}
+.m2i-sec02-val2-frame {
+  padding: 2px 2px 2px 2px;
+  height: 25px;
+  width: 210px;
+  display: flex;
+}
+
+/* セクション3 */
+.m2i-sec03 {
+  width: 650px;
+}
+.m2i-sec03 tr {
+  height: 25px;
+}
+.m2i-sec03 td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m2i-sec03-ttl1 {
+  width: 100px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m2i-sec03-val1 {
+  text-align: right;
+  padding-right: 4px;
+  width: 140px;
+}
+.m2i-sec03-ttl2 {
+  width: 50px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m2i-sec03-val2 {
+  text-align: right;
+  padding-right: 4px;
+  width: 130px;
+}
+.m2i-sec03-ttl3 {
+  width: 50px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m2i-sec03-val3 {
+  text-align: right;
+  padding-right: 4px;
+  width: 130px;
+}
+
+/* セクション4 */
+.m2i-sec04 {
+  width: 650px;
+}
+.m2i-sec04 tr {
+  height: 25px;
+}
+.m2i-sec04 td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m2i-sec04-ttl1 {
+  width: 100px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m2i-sec04-ttl2 {
+  width: 70px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m2i-sec04-val2 {
+  width: 70px;
+  padding-left: 3px;
+}
+.m2i-sec04-val3 {
+  width: 410px;
+  padding-left: 3px;
+}
+
+/* セクション5 */
+.m2i-sec05 {
+  width: 650px;
+}
+.m2i-sec05 tr {
+  height: 25px;
+}
+.m2i-sec05 td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m2i-sec05-ttl {
+  width: 100px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m2i-sec05-val1 {
+  width: 140px;
+  padding-left: 3px;
+}
+.m2i-sec05-val2 {
+  width: 410px;
+  padding-left: 3px;
+}
+
+/* セクション6 */
+.m2i-sec06 {
+  width: 650px;
+}
+.m2i-sec06-ttl {
+  width: 30px;
+  writing-mode: vertical-lr;
+  text-align: center;
+  background-color: #c9e9f1;
+  border-right: 0.5px solid #000;
+}
+.m2i-sec06-val {
+  border-right: 0.5px solid #000;
+  width: 620px;
+}
+.m2i-phasetbl {
+  width: 620px;
+}
+.m2i-phase-hdtr {
+  height: 25px;
+}
+.m2i-phase-bdtr {
+  height: 40px;
+}
+.m2i-phase-bdtr:last-child td {
+  border-bottom: none;
+}
+.m2i-phasetbl td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m2i-phase-th {
+  background-color: #c9e9f1;
+  text-align: center;
+}
+.m2i-phase-name-td {
+  width: 120px;
+  padding-left: 2px;
+}
+.m2i-phase-deliverables-td {
+  width: 120px;
+  vertical-align: top;
+  padding-top: 2px;
+  padding-left: 2px;
+  white-space: pre-wrap;
+}
+.m2i-phase-reviewcount-td {
+  width: 50px;
+  text-align: right;
+  padding-right: 3px;
+}
+.m2i-phase-planedcost-td {
+  width: 95px;
+  text-align: right;
+  padding-right: 3px;
+}
+.m2i-phase-actualcost-td {
+  width: 95px;
+  text-align: right;
+  padding-right: 3px;
+}
+.m2i-phase-acceptcompdate-td {
+  width: 105px;
+  text-align: center;
+}
+.m2i-phase-shipnumber-td {
+  width: 35px;
+  text-align: center;
+}
+
+/* セクション7 */
+.m2i-sec07 {
+  width: 650px;
+}
+.m2i-sec07 tr {
+  height: 25px;
+}
+.m2i-sec07 td {
+  border-top: 0.5px solid #000;
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m2i-sec07-ttl1 {
+  width: 100px;
+  background-color: #c9e9f1;
+  text-align: center;
+}
+.m2i-sec07-ttl2 {
+  width: 150px;
+  background-color: #c9e9f1;
+  padding-left: 3px;
+}
+.m2i-sec07-val1 {
+  width: 60px;
+  text-align: right;
+  padding-right: 4px;
+}
+.m2i-sec07-val2,
+.m2i-sec07-val3 {
+  width: 90px;
+  padding-left: 10px;
+}
+.m2i-sec07-val4 {
+  width: 85px;
+  padding-left: 10px;
+}
+.m2i-sec07-val5 {
+  width: 75px;
+  padding-left: 10px;
+}
+.m2i-sec07-val2-frame,
+.m2i-sec07-val3-frame,
+.m2i-sec07-val4-frame,
+.m2i-sec07-val5-frame {
+  display: flex;
+  align-items: center;
+}
+.m2i-sec07-inner {
+  width: 5px;
+  height: 20px;
+  padding-top: 2px;
+}
+.m2i-sec07-val2-inner,
+.m2i-sec07-val3-inner {
+  width: 45px;
+  height: 20px;
+  padding-top: 2px;
+}
+.m2i-sec07-val4-inner {
+  width: 40px;
+  height: 20px;
+  padding-top: 2px;
+}
+.m2i-sec07-val5-inner {
+  width: 30px;
+  height: 20px;
+  padding-top: 2px;
+}
+.m2i-sec07-val2-val,
+.m2i-sec07-val3-val,
+.m2i-sec07-val4-val,
+.m2i-sec07-val5-val {
+  width: 20px;
+  height: 20px;
+  text-align: right;
+  padding-top: 2px;
+}
+
+.m2i-communication_count,
+.m2i-design_changes_count,
+.m2i-improvement_count {
+  width: 40px;
+  height: 20px;
+  border: 0.5px solid #aaa;
+  background-color: #e1e1e1;
+  text-align: right;
+  padding-right: 2px;
+  margin-right: 2px;
+}
+.m2i-project_meeting_count {
+  width: 40px;
+  height: 20px;
+  border: 0.5px solid #aaa;
+  text-align: right;
+  padding-right: 2px;
+  margin-right: 2px;
+}
+.m2i-meeting_count,
+.m2i-phone_count,
+.m2i-mail_count,
+.m2i-fax_count,
+.m2i-specification_change_count,
+.m2i-design_error_count,
+.m2i-others_count,
+.m2i-corrective_action_count,
+.m2i-preventive_measures_count {
+  width: 30px;
+  height: 20px;
+  border: 0.5px solid #aaa;
+  text-align: right;
+  padding-right: 2px;
+}
+
+/* セクション8 */
+.m2i-sec08 {
+  width: 650px;
+}
+.m2i-sec08 td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m2i-sec08-r1 {
+  height: 60px;
+}
+.m2i-sec08-r2 {
+  height: 60px;
+}
+.m2i-sec08-r3 {
+  height: 110px;
+}
+.m2i-sec08-ttl {
+  width: 100px;
+  background-color: #c9e9f1;
+  text-align: center;
+}
+.m2i-sec08-val {
+  width: 550px;
+  padding-top: 2px;
+  padding-left: 3px;
+  vertical-align: top;
+  white-space: pre-wrap;
+}

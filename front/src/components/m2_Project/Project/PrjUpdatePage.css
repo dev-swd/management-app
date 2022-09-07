@@ -1,0 +1,790 @@
+@charset "utf-8";
+
+.m24-container {
+  border: 0.5px solid #000;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  height: calc(100vh - 52px);
+  width: 670px;
+  background-color: #fff;
+  font-family: sans-serif;
+  font-size: 11px;
+}
+
+.m24-button-area {
+  width: 650px;
+  margin: 10px 10px 5px 10px;
+  text-align: right;
+}
+
+/* 日付入力項目 */
+.m24-date {
+  width: 100px;
+  height: 20px;
+  border: 0.5px solid #aaa;
+  padding-left: 2px;
+  margin: 0;
+}
+
+/* セクション１ */
+.m24-sec01 {
+  margin: 0 10px 0 10px;
+  width: 650px;
+}
+.m24-sec01 tr {
+  height: 30px;
+}
+.m24-sec01 td {
+  border: 0.5px solid #000;
+}
+.m24-prj-ttl {
+  width: 340px;
+  font-size: 14px;
+  font-weight: bold;
+  padding-left: 10px;
+}
+.m24-approval-ttl {
+  width: 50px;
+  background-color: #c9e9f1;
+  text-align: center;  
+}
+.m24-approval {
+  width: 260px;
+  padding-left: 3px;
+}
+
+/* スクロール */
+.m24-frame {
+  margin: 0 10px 0 10px;
+  width: 650px;
+  border-left: 0.5px solid #000;
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+  height: calc(100vh - 140px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* セクション２ */
+.m24-sec02 {
+  width: 650px;
+}
+.m24-sec02 tr {
+  height: 25px;
+}
+.m24-sec02 td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m24-sec02-ttl1 {
+  width: 100px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m24-sec02-val1 {
+  width: 290px;
+  padding-left: 3px;
+}
+.m24-sec02-ttl2 {
+  width: 50px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m24-sec02-val2 {
+  display: flex;
+  width: 210px;
+  padding: 2px 2px 2px 2px;
+}
+  
+/* セクション3 */
+.m24-sec03 {
+  width: 650px;
+}
+.m24-sec03 tr {
+  height: 25px;
+}
+.m24-sec03 td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m24-sec03-ttl1 {
+  width: 50px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m24-sec03-val1 {
+  width: 340px;
+}
+.m24-sec03-ttl2 {
+  width: 50px;
+  text-align: center;
+  background-color: #c9e9f1;
+  border-left: 0.5px solid #000;
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m24-sec03-val2 {
+  width: 210px;
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m24-sec03-innerrow {
+  display: flex;
+}
+.m24-sec03-innerttl {
+  width: 45px;
+  height: 20px;
+  margin-top: 3px;
+  padding-top: 1px;
+  padding-left: 3px;
+}
+.m24-company_name,
+.m24-department_name,
+.m24-personincharge_name {
+  width: 290px;
+  height: 20px;
+  margin: 2px;
+  padding-left: 2px;
+  border: 0.5px solid #aaa;
+}
+.m24-phone,
+.m24-fax,
+.m24-email {
+  width: 205px;
+  height: 20px;
+  margin-left: 2px;
+  padding-left: 2px;
+  border: 0.5px solid #aaa;
+}
+
+/* セクション4 */
+.m24-sec04 {
+  width: 650px;
+}
+.m24-sec04 tr {
+  height: 25px;
+}
+.m24-sec04 td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m24-sec04-ttl1 {
+  width: 100px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m24-sec04-val1 {
+  width: 290px;
+  display: flex;
+  padding-left: 2px;
+}
+.m24-sec04-ttl2 {
+  width: 50px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m24-sec04-val2 {
+  width: 210px;
+  padding-left: 2px;
+}
+.m24-date-frame {
+  width: 100px;
+  height: 25px;
+  padding-top: 2.5px;
+}
+.m24-sec04-innerlbl {
+  width: 40px;
+  height: 25px;
+  text-align: center;
+  padding-top: 4px;
+}
+
+/* セクション5 */
+.m24-sec05 {
+  width: 650px;
+}
+.m24-sec05 tr {
+  height: 140px;
+}
+.m24-sec05 td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m24-sec05-ttl1 {
+  width: 30px;
+  writing-mode: vertical-lr;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m24-sec05-val1 {
+  width: 330px;
+  padding-top: 4px;
+  padding-left: 2px;
+}
+.m24-sec05-ttl2 {
+  width: 30px;
+  writing-mode: vertical-lr;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m24-sec05-val2 {
+  width: 260px;
+  padding-top: 4px;
+  padding-left: 2px;
+}
+.m24-system_overview {
+  padding: 2px;
+  resize: none;
+  height: 138px;
+  width: 325px;
+  border: 0.5px solid #aaa;
+  overflow: hidden;
+}
+.m24-development_environment {
+  padding: 2px;
+  resize: none;
+  height: 138px;
+  width: 254px;
+  border: 0.5px solid #aaa;
+  overflow: hidden;
+}
+
+/* セクション6 */
+.m24-sec06 {
+  width: 650px;
+}
+.m24-sec06 tr {
+  height: 25px;
+}
+.m24-sec06 td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m24-sec06-ttl1 {
+  width: 70px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m24-sec06-val1 {
+  width: 115px;
+}
+.m24-sec06-ttl2 {
+  width: 50px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m24-sec06-val2 {
+  width: 200px;
+}
+.m24-sec06-ttl3 {
+  width: 50px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m24-sec06-val3 {
+  width: 115px;
+}
+.m24-sec06-val1-frame {
+  width: 115px;
+  height: 25px;
+  display: flex;
+  padding-left: 2px;
+  padding-top: 2.5px;
+}
+.m24-sec06-val2-frame {
+  width: 200px;
+  height: 25px;
+  display: flex;
+  padding-left: 2px;
+  padding-top: 2.5px;
+}
+.m24-sec06-val3-frame {
+  width: 115px;
+  height: 25px;
+  display: flex;
+  padding-left: 2px;
+  padding-top: 2.5px;
+}
+.m24-order_amount,
+.m24-gross_profit,
+.m24-planned_work_cost,
+.m24-planned_purchasing_cost,
+.m24-planned_outsourcing_cost,
+.m24-planned_expenses_cost {
+  width: 90px;
+  height: 20px;
+  text-align: right;
+  padding-right: 2px;
+  border: 0.5px solid #aaa;
+}
+.m24-gross_profit {
+  background-color: #e1e1e1;
+  height: 20px;
+  border: 0.5px solid #aaa;
+}
+.m24-planned_workload,
+.m24-planned_outsourcing_workload {
+  width: 45px;
+  height: 20px;
+  text-align: right;
+  padding-right: 2px;
+  border: 0.5px solid #aaa;
+}
+.m24-sec06-innerlbl {
+  height: 20px;
+  padding-top: 2px;
+  margin-left: 2px;
+}
+.m24-sec06-innerlbl2 {
+  height: 20px;
+  padding-top: 2px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+/* セクション7 */
+.m24-sec07 {
+  width: 650px;
+}
+.m24-sec07 tr {
+  height: 25px;
+}
+.m24-sec07 td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m24-sec07-ttl {
+  width: 100px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m24-sec07-val {
+  width: 550px;
+}
+.m24-sec07-val-frame {
+  width: 550px;
+  height: 25px;
+  display: flex;
+  padding-left: 5px;
+  padding-top: 2.5px;
+}
+.m24-sec07-radiolabel1 {
+  width: 60px;
+  position: relative;
+  margin-top: 2.5px;
+}
+.m24-sec07-radiolabel2 {
+  width: 50px;
+  position: relative;
+  margin-top: 2.5px;
+}
+.m24-sec07-radiolabel1 span,
+.m24-sec07-radiolabel2 span {
+  position: absolute;
+  left: 15px;
+  top: -1px;
+}
+.m24-work_place {
+  height: 20px;
+  width: 430px;
+  padding-left: 2px;
+  border: 0.5px solid #aaa;
+}
+
+/* セクション8 */
+.m24-sec08 {
+  width: 650px;
+}
+.m24-sec08 tr {
+  height: 25px;
+}
+.m24-sec08 td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m24-sec08-ttl1 {
+  width: 100px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m24-sec08-val11 {
+  width: 80px;
+}
+.m24-sec08-val12 {
+  width: 330px;
+}
+.m24-sec08-ttl2 {
+  width: 60px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m24-sec08-val2 {
+  width: 80px;
+}
+.m24-sec08-val11-frame,
+.m24-sec08-val2-frame {
+  width: 80px;
+  height: 25px;
+  display: flex;
+  padding-left: 5px;
+  padding-top: 2.5px;
+}
+.m24-sec08-radiolabel {
+  width: 35px;
+  position: relative;
+  margin-top: 2.5px;
+}
+.m24-sec08-radiolabel span {
+  position: absolute;
+  left: 15px;
+  top: -1px;
+}
+.m24-customer_property {
+  width: 320px;
+  height: 20px;
+  padding-left: 2px;
+  border: 0.5px solid #aaa;
+  margin-left: 2px;
+}
+
+/* セクション9 */
+.m24-sec09 {
+  width: 650px;
+}
+.m24-sec09 tr {
+  height: 25px;
+}
+.m24-sec09 td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m24-sec09-ttl {
+  width: 100px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m24-sec09-val1 {
+  width: 80px;
+}
+.m24-sec09-val2 {
+  width: 470px;
+}
+.m24-sec09-val1-frame {
+  width: 80px;
+  height: 25px;
+  display: flex;
+  padding-left: 5px;
+  padding-top: 2.5px;
+}
+.m24-sec09-radiolabel {
+  width: 35px;
+  position: relative;
+  margin-top: 2.5px;
+}
+.m24-sec09-radiolabel span {
+  position: absolute;
+  left: 15px;
+  top: -1px;
+}
+.m24-purchasing_goods,
+.m24-outsourcing {
+  width: 462px;
+  height: 20px;
+  padding-left: 2px;
+  border: 0.5px solid #aaa;
+  margin-left: 2px;
+}
+
+/* セクション10 */
+.m24-sec10 {
+  width: 650px;
+}
+.m24-sec10 tr {
+  height: 25px;
+}
+.m24-sec10 td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m24-sec10-ttl1 {
+  width: 100px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m24-sec10-val1 {
+  width: 80px;
+}
+.m24-sec10-ttl2 {
+  width: 50px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m24-sec10-val2 {
+  width: 420px;
+}
+.m24-sec10-val1-frame {
+  width: 80px;
+  height: 25px;
+  display: flex;
+  padding-left: 5px;
+  padding-top: 2.5px;
+}
+.m24-sec10-radiolabel {
+  width: 35px;
+  position: relative;
+  margin-top: 2.5px;
+}
+.m24-sec10-radiolabel span {
+  position: absolute;
+  left: 15px;
+  top: -1px;
+}
+.m24-customer_requirement {
+  width: 412px;
+  height: 20px;
+  padding-left: 2px;
+  border: 0.5px solid #aaa;
+  margin-left: 2px;
+}
+
+/* セクション11 */
+.m24-sec11 {
+  width: 650px;
+  display: flex;
+}
+.m24-sec11-ttl {
+  border-right: 0.5px solid #000;
+  background-color: #c9e9f1;
+  width: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 90px;
+}
+.m24-sec11-ttllabel {
+  width: 30px;
+  writing-mode: vertical-lr;
+  text-align: center;
+  padding-left: 6.5px;
+}
+.m24-sec11-val {
+  border-right: 0.5px solid #000;
+  width: 620px;
+}
+.m24-phasetbl {
+  width: 620px;
+}
+.m24-phase-hdtr {
+  height: 25px;
+}
+.m24-phase-bdtr {
+  height: 40px;
+}
+.m24-phasetbl td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m24-phase-th {
+  background-color: #c9e9f1;
+  text-align: center;
+}
+.m24-phase-name-td {
+  width: 120px;
+  padding-left: 2px;
+}
+.m24-phase-period-td {
+  width: 105px;
+  padding-left: 2px;
+}
+.m24-phase-deliverables-td {
+  width: 125px; 
+  padding: 2px 0px 0px 2px;
+}
+.m24-phase-criteria-td {
+  width: 125px;
+  padding: 2px 0px 0px 2px;
+}
+.m24-phase-del-td {
+  width: 40px;
+  text-align: center;
+}
+.m24-delete {
+  background-color: #d32f2f;
+  color: #fff;
+}
+.m24-phase-name {
+  height: 20px;
+  width: 115px;
+  border: 0.5px solid #aaa;
+  padding-left: 3px;
+}
+.m24-phase-deliverables {
+  border: 0.5px solid #aaa;
+  width: 120px;
+  overflow-y: auto;
+  overflow-x: none;
+  padding-left: 3px;
+}
+.m24-phase-criteria {
+  border: 0.5px solid #aaa;
+  width: 120px;
+  overflow-y: auto;
+  overflow-x: none;
+  padding-left: 3px;
+}
+
+/* セクション12 */
+.m24-sec12 {
+  margin-top: -0.5px;
+  width: 650px;
+  display: flex;
+}
+.m24-sec12-ttl {
+  border-top: 0.5px solid #000;
+  border-right: 0.5px solid #000;
+  background-color: #c9e9f1;
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  min-height: 40px;
+}
+.m24-sec12-val {
+  border-top: 0.5px solid #000;
+  border-right: 0.5px solid #000;
+  width: 570px;
+}
+.m24-risktbl {
+  width: 570px;
+}
+.m24-risktbl td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m24-risk-contents-td {
+  width: 530px;
+  padding: 2px 0px 0px 2px;
+}
+.m24-risk-del-td {
+  width: 40px;
+  text-align: center;
+}
+.m24-risk-contents {
+  border: 0.5px solid #aaa;
+  width: 525px;
+  min-height: 40px;
+  overflow-y: auto;
+  overflow-x: none;
+  padding: 3px;
+}
+
+/* セクション13 */
+.m24-sec13 {
+  margin-top: -0.5px;
+  width: 650px;
+  display: flex;
+}
+.m24-sec13-ttl {
+  border-top: 0.5px solid #000;
+  border-right: 0.5px solid #000;
+  background-color: #c9e9f1;
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  min-height: 40px;
+}
+.m24-sec13-val {
+  border-top: 0.5px solid #000;
+  border-right: 0.5px solid #000;
+  width: 570px;
+}
+.m24-goaltbl {
+  width: 570px;
+}
+.m24-goaltbl td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m24-goaltbl tr:last-child td {
+  border-right: 0.5px solid #000;
+  border-bottom: none;
+}
+.m24-goal-contents-td {
+  width: 530px;
+  padding: 2px 0px 0px 2px;
+}
+.m24-goal-del-td {
+  width: 40px;
+  text-align: center;
+}
+.m24-goal-contents {
+  border: 0.5px solid #aaa;
+  width: 525px;
+  min-height: 40px;
+  overflow-y: auto;
+  overflow-x: none;
+  padding: 3px;
+}
+
+/* セクション14 */
+.m24-sec14 {
+  border-top: 0.5px solid #000;
+  width: 650px;
+}
+.m24-sec14-tbl {
+  width: 650px;
+}
+.m24-sec14-tbl tr {
+  height: 25px;
+}
+.m24-sec14-tbl td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m24-sec14-ttl-td {
+  width: 30px;
+  background-color: #c9e9f1;
+  writing-mode: vertical-lr;
+  text-align: center;
+}
+.m24-sec14-subttl-td {
+  width: 130px;
+  background-color: #c9e9f1;
+  text-align: center;
+}
+.m24-sec14-val-td {
+  padding-left: 3px;
+  padding-top: 2.5px;
+  vertical-align: top;
+}
+
+/* セクション15 */
+.m24-sec15 {
+  width: 650px;
+}
+.m24-sec15 tr {
+  height: 115px;
+}
+.m24-sec15 td {
+  border-right: 0.5px solid #000;
+}
+.m24-sec15-ttl-td {
+  background-color: #c9e9f1;
+  width: 30px;
+  writing-mode: vertical-lr;
+  text-align: center;
+}
+.m24-sec15-val-td {
+  width: 620px;
+  padding: 2px 0px 0px 3px;
+}
+.m24-remarks {
+  resize: none;
+  padding: 2px;
+  height: 110px;
+  width: 614px;
+  border: 0.5px solid #c3c3c3;
+  overflow: hidden;
+}

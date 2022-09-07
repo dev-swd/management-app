@@ -2,16 +2,17 @@ import "./App.css";
 import { useEffect, useState, createContext } from "react";
 import { getCurrentUser } from "./lib/api/auth";
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Header from "./components/Header/Header";
+import Header from "./components/m0-Header/Header";
 import SignInPage from "./components/Sign/SignInPage";
-import Home from "./components/Home/HomePage";
-import OrgMainPage from './components/Organization/OrgMainPage';
-import PrjIndexPage from './components/Project/PrjIndexPage';
-import PrjTopPage from './components/Project/PrjTopPage';
-import UserIndexPage from './components/Daily/Users/UserIndexPage';
-import EmpSelectPage from './components/Daily/Management/EmpSelectPage';
-import ProgUserPage from './components/Progress/Users/PrjIndexPage';
-import ProgManaPage from './components/Progress/Management/PrjIndexPage';
+import Home from "./components/m0_Home/HomePage";
+import OrgMainPage from './components/m1_Organization/OrgMainPage';
+import PrjIndexPage from './components/m2_Project/PrjIndexPage';
+import PrjTopPage from './components/m2_Project/PrjTopPage';
+import UserIndexPage from './components/m3_Daily/Users/UserIndexPage';
+import EmpSelectPage from './components/m3_Daily/Management/EmpSelectPage';
+import ProgUserIndexPage from './components/m4_Progress/Users/PrjIndexPage';
+import ProgUserEditPage from './components/m4_Progress/Users/ProgressEditPage';
+import ProgManaPage from './components/m4_Progress/Management/PrjIndexPage';
 
 import Cookies from "js-cookie";
 import { initAuth } from './lib/authority';
@@ -92,7 +93,8 @@ const App = () => {
             <Route exact path='/prj/top' element={!loading && <Private><PrjTopPage /></Private>} />
             <Route exact path='/daily' element={!loading && <Private><UserIndexPage /></Private>} />
             <Route exact path='/daily/select' element={!loading && <Private><EmpSelectPage /></Private>} />
-            <Route exact path='/progress/user' element={!loading && <Private><ProgUserPage /></Private>} />
+            <Route exact path='/progress/user' element={!loading && <Private><ProgUserIndexPage /></Private>} />
+            <Route exact path='/progress/user/edit' element={!loading && <Private><ProgUserEditPage /></Private>} />
             <Route exact path='/progress/management' element={!loading && <Private><ProgManaPage /></Private>} />
           </Routes>
         </main>

@@ -1,12 +1,5 @@
 import client from './client';
 
-// 一覧
-export const getAuths = () => {
-  return client.get('/approvalauths');
-};
-
-// ↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 再確認未実施
-
 // 承認者一覧取得（課ID指定）
 export const getAuthsByDiv = (div_id) => {
   return client.get(`/approvalauths/${div_id}/index_by_division/`);
@@ -26,4 +19,10 @@ export const createAuth = (params) => {
 // 削除（ID指定）
 export const deleteAuth = (id) => {
   return client.delete(`/approvalauths/${id}`);
+};
+
+// 以下、未使用　＊＊＊＊＊＊＊＊＊＊＊
+// 一覧
+export const getAuths = () => {
+  return client.get('/approvalauths');
 };

@@ -6,10 +6,3 @@ export const zeroPadding = (value, totalLen) => {
   }
 }
 
-export const isEmptyStr = (v) => {
-  if(v===undefined || v===null || v.trim()==="") {
-    return true;
-  } else {
-    return false;
-  }
-}

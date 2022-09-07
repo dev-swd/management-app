@@ -1,20 +1,27 @@
 class Api::V1::AuditsController < ApplicationController
 
+  # 一覧取得（プロジェクトIDと種別（plan or report）を指定）
   def index_by_project
-#    audits = Audit.where(project_id: params[:project_id], kinds: params[:kinds]).order(:number)
-    audits = Audit.joins("LEFT OUTER JOIN employees AS auditemps ON auditemps.id=auditor_id LEFT OUTER JOIN employees AS acptemps ON acptemps.id=accept_id").select("audits.*, auditemps.name as auditor_name, acptemps.name as accept_name").where(project_id: params[:project_id], kinds: params[:kinds]).order(:number)
+    audits = Audit.
+              joins("LEFT OUTER JOIN employees AS auditemps ON auditemps.id=auditor_id LEFT OUTER JOIN employees AS acptemps ON acptemps.id=accept_id")
+              .select("audits.*, auditemps.name as auditor_name, acptemps.name as accept_name")
+              .where(project_id: params[:project_id], kinds: params[:kinds])
+              .order(:number)
     render json: { status: 200, audits: audits }
   end
 
-  def create
-    audit = Audit.new(audit_params)
-    if audit.save then
-      render json: { status: 200, message: "Addition Success" }
-    else
-      render json: { status: 500, message: "Addition Error" }
-    end
-  end
+#  def create
+#    audit = Audit.new(audit_params)
+#    if audit.save then
+#      render json: { status: 200, message: "Addition Success" }
+#    else
+#      render json: { status: 500, message: "Addition Error" }
+#    end
+#  end
 
+  # 更新処理（プロジェクトID指定）
+  # プロジェクト計画書の状態も併せて更新する。
+  # プロジェクト計画書への状態更新が承認の場合は、変更記録に「初版」を登録する。
   def update
     ActiveRecord::Base.transaction do
 

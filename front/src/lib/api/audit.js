@@ -1,11 +1,11 @@
 import client from './client';
 
-// 一覧
-export const getAudits = (project, kinds) => {
-  return client.get(`/audits/index_by_project?project_id=${project}&kinds=${kinds}`);
+// 一覧取得（プロジェクトIDと種別（plan or report）を指定）
+export const getAudits = (prjId, kinds) => {
+  return client.get(`/audits/index_by_project?project_id=${prjId}&kinds=${kinds}`);
 };
 
-// 更新
-export const updateAudits = (id, params) => {
-  return client.patch(`/audits/${id}`, params);
+// 更新（プロジェクトID指定）
+export const updateAudits = (prjId, params) => {
+  return client.patch(`/audits/${prjId}`, params);
 }

@@ -1,0 +1,198 @@
+@charset "utf-8";
+
+.m2f-container {
+  width: 900px;
+  height: 90%;
+  background-color: #fff;
+}
+
+.m2f-header-area {
+  height: 30px;
+  width: auto;
+  background-color: #c9e9f1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.m2f-header-title {
+  width: 50%;
+  height:30px;
+  background-color: #c9e9f1;
+  color: #00f;
+  font-family: sans-serif;
+  font-size: 14px;
+  padding: 4px 0 0 5px;
+}
+
+.m2f-prj-name {
+  margin-top: 10px;
+  margin-left: 20px;
+  width: auto;
+  height: 25px;
+  padding-top: 4px;
+}
+
+.m2f-phase {
+  margin-top: 5px;
+  margin-left: 20px;
+}
+.m2f-phase tr {
+  height: 25px;
+}
+.m2f-phase td {
+  border: 0.5px solid #000;
+}
+.m2f-phase-name-ttl {
+  width: 50px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m2f-phase-name-val {
+  width: 120px;
+  padding-left: 3px;
+}
+.m2f-phase-period-ttl {
+  width: 80px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m2f-phase-period-val {
+  width: 230px;
+  padding-left: 3px;
+}
+.m2f-phase-workload-ttl {
+  width: 100px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m2f-phase-workload-val {
+  width: 70px;
+  text-align: right;
+  padding-right: 3px;
+}
+
+.m2f-sum {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+.m2f-sum tr {
+  height: 25px;
+}
+.m2f-sum td {
+  border: 0.5px solid #000;
+}
+.m2f-sum-ttl {
+  width: 100px;
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m2f-sum-val {
+  width: 170px;
+  text-align: right;
+  padding-right: 3px;
+}
+.m2f-alert {
+  color: #f00;
+  background-color: #f6d5d5;
+  font-weight: bold;
+}
+
+.m2f-table-hd {
+  margin-top: 10px;
+}
+
+.m2f-table-hd,
+.m2f-table-frame {
+  margin-left: 20px;
+}
+.m2f-table-hd,
+.m2f-table,
+.m2f-table-frame {
+  width: 860px;
+}
+.m2f-table-frame {
+  border: 0.5px solid #000;
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.m2f-table-hd tr {
+  height: 25px;
+}
+.m2f-table tr {
+  height: 30px;
+}
+.m2f-table tr:last-child td {
+  border-bottom: none;
+}
+.m2f-table-hd td {
+  border-top: 0.5px solid #000;
+  border-left: 0.5px solid #000;
+  border-right: 0.5px solid #000;
+}
+.m2f-table td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m2f-th {
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m2f-task-add-td {
+  width: 70px;
+  text-align: center;
+}
+.m2f-task-name-td {
+  width: 250px;
+  padding-left: 2px;
+}
+.m2f-task-outsourcing-td {
+  width: 50px;
+  text-align: center;
+}
+.m2f-task-worker-td {
+  width: 120px;
+  padding-left: 2px;
+}
+.m2f-task-workload-td {
+  width: 100px;
+  padding-left: 2px;
+}
+.m2f-task-period-td {
+  width: 110px;
+  padding-left: 2px;
+}
+.m2f-task-del-td {
+  width: 50px;
+  text-align: center;
+}
+.m2f-delete {
+  background-color: #d32f2f;
+  color: #fff;
+}
+.m2f-task-name {
+  width: 246px;
+  height: 20px;
+  padding-left: 3px;
+  border: 0.5px solid #aaa;
+}
+.m2f-task-planned_workload {
+  width: 96px;
+  height: 20px;
+  text-align: right;
+  padding-right: 5px;
+  border: 0.5px solid #aaa;
+}
+.m2f-date {
+  width: 106px;
+  height: 20px;
+  border: 0.5px solid #aaa;
+  padding-left: 3px;
+}
+
+.m2f-button-area {
+  width: 860px;
+  margin-left: 20px;
+  text-align: center;
+}

@@ -224,7 +224,7 @@ ActiveRecord::Schema.define(version: 2022_08_02_142307) do
 
   create_table "projects", force: :cascade do |t|
     t.string "status"
-    t.string "approval"
+    t.bigint "approval"
     t.date "approval_date"
     t.bigint "pl_id"
     t.string "number"
@@ -347,6 +347,7 @@ ActiveRecord::Schema.define(version: 2022_08_02_142307) do
     t.decimal "actual_workload", precision: 6, scale: 2
     t.date "actual_periodfr"
     t.date "actual_periodto"
+    t.string "tag"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["progressreport_id"], name: "index_taskcopies_on_progressreport_id"
@@ -364,6 +365,7 @@ ActiveRecord::Schema.define(version: 2022_08_02_142307) do
     t.decimal "actual_workload", precision: 6, scale: 2
     t.date "actual_periodfr"
     t.date "actual_periodto"
+    t.string "tag"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["phase_id"], name: "index_tasks_on_phase_id"

@@ -2,7 +2,7 @@ class CreateProjects < ActiveRecord::Migration[6.1]
   def change
     create_table :projects do |t|
       t.string "status"
-      t.string "approval"
+      t.bigint "approval"
       t.date "approval_date"
       t.bigint "pl_id"
       t.string "number"

@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+.m2a-container {
+  display: flex;
+}
+
+.m2a-left {
+  margin-left: 5px;
+  height: calc(100vh - 52px);
+  width: 670px;
+}
+
+.m2a-right {
+  background-color: #fff;
+  border: 0.5px solid #000;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  height: calc(100vh - 52px);
+  width: 630px;
+  margin-left: 5px;
+}
+
+.m2a-right-position {
+  padding-left: 10px;
+  margin-left: -24px;
+  margin-bottom: -19px;
+}
