@@ -13,11 +13,12 @@ import EmpSelectPage from './components/m3_Daily/Management/EmpSelectPage';
 import ProgUserIndexPage from './components/m4_Progress/Users/PrjIndexPage';
 import ProgUserEditPage from './components/m4_Progress/Users/ProgressEditPage';
 import ProgManaPage from './components/m4_Progress/Management/PrjIndexPage';
+import EmpNewPage from './components/sysAdmin/EmpNewPage';
+import TaskGrIndexPage from './components/m5_Task/TaskGrIndexPage';
 
 import Cookies from "js-cookie";
-import { initAuth } from './lib/authority';
 import { getEmpDevise } from "./lib/api/employee";
-import { setAuhority } from "./lib/authority";
+import { setAuhority } from "./lib/appAuthority";
 
 // グローバルで扱う変数・関数
 export const AuthContext = createContext({});
@@ -27,7 +28,7 @@ const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [empInfo, setEmpInfo] = useState({});
-  const [authInfo, setAuthInfo] = useState(initAuth);
+  const [authInfo, setAuthInfo] = useState({});
 
   // 認証済みのユーザがいるかチェック
   // 確認できた場合はそのユーザの情報を取得
@@ -86,6 +87,7 @@ const App = () => {
         <Header />
         <main className='app-main'>
           <Routes>
+            <Route exact path='/system/admin/mente' element={<EmpNewPage />} />
             <Route exact path='/signin' element={<SignInPage />} />
             <Route exact path='/' element={!loading && <Private><Home /></Private>} />
             <Route exact path='/organization' element={!loading && <Private><OrgMainPage /></Private>} />
@@ -96,6 +98,7 @@ const App = () => {
             <Route exact path='/progress/user' element={!loading && <Private><ProgUserIndexPage /></Private>} />
             <Route exact path='/progress/user/edit' element={!loading && <Private><ProgUserEditPage /></Private>} />
             <Route exact path='/progress/management' element={!loading && <Private><ProgManaPage /></Private>} />
+            <Route exact path='/noproject' element={!loading && <Private><TaskGrIndexPage /></Private>} />
           </Routes>
         </main>
       </AuthContext.Provider>

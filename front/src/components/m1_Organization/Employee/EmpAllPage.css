@@ -40,7 +40,7 @@
 .m16-emps-table-hd,
 .m16-emps-table {
   margin-left: 20px;
-  width: 700px;
+  width: 850px;
 }
 
 .m16-emps-table-hd tr {
@@ -75,6 +75,10 @@
   width: 100px;
 }
 
+.m16-setting-td {
+  width: 100px;
+}
+
 .m16-devise-reset-td {
-  width: 50px;
+  width: 100px;
 }

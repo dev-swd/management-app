@@ -8,6 +8,7 @@ class Api::V1::TasksController < ApplicationController
             .select("tasks.*, phases.name as phase_name, phases.project_id as prj_id, projects.number as prj_number, projects.name as prj_name")
             .where(worker_id: params[:id])
             .where("tasks.planned_periodfr <= ?", Date.today)
+            .where(actual_periodto: nil)
             .order(:planned_periodto, :planned_periodfr)
     render json: { status: 200, tasks: tasks }
   end
@@ -23,6 +24,22 @@ class Api::V1::TasksController < ApplicationController
             .joins("LEFT OUTER JOIN employees AS emp ON emp.id=worker_id")
             .select("tasks.*, emp.name as worker_name, phases.name as phase_name")
             .where(phase_id: params[:id])
+            .order(:number)
+    render json: { status: 200, phase: phase, tasks: tasks }
+  end
+
+  # PhaseIdを条件とした一覧取得（工程情報を別途添付／外注を対象外）
+  def index_by_phase_without_outsourcing
+    phase = Phase
+            .joins("LEFT OUTER JOIN projects AS prj ON prj.id=project_id")
+            .select("prj.number as prj_number, prj.name as prj_name, phases.*")
+            .find(params[:id])
+    tasks = Task
+            .joins(:phase)
+            .joins("LEFT OUTER JOIN employees AS emp ON emp.id=worker_id")
+            .select("tasks.*, emp.name as worker_name, phases.name as phase_name")
+            .where(phase_id: params[:id])
+            .where(outsourcing: false)
             .order(:number)
     render json: { status: 200, phase: phase, tasks: tasks }
   end
@@ -63,9 +80,6 @@ class Api::V1::TasksController < ApplicationController
 
   end
 
-# ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑　再確認済み
-
-
   # ProjectIdを条件とした一覧取得（工程名付）
   def index_by_project
     tasks = Task
@@ -73,11 +87,9 @@ class Api::V1::TasksController < ApplicationController
             .joins("LEFT OUTER JOIN employees AS emp ON emp.id=worker_id")
             .select("tasks.*, emp.name as worker_name, phases.name as phase_name")
             .where(projects: { id: params[:id]})
-            .order(:number)
+            .order("phases.id, tasks.number")
     render json: { status: 200, tasks: tasks }
   end
-  
-
 
   # タスク実績日付更新
   def update_for_actualdate
@@ -98,6 +110,17 @@ class Api::V1::TasksController < ApplicationController
 
     render json: { status:500, message: "Update Error"}
 
+  end
+
+  # タスク別予実データ取得
+  def index_plan_and_actual
+    tasks = Taskcopy.joins(:taskactual)
+                    .where(progressreport_id: params[:prog_id])
+                    .where(phase_id: params[:phase_id])
+                    .where(outsourcing: false)
+                    .select("taskcopies.*, taskactuals.*")
+                    .order(:number)
+    render json: { status: 200, tasks: tasks }
   end
 
   private

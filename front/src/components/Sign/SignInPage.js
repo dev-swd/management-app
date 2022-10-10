@@ -6,7 +6,7 @@ import { AuthContext } from "../../App";
 import { signIn } from "../../lib/api/auth";
 import { getEmpDevise } from "../../lib/api/employee";
 import { TextField, Button, Alert } from "@mui/material";
-import { setAuhority } from "../../lib/authority";
+import { setAuhority } from "../../lib/appAuthority";
 
 const SignInPage = () => {
   const { setIsSignedIn, setCurrentUser, setEmpInfo, setAuthInfo } = useContext(AuthContext)

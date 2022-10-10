@@ -15,7 +15,7 @@ import { zeroPadding } from "../../../lib/common/stringCom";
 import { getWorkReps, updateWorkReps } from '../../../lib/api/daily';
 import { getPrjsByMem } from '../../../lib/api/project';
 import { getPhases } from '../../../lib/api/phase';
-import { getTasks } from '../../../lib/api/task'
+import { getTasksWithoutOutsourcing } from '../../../lib/api/task'
 import ModalConfirm from '../../common/ModalConfirm';
               
 const UserWorkEditPage = (props) => {
@@ -75,7 +75,8 @@ const UserWorkEditPage = (props) => {
   // プロジェクト情報取得（リストボックス用）
   const handleGetPrjs = async () => {
     try {
-      const res = await getPrjsByMem(Number(empInfo.id), dailyInfo.date);
+//      const res = await getPrjsByMem(Number(empInfo.id), dailyInfo.date);
+      const res = await getPrjsByMem(Number(empInfo.id), Number(empInfo.division_id), Number(empInfo.department_id), dailyInfo.date);
       setPrjs(res.data);      
     } catch (e) {
       setMessage({kbn: "error", msg: "プロジェクト情報取得エラー"});
@@ -503,7 +504,7 @@ const SelectTask = (props) => {
   // タスク情報取得
   const handleGetTasks = async () => {
     try {
-      const res = await getTasks(phaseId);
+      const res = await getTasksWithoutOutsourcing(phaseId);
       setTasks(res.data.tasks);  
     } catch (e) {
       setMessage({kbn: "error", msg: "タスク情報取得エラー"});

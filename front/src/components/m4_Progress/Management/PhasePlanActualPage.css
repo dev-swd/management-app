@@ -1,0 +1,92 @@
+@charset "utf-8";
+
+.m46-container {
+  height: calc(100vh - 300px);
+  width: calc(100vw - 30px);
+  background-color: #fff;
+  font-family: sans-serif;
+  font-size: 11px;
+  margin-left: -20px;
+}
+
+.m46-th {
+  background-color: #c9e9f1;
+  text-align: center;
+}
+
+.m46-table-hd {
+  margin-top: 20px;
+}
+.m46-table-hd, 
+.m46-table-frame,
+.m46-table-bd {
+  width: 1370px;
+}
+.m46-table-hd, 
+.m46-table-frame {
+  margin-left: 20px;
+}
+.m46-table-hd td {
+  border: 0.5px solid #000;
+}
+.m46-table-frame {
+  max-height: calc(100vh - 210px);
+  border: 0.5px solid #000;
+  border-top: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.m46-table-hd tr,
+.m46-table-bd tr {
+  height: 30px;
+}
+.m46-table-bd {
+  margin-left: -0.3px;
+}
+.m46-table-bd td {
+  border-bottom: 0.5px solid #000;
+  border-right: 0.5px solid #000;
+}
+.m46-table-bd tr:last-child td {
+  border-bottom: none;
+}
+
+.m46-name-hd {
+  width: 120px;
+}
+.m46-cost-hd {
+  width: 120px;
+}
+.m46-workload-hd {
+  width: 80px;
+}
+.m46-efficiency-hd {
+  width: 100px;
+}
+.m46-name-td {
+  width: 120px;
+  padding-left: 5px;
+}
+.m46-period-td {
+  width: 110px;
+  text-align: center;
+}
+.m46-cost-td {
+  width: 120px;
+  text-align: right;
+  padding-right: 5px;
+}
+.m46-workload-td {
+  width: 80px;
+  text-align: right;
+  padding-right: 5px;
+}
+.m46-efficiency-td {
+  width: 100px;
+  text-align: right;
+  padding-right: 5px;
+}
+.m46-link-td {
+  width: 70px;
+  text-align: center;
+}

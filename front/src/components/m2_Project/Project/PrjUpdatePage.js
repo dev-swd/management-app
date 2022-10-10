@@ -77,7 +77,7 @@ const initData = {prj: {status: "",
                       }
 
 const PrjUpdatePage = (props) => {
-  const { prjId, kbn } = props; 
+  const { prjId, kbn, setInputErr } = props; 
   const { empInfo } = useContext(AuthContext);
   const [data, setData] = useState(initData);
   const [status, setStatus] = useState("");
@@ -380,6 +380,155 @@ const PrjUpdatePage = (props) => {
     });
   }
 
+  // 入力チェック
+  const checkInput = () => {
+    let err=[];
+
+    // 作成日
+    if (isEmpty(data.prj.make_date)) {
+      err[err.length] = {msg: "作成日が未入力です。"};
+    }
+
+    // 作成者
+    if (isEmpty(data.prj.make_id)) {
+      err[err.length] = {msg: "作成者が未選択です。"};
+    }
+
+    // 取引先
+    if (isEmpty(data.prj.company_name) || isEmpty(data.prj.department_name) || isEmpty(data.prj.personincharge_name)) {
+      // いずれか未入力の場合エラー
+      err[err.length] = {msg: "取引先に未入力があります。"};
+    }
+
+    // 開発期間
+    if (isEmpty(data.prj.development_period_fr) || isEmpty(data.prj.development_period_to)) {
+      // いずれか未入力の場合エラー
+      err[err.length] = {msg: "開発期間（自・至）が未入力です。"};
+    } else {
+      if (data.prj.development_period_fr > data.prj.development_period_to) {
+        // 開始＞終了の場合エラー
+        err[err.length] = {msg: "開発期間が不正です（自＜至）"};
+      }
+    }
+
+    // 完了予定日
+    if (isEmpty(data.prj.scheduled_to_be_completed)) {
+      err[err.length] = {msg: "完了予定日が未入力です。"};
+    }
+
+    // システム概要
+    if (isEmpty(data.prj.system_overview)) {
+      err[err.length] = {msg: "システム概要が未入力です。"};
+    }
+
+    // 開発環境
+    if (isEmpty(data.prj.development_environment)) {
+      err[err.length] = {msg: "開発環境が未入力です。"};
+    }
+
+    // 作業場所
+    if (isEmpty(data.prj.work_place_kbn)) {
+      err[err.length] = {msg: "作業場所が未選択です。"};
+    }
+
+    // 顧客所有物
+    if (isEmpty(data.prj.customer_property_kbn)) {
+      err[err.length] = {msg: "顧客所有物が未選択です。"};
+    }
+
+    // 顧客環境
+    if (isEmpty(data.prj.customer_environment)) {
+      err[err.length] = {msg: "顧客環境が未選択です。"};
+    }
+
+    // 仕入品
+    if (isEmpty(data.prj.purchasing_goods_kbn)) {
+      err[err.length] = {msg: "仕入品が未選択です。"};
+    }
+
+    // 外部委託
+    if (isEmpty(data.prj.outsourcing_kbn)) {
+      err[err.length] = {msg: "外部委託が未選択です。"};
+    }
+
+    // 顧客要求仕様書
+    if (isEmpty(data.prj.customer_requirement_kbn)) {
+      err[err.length] = {msg: "顧客要求仕様書が未選択です。"};
+    }
+
+    // 受注範囲
+    const phaseCnt = data.phases.reduce((total,item) => {
+      return total + (!(item.del) ? 1 : 0);
+    },0);
+    if (phaseCnt === 0) {
+      err[err.length] = {msg: "受注範囲が１件も入力されていません。"};  
+    }
+    data.phases.map((phase,i) => {
+      if (!(phase.del)) {
+        if (isEmpty(phase.name) || isEmpty(phase.planned_periodfr) || isEmpty(phase.planned_periodto) || isEmpty(phase.deliverables) || isEmpty(phase.criteria)) {
+          // いずれか未入力の場合エラー
+          err[err.length] = {msg: "受注範囲に未入力があります。（" + (i + 1) + "行目）"};  
+        }
+        if (!isEmpty(phase.planned_periodfr) && !isEmpty(phase.planned_periodto)) {
+          if (phase.planned_periodfr > phase.planned_periodto) {
+            // 開始＞終了の場合エラー
+            err[err.length] = {msg: "受注範囲の開始予定・終了予定が不正です。（開始＜終了）（" + (i + 1) + "行目）"};    
+          }
+        }
+      }
+    });
+
+    // リスク
+    const riskCnt = data.risks.reduce((total,item) => {
+      return total + (!(item.del) ? 1 : 0);
+    },0);
+    if (riskCnt === 0) {
+      err[err.length] = {msg: "リスクが１件も入力されていません。"};  
+    }
+    data.risks.map((risk,i) => {
+      if (!(risk.del)) {
+        if (isEmpty(risk.contents)) {
+          err[err.length] = {msg: "リスクが未入力です。（" + (i + 1) + "行目）"};  
+        }
+      }
+    })
+
+    // 品質目標
+    const goalCnt = data.goals.reduce((total,item) => {
+      return total + (!(item.del) ? 1 : 0);
+    },0);
+    if (goalCnt === 0) {
+      err[err.length] = {msg: "品質目標が１件も入力されていません。"};  
+    }
+    data.goals.map((goal,i) => {
+      if (!(goal.del)) {
+        if (isEmpty(goal.contents)) {
+          err[err.length] = {msg: "品質目標が未入力です。（" + (i + 1) + "行目）"};  
+        }
+      }
+    })
+
+    // プロジェクトリーダー
+    if (isEmpty(data.prj.pl_id)) {
+      err[err.length] = {msg: "プロジェクトリーダーが未選択です。"};
+    }
+
+    // プロジェクトメンバー
+    const memCnt = data.mems.reduce((total,item) => {
+      return total + (!(item.del) ? 1 : 0);
+    },0);
+    if (memCnt === 0) {
+      err[err.length] = {msg: "プロジェクトメンバーが１人も設定されていません。"};  
+    }
+
+    if (err.length > 0) {
+      setInputErr(err);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   // 変更履歴ダイアログ用）項目入力の処理
   const handleChangeLog = (name, value) => {
     const tempLog = {...data.log};
@@ -393,15 +542,18 @@ const PrjUpdatePage = (props) => {
   // 変更の場合
   // 変更登録ボタン押下時の処理
   const handleModify = () => {
-    const tempLog = {...data.log};
-    tempLog["changer_id"] = empInfo.id;
-    tempLog["change_date"] = initDate;
-    setData({
-      ...data,
-      log: tempLog,
-    });
-    setShowLogEdit(true);
-    
+    // 入力チェック
+    if (!checkInput()) {
+      const tempLog = {...data.log};
+      tempLog["changer_id"] = empInfo.id;
+      tempLog["change_date"] = initDate;
+      setData({
+        ...data,
+        log: tempLog,
+      });
+      setShowLogEdit(true);
+  
+    }    
   }
 
   // 変更履歴ダイアログ用）更新確認OKボタン押下時の処理
@@ -472,12 +624,17 @@ const PrjUpdatePage = (props) => {
 
   // 提出ボタン押下時の処理
   const handleSubmit = (e) => {
-    handleChange("status","計画書監査中");
-    setSubmitConfirm({
-      ...submitConfirm,
-      msg: "この内容でプロジェクト計画書を提出します。よろしいですか？",
-      tag: "",
-    })
+    // 入力チェック
+    if (!checkInput()) {
+
+      handleChange("status","計画書監査中");
+      setSubmitConfirm({
+        ...submitConfirm,
+        msg: "この内容でプロジェクト計画書を提出します。よろしいですか？",
+        tag: "",
+      })
+
+    }
   }
 
   // 提出確認OKボタン押下時の処理
@@ -908,7 +1065,7 @@ const PrjUpdatePage = (props) => {
                       value="他社" 
                       checked={toStr(data.prj.work_place_kbn)==="他社"} 
                     />
-                    <span>他社：</span>
+                    <span>社外：</span>
                   </label>
                 </div>
                 <input 

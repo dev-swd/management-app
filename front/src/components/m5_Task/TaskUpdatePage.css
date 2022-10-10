@@ -1,0 +1,186 @@
+@charset "utf-8";
+
+.m52-container {
+  border: 0.5px solid #000;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  height: calc(100vh - 50px);
+  width: 1000px;
+  background-color: #fff;
+  font-family: sans-serif;
+  font-size: 11px;
+}
+
+.m52-header-area {
+  height: 30px;
+  width: auto;
+  background-color: #c9e9f1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.m52-header-title {
+  width: 100%;
+  height:30px;
+  background-color: #c9e9f1;
+  color: #00f;
+  font-family: sans-serif;
+  font-size: 14px;
+  padding: 5px 0 0 5px;
+}
+
+.m52-msg {
+  max-height: 90px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.m52-detail-flex {
+  margin: 30px 0 0 20px;
+  display: flex;
+}
+
+.m52-detail {
+  display: flex;
+  margin-right: 30px;
+}
+
+.m52-taskno {
+  padding-top: 17px;
+}
+
+.m52-taskname {
+  padding-top: 17px;
+  margin-left: 30px;
+}
+
+.m52-inner-label {
+  width: 50px;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.m52-text-pos {
+  margin: 25px 0 0 20px;
+}
+
+.m52-remarks-title {
+  height: 20px;
+  padding-top: 5px;
+}
+
+.m52-remarks {
+  resize: none;
+  padding: 3px;
+  height: 80px;
+  width: 900px;
+  overflow: hidden;
+}
+
+.m52-main {
+  margin-top: 20px;
+  display: flex;
+}
+
+.m52-table-hd,
+.m52-table-frame {
+  margin-left: 20px;
+}
+.m52-table-hd,
+.m52-table-bd,
+.m52-table-frame {
+  width: 300px;
+}
+.m52-table-frame {
+  border: 0.5px solid #000;
+  max-height: 250px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.m52-table-hd tr {
+  height: 25px;
+}
+.m52-table-bd tr {
+  height: 25px;
+}
+.m52-table-bd tr:last-child td {
+  border-bottom: none;
+}
+.m52-table-hd td {
+  border-top: 0.5px solid #000;
+  border-left: 0.5px solid #000;
+  border-right: 0.5px solid #000;
+}
+.m52-table-bd td {
+  border-right: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+}
+.m52-th {
+  text-align: center;
+  background-color: #c9e9f1;
+}
+.m52-name-td {
+  width: 250px;
+  padding-left: 2px;
+}
+.m52-del-td {
+  width: 50px;
+  text-align: center;
+}
+.m52-task-name {
+  width: 246px;
+  height: 20px;
+  padding-left: 3px;
+  border: 0.5px solid #aaa;
+}
+.m52-delete {
+  background-color: #d32f2f;
+  color: #fff;
+}
+
+.m52-button-area {
+  width: 300px;
+  margin-left: 20px;
+  text-align: center;
+}
+
+.m52-right {
+  margin-left: 20px;
+  width: 100%;
+}
+
+.m52-right-header {
+  width: calc(100% - 20px);
+  height:25px;
+  border-left: 10px solid #08f;
+  border-bottom: 1px solid #08f;
+  font-size: 14px;
+  padding-top: 3px;
+  padding-left: 5px;
+}
+
+.m52-mem-container {
+  margin-left: 10px;
+}
+
+.m52-mem-all {
+  font-weight: bold;
+  color: #00f;
+  margin-left: 10px;
+}
+
+.m52-mem-select {
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.m52-mem-area {
+  margin-top: 10px;
+  margin-left: 7px;
+  min-height: 36px;
+  max-height: 220px;
+  width: calc(100% - 23px);
+  padding: 3px;
+  border: 3px inset #eee;
+  background-color: #eee;
+}

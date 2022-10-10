@@ -20,12 +20,17 @@ export const createEmp = (params) => {
   return client.post('/employees', params);
 };
 
+// 新規作成（システム管理者用）
+export const createEmpWithPassword = (params) => {
+  return client.post('/employees/create_with_password', params);
+};
+
 // 更新（社員ID指定）
 export const updateEmp = (id, params) => {
   return client.patch(`/employees/${id}`, params);
 };
 
-// 削除【再確認未実施】
+// 削除（社員ID指定）
 export const deleteEmp = (id) => {
   return client.delete(`/employees/${id}`);
 };
@@ -55,9 +60,14 @@ export const getEmpsByNotAssign = () => {
   return client.get(`/employees/index_by_not_assign/`)
 }
 
-// Deviseパスワード変更(社員ID指定)
+// Deviseパスワード変更(社員ID指定／現在のパスワード必要)
 export const updatePassword = (empId, params) => {
-  return client.patch(`/employees/${empId}/update_devise_password/`, params);
+  return client.patch(`/employees/${empId}/update_password_with_currentpassword/`, params);
+}
+
+// Deviseパスワード変更(社員ID指定／現在のパスワード不要)
+export const updatePasswordReset = (empId, params) => {
+  return client.patch(`/employees/${empId}/update_password_without_currentpassword/`, params);
 }
 
 // DEVISE一覧

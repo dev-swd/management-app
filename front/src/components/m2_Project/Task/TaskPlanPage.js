@@ -27,9 +27,9 @@ const initData = {phase: {prj_number: "",
 
 const TaskPlanPage = (props) => {
   const { phaseId, handleDialogClose } = props;
-  const [message, setMessage] = useState({ kbn: "", msg: "" });
   const [data, setData] = useState(initData);
   const [confirm, setConfirm] = useState({msg: "", tag: ""});
+  const [msgs, setMsgs] = useState([]);  
 
   // 初期処理
   useEffect(() => {
@@ -68,7 +68,8 @@ const TaskPlanPage = (props) => {
         tasks: tmpTasks
       });
     } catch (e) {
-      setMessage({kbn: "error", msg: "タスク情報取得エラー"});
+      setMsgs([{message: "タスク情報取得エラー",
+              severity: "error",}]);
     }
   }
 
@@ -76,7 +77,7 @@ const TaskPlanPage = (props) => {
   const handleClose = (e) => {
     handleDialogClose();
     setData(initData);
-    setMessage({kbn: "", msg: ""});
+    setMsgs([]);
   }
 
   // タスク追加ボタン押下時の処理
@@ -185,13 +186,49 @@ const TaskPlanPage = (props) => {
     return Math.round((getTotalOutWorkLoad() / 20) * 100) / 100;
   }
 
+  // 入力チェック
+  const checkInput = () => {
+    let err=[];
+    data.tasks.map((task,i) => {
+      if(!task.del) {
+        if(task.outsourcing) {
+          if (isEmpty(task.name) || isEmpty(task.planned_periodfr) || isEmpty(task.planned_periodto)) {
+            // いずれか未入力の場合エラー
+            err[err.length] = {message: "作業名、予定日に未入力があります。（" + (i + 1) + "行目）", severity: "error",};
+          }  
+        } else{
+          if (isEmpty(task.name) || isEmpty(task.worker_id) || isEmpty(task.planned_periodfr) || isEmpty(task.planned_periodto)) {
+            // いずれか未入力の場合エラー
+            err[err.length] = {message: "作業名、担当者、予定日に未入力があります。（" + (i + 1) + "行目）", severity: "error",};
+          }  
+        }
+        if (!isEmpty(task.planned_periodfr) && !isEmpty(task.planned_periodto)) {
+          if (task.planned_periodfr > task.planned_periodto) {
+            // 開始＞完了の場合エラー
+            err[err.length] = {message: "開始予定日・完了予定日が不正です。（開始＜完了）（" + (i + 1) + "行目）", severity: "error",};
+          }
+        }
+      }
+    });
+
+    if (err.length > 0) {
+      setMsgs(err);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   // 保存ボタン押下時の処理
   const handleSubmit = (e) => {
-    setConfirm({
-      ...confirm,
-      msg: "この内容で登録します。よろしいですか？",
-      tag: "",
-    })
+    // 入力チェック
+    if (!checkInput()) {
+      setConfirm({
+        ...confirm,
+        msg: "この内容で登録します。よろしいですか？",
+        tag: "",
+      })  
+    }
   }
 
   // 保存確認OKボタン押下時の処理
@@ -204,12 +241,14 @@ const TaskPlanPage = (props) => {
       });
       const res = await updateTasksForPlan(phaseId, data)
       if (res.data.status === 500) {
-        setMessage({kbn: "error", msg: "タスク情報更新エラー(500)"});
+        setMsgs([{message: "タスク情報更新エラー(500)",
+                severity: "error",}]);
       } else {
         handleClose();
       }
     } catch (e) {
-      setMessage({kbn: "error", msg: "タスク情報更新エラー"});
+      setMsgs([{message: "タスク情報更新エラー",
+              severity: "error",}]);
     }
   }
 
@@ -243,7 +282,15 @@ const TaskPlanPage = (props) => {
               <CloseIcon fontSize="inherit" />
             </IconButton>
           </div>
-          { message.kbn && <Alert severity={message.kbn}>{message.msg}</Alert>}
+          {msgs ? (
+            <div>
+              {msgs.map((msg,i) =>
+                <Alert severity={msg.severity}>{msg.message}</Alert>
+              )}
+            </div>
+          ) : (
+            <></>
+          )}
 
           <Button 
             size="small" 

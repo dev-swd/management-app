@@ -13,10 +13,16 @@ import jaLocale from "date-fns/locale/ja";
 import ModalConfirm from '../../common/ModalConfirm';
 import { hankakuOnly, integerOnly } from '../../../lib/common/InputRegulation';
 import { signUp } from "../../../lib/api/auth";
-import{ createEmp } from '../../../lib/api/employee';
+import { createEmp, updateEmp, deleteEmp } from '../../../lib/api/employee';
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import { appAuthorities } from '../../../lib/appAuthority';
+
 
 const initDevise = { name: "", email: "", password: "", passwordConfirmation: "" };
-const initEmp = { number: "", name: "", joining_date: "" };
+const initEmp = { number: "", name: "", joining_date: "", authority: appAuthorities[0].id };
 
 // DatePickerのためのStyle
 const styles = {
@@ -98,31 +104,46 @@ const EmpNewPage = (props) => {
 
   // 確認ダイアログでOKの場合の処理
   const handleConfirmOK = async (dummy) => {
+    let res3;
     setConfirm({
       ...confirm,
       msg: "",
       tag: "",
     });
     try {
-      // Devise SignUp
-      const res = await signUp(up_params);
-      if (res.status === 200) {
-        // 正常にSignUpできた場合、社員情報登録
+      const res = await createEmp({number: emp.number, name: emp.name, joining_date: emp.joining_date, authority: emp.authority});
+      if (res.data.status === 500) {
+        setMessage({kbn: "error", msg: "社員情報登録エラー(500)"});
+      } else {
+        // 社員登録が正常だった場合
         try {
-          const res2 = await createEmp({number: emp.number, name: emp.name, joining_date: emp.joining_date, devise_id: res.data.data.id});
-          if (res2.data.status === 500) {
-            setMessage({kbn: "error", msg: "社員情報登録エラー(500)"});
+          // Devise SignUp
+          const res2 = await signUp(up_params);
+          if (res2.status === 200) {
+            // 正常にSignUpできた場合、社員情報更新
+            try {
+              res3 = await updateEmp(Number(res.data.emp.id), { devise_id: res2.data.data.id })
+              if (res3.data.status === 500) {
+                setMessage({kbn: "error", msg: "社員情報更新エラー(500)"});
+              } else {
+                handleClose();
+              }
+            } catch (e) {
+              setMessage({kbn: "error", msg: "社員情報更新エラー"});
+            }
           } else {
-            handleClose();
+            setMessage({kbn: "error", msg: "ログインユーザ登録エラー(500)"});
+            // 社員情報削除
+            res3 = await deleteEmp(Number(res.data.emp.id));
           }
         } catch (e) {
-          setMessage({kbn: "error", msg: "社員情報登録エラー"});
+          setMessage({kbn: "error", msg: "ログインユーザ登録エラー"});
+          // 社員情報削除
+          res3 = await deleteEmp(Number(res.data.emp.id));
         }
-      } else {
-        setMessage({kbn: "error", msg: "ログインユーザ登録エラー(UserName重複の可能性があります)"});
       }
     } catch (e) {
-      setMessage({kbn: "error", msg: "ログインユーザ登録エラー"});
+      setMessage({kbn: "error", msg: "社員情報登録エラー"});
     }
   }
 
@@ -278,6 +299,23 @@ const EmpNewPage = (props) => {
                   PaperProps={{ sx: styles.paperprops }}
                 />
               </LocalizationProvider>
+            </div>
+            <div className="m15-text-pos">
+              <FormControl variant="standard">
+                <InputLabel id="select-authority-label" sx={{fontSize:11, fontFamily:"sans-serif"}}>システム権限</InputLabel>
+                <Select
+                  labelId="select-authority-label"
+                  id="select-authority"
+                  name="authority"
+                  value={emp.authority}
+                  onChange={(e) => handleChangeEmp(e.target.name, e.target.value)}
+                  sx={{ fontSize:11, fontFamily:"sans-serif", height:25, width:180 }}
+                >
+                  { appAuthorities.map((a,i) => 
+                    <MenuItem sx={{fontSize:11, fontFamily:"sans-serif"}} value={a.id}>{a.name}</MenuItem>
+                  )}
+                </Select>        
+              </FormControl>
             </div>
 
           </div>

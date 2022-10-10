@@ -146,7 +146,7 @@ const EvmGraphPage = (props) => {
         position: "left",
         title: {
           display: true,
-          text: 'Value（人月）',
+          text: 'Value（人日）',
         },
         ticks: {
           beginAtZero: true,

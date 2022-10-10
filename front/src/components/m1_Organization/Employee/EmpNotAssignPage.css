@@ -38,7 +38,7 @@
 .m17-emps-table-hd,
 .m17-emps-table {
   margin-left: 20px;
-  width: 400px;
+  width: 550px;
 }
 
 .m17-emps-table-hd tr {
@@ -70,6 +70,10 @@
   width: 100px;
 }
 
+.m17-setting-td {
+  width: 100px;
+}
+
 .m17-devise-reset-td {
-  width: 50px;
+  width: 100px;
 }

@@ -1,7 +1,7 @@
 // m41
 import "./ProgressEditPage.css";
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { getPhases } from '../../../lib/api/phase';
 import { getTasksByPhase, getTasksByProject, updateTasksActualDate } from '../../../lib/api/task';
 import Alert from "@mui/material/Alert";
@@ -193,7 +193,7 @@ const ProgressEditPage = () => {
         <div className="m5-prog-edit-container">
           <div className="m41-header-area">
             <div className="m41-header-title">進捗入力</div>
-            <a className="m41-link-return" href="/progress/user">≫戻る</a>
+            <Button component={Link} to="/progress/user" sx={{fontSize:14, fontFamily:"sans-serif", textTransform: 'none'}}>≫戻る</Button>
           </div>
           { message.kbn && <Alert severity={message.kbn}>{message.msg}</Alert>}
 

@@ -5,12 +5,15 @@ import { isEmpty } from "../../../lib/common/isEmpty";
 import { getEmps } from '../../../lib/api/employee';
 import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
-import DeviseResetPage from './DeviseResetPage';
+import PasswordIcon from '@mui/icons-material/Password';
+import PwdResetPage from './PwdResetPage';
+import AuthEditPage from './AuthEditPage';
 
 const EmpAllPage = (props) => {
   const { showFlg, closeAllEmp, setMessage } = props;
   const [data, setData] = useState([]);
   const [resetId, setResetId] = useState("");
+  const [empId, setEmpId] = useState("");
 
   // 初期処理
   useEffect(() => {
@@ -66,6 +69,16 @@ const EmpAllPage = (props) => {
     }
   }
 
+  // ユーザ情報変更押下時の処理
+  const handleSettings = (empId) => {
+    setEmpId(empId);
+  }
+
+  // ユーザ情報変更画面クローズ処理
+  const closeSettings = () => {
+    setEmpId("");
+  }
+
   // ログインユーザリセット押下時の処理
   const handleReset = (empId) => {
     setResetId(empId);
@@ -100,7 +113,8 @@ const EmpAllPage = (props) => {
                 <td className="m16-name-td">氏名</td>
                 <td className="m16-org-td">所属</td>
                 <td className="m16-devise-name-td">UserName</td>
-                <td className="m16-devise-reset-td"></td>
+                <td className="m16-setting-td">システム権限</td>
+                <td className="m16-devise-reset-td">パスワード</td>
               </tr>
             </thead>
           </table>
@@ -113,9 +127,14 @@ const EmpAllPage = (props) => {
                     <td className="m16-name-td">{e.name}</td>
                     <td className="m16-org-td">{setOrgName(e)}</td>
                     <td className="m16-devise-name-td">{e.devise_name}</td>
+                    <td className="m16-setting-td">
+                      <IconButton size="small" onClick={() => handleSettings(e.id)}>
+                        <SettingsIcon fontSize='small' />
+                      </IconButton>
+                    </td>
                     <td className="m16-devise-reset-td">
                       <IconButton size="small" onClick={() => handleReset(e.id)}>
-                        <SettingsIcon fontSize='small' />
+                        <PasswordIcon fontSize='small' />
                       </IconButton>
                     </td>
                   </tr>
@@ -125,7 +144,8 @@ const EmpAllPage = (props) => {
               )}
             </tbody>
           </table>
-          <DeviseResetPage empId={resetId} closeReset={closeReset} />
+          <PwdResetPage empId={resetId} closeReset={closeReset} />
+          <AuthEditPage empId={empId} closeEdit={closeSettings} />
         </div>
       ) : (
         <></>

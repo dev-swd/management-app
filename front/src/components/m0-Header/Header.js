@@ -4,12 +4,10 @@ import { useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../App';
 import Cookies from 'js-cookie';
-import { Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../../header-logo.png';
 import { signOut } from '../../lib/api/auth';
 import Button from '@mui/material/Button';
-import { initAuth } from "../../lib/authority";
 
 const Header = () => {
   const { loading, isSignedIn, setIsSignedIn, setEmpInfo, authInfo, setAuthInfo } = useContext(AuthContext)
@@ -26,7 +24,7 @@ const Header = () => {
 
         setIsSignedIn(false);
         setEmpInfo({});
-        setAuthInfo(initAuth);
+        setAuthInfo({});
 
         navigate(`/signin`);
       
@@ -63,14 +61,14 @@ const Header = () => {
         <a className="m00-logo" href="/">
           <img className="m00-img" src={logo} alt='ManagementApp' />
         </a>
-        <Nav as="ul" className="m00-menu">
-          {authInfo.depindex && <Nav.Item as="li"><Nav.Link href="/organization">組織管理</Nav.Link></Nav.Item>}
-          {authInfo.prjindex && <Nav.Item as="li"><Nav.Link href="/prj">プロジェクト計画</Nav.Link></Nav.Item>}
-          {authInfo.dailyindex && <Nav.Item as="li"><Nav.Link href="/daily">日報入力</Nav.Link></Nav.Item>}
-          {authInfo.dailyselect && <Nav.Item as="li"><Nav.Link href="/daily/select">日報承認</Nav.Link></Nav.Item>}
-          {authInfo.proguserindex && <Nav.Item as="li"><Nav.Link href="/progress/user">進捗入力</Nav.Link></Nav.Item>}
-          {authInfo.progmanaindex && <Nav.Item as="li"><Nav.Link href="/progress/management">進捗管理</Nav.Link></Nav.Item>}
-        </Nav>
+        {isSignedIn && authInfo.orgAuth && <Button component={Link} to="/organization" sx={{textTransform: 'none'}}>組織管理</Button>}
+        {isSignedIn &&  <Button component={Link} to="/prj" sx={{textTransform: 'none'}}>プロジェクト管理</Button>}
+        {isSignedIn &&  <Button component={Link} to="/daily" sx={{textTransform: 'none'}}>日報入力</Button>}
+        {isSignedIn &&  <Button component={Link} to="/daily/select" sx={{textTransform: 'none'}}>日報承認</Button>}
+        {isSignedIn &&  <Button component={Link} to="/progress/user" sx={{textTransform: 'none'}}>進捗入力</Button>}
+        {isSignedIn &&  <Button component={Link} to="/progress/management" sx={{textTransform: 'none'}}>進捗管理</Button>}
+        {isSignedIn &&  <Button component={Link} to="/noproject" sx={{textTransform: 'none'}}>その他タスク</Button>}
+        <Button component={Link} to="/system/admin/mente" sx={{textTransform: 'none'}}>導入</Button>
       </div>
       <div className="m00-right-item">
         <AuthButtons />

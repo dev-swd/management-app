@@ -70,11 +70,14 @@ Rails.application.routes.draw do
           get :index_by_div
           get :index_by_dep_direct
           get :show_with_devise
-          patch :update_devise_password
+          patch :update_password_with_currentpassword
+          patch :update_password_without_currentpassword
+          get :show_no_project
         end
         collection do
           get :index_by_not_assign
           get :index_devise
+          post :create_with_password
         end
       end
 
@@ -91,7 +94,8 @@ Rails.application.routes.draw do
       # 工程情報
       resources :phases do
         member do
-          get :index_by_project          
+          get :index_by_project
+          get :index_plan_and_actual
         end
       end
 
@@ -108,11 +112,15 @@ Rails.application.routes.draw do
         member do
           get :index_by_member_running
           get :index_todo
+          get :show_no_project
+          patch :update_no_project
         end
         collection do
           get :index_pl
           get :index_by_member
           get :index_by_conditional
+          post :create_no_project
+          get :index_audit_todo
         end
       end
 
@@ -133,6 +141,10 @@ Rails.application.routes.draw do
           patch :update_for_planned
           patch :update_for_actualdate
           get :index_todo
+          get :index_by_phase_without_outsourcing
+        end
+        collection do
+          get :index_plan_and_actual
         end
       end
 

@@ -10,6 +10,8 @@ import Tab from '@mui/material/Tab';
 import TabPanel  from '@mui/lab/TabPanel';
 import EvmShowPage from './EvmShowPage';
 import EvmGraphPage from './EvmGraphPage';
+import PhasesGraphPage from "./PhasesGraphPage";
+import PhasePlanActualPage from "./PhasePlanActualPage";
 
 const ProgRepDetailPage = (props) => {
   const { progId, closeWin } = props;
@@ -32,7 +34,7 @@ const ProgRepDetailPage = (props) => {
     <>
     { progId ? (
       <div className="overlay">
-        <div className="m6-prog-detail-container">
+        <div className="m44-container">
           <div className="m44-header-area">
             <div className="m44-header-title">進捗レポート</div>
             <IconButton color="primary" aria-label="Close" size="large" onClick={(e) => handleClose()}>
@@ -46,6 +48,9 @@ const ProgRepDetailPage = (props) => {
             <TabList onChange={handleChange}>
               <Tab label="EVM" value="0" />
               <Tab label="EVMグラフ" value="1" />
+              <Tab label="工程別工数グラフ" value="2" />
+              <Tab label="工程別コストグラフ" value="3" />
+              <Tab label="工程予実表" value="4" />
             </TabList>
             <TabPanel value="0">
               <EvmShowPage 
@@ -59,6 +64,23 @@ const ProgRepDetailPage = (props) => {
                 progId={progId} 
                 level="project"
                 phase=""
+                setMessage={setMessage} />
+            </TabPanel>
+            <TabPanel value="2">
+              <PhasesGraphPage
+                progId={progId}
+                kbn="workload" 
+                setMessage={setMessage} />
+            </TabPanel>
+            <TabPanel value="3">
+              <PhasesGraphPage
+                progId={progId} 
+                kbn="cost" 
+                setMessage={setMessage} />
+            </TabPanel>
+            <TabPanel value="4">
+              <PhasePlanActualPage
+                progId={progId} 
                 setMessage={setMessage} />
             </TabPanel>
           </TabContext>

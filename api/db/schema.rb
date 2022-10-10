@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_02_142307) do
+ActiveRecord::Schema.define(version: 2022_09_26_140022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -174,11 +174,39 @@ ActiveRecord::Schema.define(version: 2022_08_02_142307) do
     t.index ["project_id"], name: "index_members_on_project_id"
   end
 
+  create_table "phaseactuals", force: :cascade do |t|
+    t.bigint "progressreport_id"
+    t.bigint "phasecopy_id"
+    t.date "periodfr"
+    t.date "periodto"
+    t.bigint "total_cost"
+    t.decimal "total_workload", precision: 6, scale: 2
+    t.decimal "overtime_workload", precision: 6, scale: 2
+    t.decimal "after_total_workload", precision: 6, scale: 2
+    t.decimal "after_overtime_workload", precision: 6, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["phasecopy_id"], name: "index_phaseactuals_on_phasecopy_id"
+    t.index ["progressreport_id"], name: "index_phaseactuals_on_progressreport_id"
+  end
+
   create_table "phasecopies", force: :cascade do |t|
     t.bigint "progressreport_id"
     t.bigint "phase_id"
     t.string "number"
     t.string "name"
+    t.date "planned_periodfr"
+    t.date "planned_periodto"
+    t.date "actual_periodfr"
+    t.date "actual_periodto"
+    t.bigint "planned_cost"
+    t.decimal "planned_workload", precision: 5, scale: 2
+    t.bigint "planned_outsourcing_cost"
+    t.decimal "planned_outsourcing_workload", precision: 5, scale: 2
+    t.bigint "actual_cost"
+    t.decimal "actual_workload", precision: 5, scale: 2
+    t.bigint "actual_outsourcing_cost"
+    t.decimal "actual_outsourcing_workload", precision: 5, scale: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["progressreport_id"], name: "index_phasecopies_on_progressreport_id"
@@ -268,6 +296,7 @@ ActiveRecord::Schema.define(version: 2022_08_02_142307) do
     t.date "plan_approval_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "not_project", default: false, null: false
   end
 
   create_table "qualitygoals", force: :cascade do |t|
@@ -333,13 +362,26 @@ ActiveRecord::Schema.define(version: 2022_08_02_142307) do
     t.index ["project_id"], name: "index_risks_on_project_id"
   end
 
+  create_table "taskactuals", force: :cascade do |t|
+    t.bigint "progressreport_id"
+    t.bigint "taskcopy_id"
+    t.decimal "total_workload", precision: 6, scale: 2
+    t.decimal "overtime_workload", precision: 6, scale: 2
+    t.decimal "after_total_workload", precision: 6, scale: 2
+    t.decimal "after_overtime_workload", precision: 6, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["progressreport_id"], name: "index_taskactuals_on_progressreport_id"
+    t.index ["taskcopy_id"], name: "index_taskactuals_on_taskcopy_id"
+  end
+
   create_table "taskcopies", force: :cascade do |t|
     t.bigint "progressreport_id"
     t.bigint "number"
     t.bigint "phase_id"
     t.bigint "task_id"
     t.string "task_name"
-    t.bigint "worker_name"
+    t.string "worker_name"
     t.boolean "outsourcing", default: false, null: false
     t.decimal "planned_workload", precision: 6, scale: 2
     t.date "planned_periodfr"
@@ -420,12 +462,16 @@ ActiveRecord::Schema.define(version: 2022_08_02_142307) do
   add_foreign_key "divisions", "departments"
   add_foreign_key "evms", "progressreports"
   add_foreign_key "members", "projects"
+  add_foreign_key "phaseactuals", "phasecopies"
+  add_foreign_key "phaseactuals", "progressreports"
   add_foreign_key "phasecopies", "progressreports"
   add_foreign_key "phases", "projects"
   add_foreign_key "progressreports", "projects"
   add_foreign_key "qualitygoals", "projects"
   add_foreign_key "reports", "projects"
   add_foreign_key "risks", "projects"
+  add_foreign_key "taskactuals", "progressreports"
+  add_foreign_key "taskactuals", "taskcopies"
   add_foreign_key "taskcopies", "progressreports"
   add_foreign_key "tasks", "phases"
   add_foreign_key "workreports", "dailyreports"

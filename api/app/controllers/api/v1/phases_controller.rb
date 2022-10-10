@@ -16,7 +16,9 @@ class Api::V1::PhasesController < ApplicationController
 
       phases_params[:phases].map do |phase_param|
         phase = Phase.find(phase_param[:id])
+        phase.planned_cost = phase_param[:planned_cost]
         phase.planned_workload = phase_param[:planned_workload]
+        phase.planned_outsourcing_cost = phase_param[:planned_outsourcing_cost]
         phase.planned_outsourcing_workload = phase_param[:planned_outsourcing_workload]
         phase.save!
       end
@@ -31,6 +33,15 @@ class Api::V1::PhasesController < ApplicationController
 
   end
   
+  # 工程別予実データ取得
+  def index_plan_and_actual
+    phases = Phasecopy.joins(:phaseactual)
+                      .where(progressreport_id: params[:id])
+                      .select("phasecopies.*, phaseactuals.*")
+                      .order(:number)
+    render json: { status: 200, phases: phases }
+  end
+
   private
   def phases_params
     params.permit(phases: [:id, :project_id, :number, :name, 

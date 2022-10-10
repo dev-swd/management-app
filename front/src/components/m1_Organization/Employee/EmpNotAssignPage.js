@@ -4,12 +4,15 @@ import { useEffect, useState } from 'react';
 import { getEmpsByNotAssign } from '../../../lib/api/employee';
 import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
-import DeviseResetPage from './DeviseResetPage';
+import PasswordIcon from '@mui/icons-material/Password';
+import PwdResetPage from './PwdResetPage';
+import AuthEditPage from './AuthEditPage';
 
 const EmpNotAssignPage = (props) => {
   const { showFlg, closeNotAssign, setMessage } = props;
   const [data, setData] = useState([]);
   const [resetId, setResetId] = useState("");
+  const [empId, setEmpId] = useState("");
 
   // 初期処理
   useEffect(() => {
@@ -46,6 +49,16 @@ const EmpNotAssignPage = (props) => {
     setMessage({kbn: "", msg: ""});
   }
   
+  // ユーザ情報変更押下時の処理
+  const handleSettings = (empId) => {
+    setEmpId(empId);
+  }
+
+  // ユーザ情報変更画面クローズ処理
+  const closeSettings = () => {
+    setEmpId("");
+  }
+
   // ログインユーザリセット押下時の処理
   const handleReset = (empId) => {
     setResetId(empId);
@@ -79,7 +92,8 @@ const EmpNotAssignPage = (props) => {
                 <td className="m17-number-td">社員番号</td>
                 <td className="m17-name-td">氏名</td>
                 <td className="m17-devise-name-td">UserName</td>
-                <td className="m17-devise-reset-td"></td>
+                <td className="m17-setting-td">システム権限</td>
+                <td className="m17-devise-reset-td">パスワード</td>
               </tr>
             </thead>
           </table>
@@ -91,9 +105,14 @@ const EmpNotAssignPage = (props) => {
                     <td className="m17-number-td">{e.number}</td>
                     <td className="m17-name-td">{e.name}</td>
                     <td className="m17-devise-name-td">{e.devise_name}</td>
+                    <td className="m17-setting-td">
+                      <IconButton size="small" onClick={() => handleSettings(e.id)}>
+                        <SettingsIcon fontSize='small' />
+                      </IconButton>
+                    </td>
                     <td className="m17-devise-reset-td">
                       <IconButton size="small" onClick={() => handleReset(e.id)}>
-                        <SettingsIcon fontSize='small' />
+                        <PasswordIcon fontSize='small' />
                       </IconButton>
                     </td>
                   </tr>
@@ -103,7 +122,8 @@ const EmpNotAssignPage = (props) => {
               )}
             </tbody>
           </table>
-          <DeviseResetPage empId={resetId} closeReset={closeReset} />
+          <PwdResetPage empId={resetId} closeReset={closeReset} />
+          <AuthEditPage empId={empId} closeEdit={closeSettings} />
         </div>
       ) : (
         <></>

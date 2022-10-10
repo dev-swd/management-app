@@ -10,6 +10,7 @@ import TaskPlanPage from "./TaskPlanPage";
 import { decimalOnly } from '../../../lib/common/InputRegulation';
 import ModalConfirm from '../../common/ModalConfirm';
 import { isEmpty } from "../../../lib/common/isEmpty";
+import InputNumber from '../../common/InputNumber';
 
 const initData = {prj: {number: "",
                         name: "",
@@ -36,18 +37,42 @@ const PhaseIndexPage = (props) => {
     }
   },[prjId]);
 
+  // null／undefined対策
+  const toNum = (v) => {
+    if (isEmpty(v)) {
+      return 0;
+    } else {
+      return v;
+    }
+  }
+
+  // 工数計算
+  const calcUnitPrice = (cost, load) => {
+    const _cost = Number(toNum(cost));
+    const _load = Number(toNum(load));
+    if (_load===0) {
+      return 0;
+    } else {
+      return Math.round((_cost / _load) * 100) / 100;
+    }
+  }
+
   // 工程情報取得
   const handleGetPhases = async () => {
     try {
       const res = await getPhases(Number(prjId));
       const tmpPhases = res.data.phases.map(phase => {
         const tmpPhase = {};
-        tmpPhase.id = phase.id;
-        tmpPhase.name = phase.name;
-        tmpPhase.planned_periodfr = phase.planned_periodfr;
-        tmpPhase.planned_periodto = phase.planned_periodto;
-        tmpPhase.planned_workload = phase.planned_workload;
-        tmpPhase.planned_outsourcing_workload = phase.planned_outsourcing_workload;
+        tmpPhase.id = toNum(phase.id);
+        tmpPhase.name = toStr(phase.name);
+        tmpPhase.planned_periodfr = toStr(phase.planned_periodfr);
+        tmpPhase.planned_periodto = toStr(phase.planned_periodto);
+        tmpPhase.planned_cost = toNum(phase.planned_cost)
+        tmpPhase.planned_workload = toNum(phase.planned_workload);
+        tmpPhase.planned_unitprice = calcUnitPrice(phase.planned_cost, phase.planned_workload);
+        tmpPhase.planned_outsourcing_cost = toNum(phase.planned_outsourcing_cost);
+        tmpPhase.planned_outsourcing_workload = toNum(phase.planned_outsourcing_workload);
+        tmpPhase.planned_outsourcing_unitprice = calcUnitPrice(phase.planned_outsourcing_cost, phase.planned_outsourcing_workload);
         return tmpPhase;
       });
       setData({
@@ -78,10 +103,41 @@ const PhaseIndexPage = (props) => {
     setChangeFlg(true);
   }
   
+  // 工数、単価入力時の処理
+  const handleChangeCost = (i, name, value ) => {
+    const tmpPhases = [...data.phases];
+    tmpPhases[i][name] = value;
+    tmpPhases[i]["planned_cost"] = Number(tmpPhases[i]["planned_workload"]) * Number(tmpPhases[i]["planned_unitprice"]);
+    setData({
+      ...data,
+      phases: tmpPhases,
+    });
+    setChangeFlg(true);
+  }
+
+  // 外注工数、外注単価入力時の処理
+  const handleChangeOutsourcing = (i, name, value ) => {
+    const tmpPhases = [...data.phases];
+    tmpPhases[i][name] = value;
+    tmpPhases[i]["planned_outsourcing_cost"] = Number(tmpPhases[i]["planned_outsourcing_workload"]) * Number(tmpPhases[i]["planned_outsourcing_unitprice"]);
+    setData({
+      ...data,
+      phases: tmpPhases,
+    });
+    setChangeFlg(true);
+  }
+
   // 作業工数集計
   const getTotalWorkLoad = () => {
     return data.phases.reduce((total,item) => {
       return (total * 100 + Number(item.planned_workload) * 100) / 100;
+    },0);
+  }
+
+  // 作業費集計
+  const getTotalCost = () => {
+    return data.phases.reduce((total,item) => {
+      return total + Number(item.planned_cost);
     },0);
   }
 
@@ -92,11 +148,25 @@ const PhaseIndexPage = (props) => {
     },0);
   }
 
+  // 外注費集計
+  const getTotalOutCost = () => {
+    return data.phases.reduce((total,item) => {
+      return total + Number(item.planned_outsourcing_cost);
+    },0);
+  }
+
   // 保存ボタン押下時の処理
   const handleSubmit = (e) => {
+    let msg = "";
+    if ((Number(getTotalCost()) === Number(data.prj.planned_work_cost)) && (Number(getTotalOutWorkLoad()) === Number(data.prj.planned_outsourcing_workload))) {
+      msg = "この内容で登録します。よろしいですか？";
+    } else {
+      msg = "作業費、外注費の合計が計画とあっていません。\nこのまま登録してよろしいですか？"
+    }
+
     setConfirm({
       ...confirm,
-      msg: "この内容で登録します。よろしいですか？",
+      msg: msg,
       tag: "",
     })
   }
@@ -157,15 +227,6 @@ const PhaseIndexPage = (props) => {
     }
   }
 
-  // 単価計算
-  const calcUnitPrice = (price,works) => {
-    if (Number(price)===0 || Number(works)===0) {
-      return 0;
-    } else {
-      return (Number(price)/Number(works)).toLocaleString();
-    }
-  }
-
   return (
     <div className="m2e-container">
       <div className="m2e-header-title">工程編集</div>
@@ -182,37 +243,47 @@ const PhaseIndexPage = (props) => {
         保存
       </Button>
 
-      <div className="m2e-prj-name">{"[" + data.prj.number + "]" + data.prj.name}</div>
+      <div className="m2e-sub-title">■プロジェクト情報</div>
       <table className="m2e-prj">
         <tbody>
+          <tr>
+            <td className="m2e-prj-ttl">プロジェクト名</td>
+            <td colSpan="3" className="m2e-prj-name">{"[" + data.prj.number + "]" + data.prj.name}</td>
+          </tr>
           <tr>
             <td className="m2e-prj-ttl">作業費</td>
             <td className="m2e-prj-val1">{data.prj.planned_work_cost.toLocaleString() + " 円"}</td>
             <td className="m2e-prj-ttl">作業工数</td>
             <td className="m2e-prj-val2">{data.prj.planned_workload + " 人月"}</td>
-            <td className="m2e-prj-ttl">作業単価</td>
-            <td className="m2e-prj-val1">{calcUnitPrice(data.prj.planned_work_cost, data.prj.planned_workload) + " 円"}</td>
           </tr>
           <tr>
             <td className="m2e-prj-ttl">外注費</td>
             <td className="m2e-prj-val1">{data.prj.planned_outsourcing_cost.toLocaleString() + " 円"}</td>
             <td className="m2e-prj-ttl">外注工数</td>
             <td className="m2e-prj-val2">{data.prj.planned_outsourcing_workload + " 人月"}</td>
-            <td className="m2e-prj-ttl">外注単価</td>
-            <td className="m2e-prj-val1">{calcUnitPrice(data.prj.planned_outsourcing_cost, data.prj.planned_outsourcing_workload) + " 円"}</td>
           </tr>
         </tbody>
       </table>
 
+      <div className="m2e-sub-title">■工程情報</div>
       <table className="m2e-table-hd">
         <thead>
           <tr>
-            <td className="m2e-name-td m2e-th">工程</td>
-            <td className="m2e-period-td m2e-th">開始予定</td>
-            <td className="m2e-period-td m2e-th">終了予定</td>
-            <td className="m2e-workload-td m2e-th">計画作業工数</td>
-            <td className="m2e-outsourcing-td m2e-th">計画外注工数</td>
-            <td className="m2e-task-td m2e-th"></td>
+            <td rowSpan="2" className="m2e-name-td m2e-th">工程</td>
+            <td rowSpan="2" className="m2e-period-td m2e-th">開始予定</td>
+            <td rowSpan="2" className="m2e-period-td m2e-th">終了予定</td>
+            <td colSpan="3" className="m2e-th">プロパー計画値</td>
+            <td colSpan="3" className="m2e-th">外注計画値</td>
+            <td rowSpan="2" className="m2e-task-td m2e-th"></td>
+          </tr>
+          <tr>
+            <td className="m2e-workload-td m2e-th">作業工数</td>
+            <td className="m2e-unitprice-td m2e-th">単価</td>
+            <td className="m2e-cost-hd m2e-th">作業費</td>
+
+            <td className="m2e-workload-td m2e-th">外注工数</td>
+            <td className="m2e-unitprice-td m2e-th">単価</td>
+            <td className="m2e-cost-hd m2e-th">外注費</td>
           </tr>
         </thead>        
       </table>
@@ -233,23 +304,49 @@ const PhaseIndexPage = (props) => {
                     id="planned_workload" 
                     maxLength="5"
                     className="m2e-workload"
-                    onChange={(e) => handleChange(i, e.target.name, decimalOnly(e.target.value))} 
+                    onChange={(e) => handleChangeCost(i, e.target.name, decimalOnly(e.target.value))} 
                     value={toStr(p.planned_workload)} 
                   />
                   {" 人月"}
                 </td>
-                <td className="m2e-outsourcing-td">
+                <td className="m2e-unitprice-td">
+                  <InputNumber 
+                    name="planned_unitprice" 
+                    id="planned_unitprice" 
+                    maxLength="10"
+                    className="m2e-unitprice"
+                    toValue={p.planned_unitprice}
+                    procChange={handleChangeCost}
+                    index={i}
+                  />
+                  {" 円"}
+                </td>
+                <td className="m2e-cost-td">{p.planned_cost.toLocaleString() + " 円"}</td>
+                <td className="m2e-workload-td">
                   <input 
                     type="text" 
                     name="planned_outsourcing_workload" 
                     id="planned_outsourcing_workload" 
                     maxLength="5"
-                    className="m2e-outsourcing"
-                    onChange={(e) => handleChange(i, e.target.name, decimalOnly(e.target.value))} 
+                    className="m2e-workload"
+                    onChange={(e) => handleChangeOutsourcing(i, e.target.name, decimalOnly(e.target.value))} 
                     value={toStr(p.planned_outsourcing_workload)} 
                   />
                   {" 人月"}
                 </td>
+                <td className="m2e-unitprice-td">
+                  <InputNumber 
+                    name="planned_outsourcing_unitprice" 
+                    id="planned_outsourcing_unitprice" 
+                    maxLength="10"
+                    className="m2e-unitprice"
+                    toValue={p.planned_outsourcing_unitprice}
+                    procChange={handleChangeOutsourcing}
+                    index={i}
+                  />
+                  {" 円"}
+                </td>
+                <td className="m2e-cost-td">{p.planned_outsourcing_cost.toLocaleString() + " 円"}</td>
                 <td className="m2e-task-td">
                   <Button 
                     onClick={() => handleEditTasks(p.id)} 
@@ -268,11 +365,19 @@ const PhaseIndexPage = (props) => {
       </div>
       <div className="m2e-sum-area">
         <div className="m2e-sum-title">合計</div>
-        <div className={'m2e-sum ' + ((Number(getTotalWorkLoad()) === Number(data.prj.planned_workload)) ? '' : 'm2e-alert')}>
+        <div className={'m2e-sum-workload ' + ((Number(getTotalWorkLoad()) === Number(data.prj.planned_workload)) ? '' : 'm2e-alert')}>
           {getTotalWorkLoad().toFixed(1) + " 人月"}
         </div>
-        <div className={'m2e-sum ' + ((Number(getTotalOutWorkLoad()) === Number(data.prj.planned_outsourcing_workload)) ? '' : 'm2e-alert')}>
+        <div className="m2e-sum-unitprice"></div>
+        <div className={'m2e-sum-cost ' + ((Number(getTotalCost()) === Number(data.prj.planned_work_cost)) ? '' : 'm2e-alert')}>
+          {getTotalCost().toLocaleString() + " 円"}
+        </div>
+        <div className={'m2e-sum-workload ' + ((Number(getTotalOutWorkLoad()) === Number(data.prj.planned_outsourcing_workload)) ? '' : 'm2e-alert')}>
           {getTotalOutWorkLoad().toFixed(1) + " 人月"}
+        </div>
+        <div className="m2e-sum-unitprice"></div>
+        <div className={'m2e-sum-cost ' + ((Number(getTotalOutCost()) === Number(data.prj.planned_outsourcing_cost)) ? '' : 'm2e-alert')}>
+          {getTotalOutCost().toLocaleString() + " 円"}
         </div>
       </div>
       <TaskPlanPage phaseId={phaseId} handleDialogClose={handleEditTasksClose} />

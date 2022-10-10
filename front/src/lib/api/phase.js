@@ -11,6 +11,10 @@ export const updatePhase = (id, params) => {
   return client.patch(`/phases/${id}`, params);
 };
 
+// 工程別予実データ取得
+export const getPhase_PlanAndActual = (prgId) => {
+  return client.get(`/phases/${prgId}/index_plan_and_actual/`);
+};
 
 //// 詳細
 //export const getPhase = (id) => {

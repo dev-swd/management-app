@@ -9,29 +9,71 @@ class Api::V1::ProjectsController < ApplicationController
     render json: { status: 200, prjs: prjs }
   end
 
+  # 内部監査ToDo取得
+  def index_audit_todo
+    # 対象＝計画書監査中、完了報告書監査中
+    prjs = Project
+            .where(status: ["計画書監査中", "完了報告書監査中"])
+    render json: { status: 200, prjs: prjs }
+  end
+
   # PL一覧
   def index_pl
-    pls = Project
-          .joins("INNER JOIN employees AS plemp ON plemp.id=pl_id")
-          .group(:pl_id)
-          .group("pl_number, pl_name")
-          .select("projects.pl_id, plemp.number as pl_number, plemp.name as pl_name")
-          .order("plemp.number")
-    render json: { status: 200, pls: pls }
+
+    if params[:not_project].present? then
+      # プロジェクト／プトジェクト外の指定あり
+      if params[:not_project].downcase=="true" then
+        not_project = true
+      else
+        not_project = false
+      end
+      pls = Project
+            .joins("INNER JOIN employees AS plemp ON plemp.id=pl_id")
+            .where(not_project: not_project)
+            .group(:pl_id)
+            .group("pl_number, pl_name")
+            .select("projects.pl_id, plemp.number as pl_number, plemp.name as pl_name")
+            .order("plemp.number")
+      render json: { status: 200, pls: pls }
+    else      
+      pls = Project
+            .joins("INNER JOIN employees AS plemp ON plemp.id=pl_id")
+            .group(:pl_id)
+            .group("pl_number, pl_name")
+            .select("projects.pl_id, plemp.number as pl_number, plemp.name as pl_name")
+            .order("plemp.number")
+      render json: { status: 200, pls: pls }
+    end
   end
   
   # 条件指定でのプロジェクト一覧 
   def index_by_conditional
     where = ""
 
+    # プロジェクト／プロジェクト外
+    if params[:not_project].present? then
+      if params[:not_project].downcase=="true" then
+        # プロジェクト外
+        where = "projects.not_project=true "  
+      else
+        # プロジェクト
+        where = "projects.not_project=false "  
+      end
+    end
+
     # 状態の条件指定あり
     if params[:status].present? then
       if params[:status]=="*" then
         # すべての場合は条件なし
-      elsif params[:status]=="-" then
-        where = "projects.status<>'完了' "
       else
-        where = "projects.status='" + params[:status] + "' "
+        if where.present? then
+          where += "and  "
+        end
+        if params[:status]=="-" then
+          where += "projects.status<>'完了' "
+        else
+          where += "projects.status='" + params[:status] + "' "
+        end
       end
     end
 
@@ -97,6 +139,7 @@ class Api::V1::ProjectsController < ApplicationController
               .joins("LEFT OUTER JOIN employees AS emps ON emps.id=member_id")
               .select("members.*, emps.name as member_name")
               .where(project_id: params[:id])
+              .where(level: "emp")
               .order(:number)
 
     render json: { status: 200, prj: project, phases: phases, risks: risks, goals: qualitygoals, mems: members }
@@ -254,8 +297,8 @@ class Api::V1::ProjectsController < ApplicationController
     projects = Project
                 .joins(:members)
                 .select("projects.id, projects.number, projects.name")
-                .where(members: { level: 'emp', member_id: params[:emp_id] })
                 .where("development_period_fr <= ? and development_period_to >= ?", params[:thisDate], params[:thisDate])
+                .where("(members.level='emp' and members.member_id=?) or (members.level='div' and members.member_id=?) or (members.level='dep' and members.member_id=?)", params[:emp_id], params[:div_id], params[:dep_id])
                 .order(:number)
     render json: { status: 200, projects: projects }
   end
@@ -268,11 +311,167 @@ class Api::V1::ProjectsController < ApplicationController
                 .joins(:members)
                 .select("projects.*, plemp.name as pl_name")
                 .where(members: { level: 'emp', member_id: params[:id] })
-                .where(projects: { status: 'PJ推進中'})
+                .where("(status= 'PJ推進中') or (status = '完了報告書差戻')")
                 .order(:number)
     render json: { status: 200, projects: projects }
   end
 
+  # プロジェクト外タスクグループ登録
+  def create_no_project
+    ActiveRecord::Base.transaction do
+
+      prj_param = prj_params[:prj]
+
+      # プロジェクト情報
+      prj = Project.new()
+      prj.status = "管理対象外"
+      prj.pl_id = prj_param[:pl_id]
+      prj.number = prj_param[:number]
+      prj.name = prj_param[:name]
+      prj.make_date = Date.today
+      prj.make_id = prj_param[:pl_id]
+      prj.update_date = Date.today
+      prj.update_id = prj_param[:pl_id]
+      prj.development_period_fr = prj_param[:development_period_fr]
+      prj.development_period_to = prj_param[:development_period_to]
+      prj.remarks = prj_param[:remarks]
+      prj.not_project = true
+      prj.save!
+
+      # 工程情報
+      phase = Phase.new()
+      phase.project_id = prj.id
+      phase.number = ""
+      phase.name = ""
+      phase.planned_periodfr = prj_param[:development_period_fr]
+      phase.planned_periodto = prj_param[:development_period_to]
+      phase.save!
+
+      # タスク情報
+      task_num = 0
+      prj_params[:tasks].map do |task_param|
+        if task_param[:del].blank? then
+          task_num += 1
+          task = Task.new()
+          task.phase_id = phase.id
+          task.number = task_num
+          task.name = task_param[:name]
+          task.planned_periodfr = prj_param[:development_period_fr]
+          task.planned_periodto = prj_param[:development_period_to]
+          task.save!
+        end
+      end
+
+      # メンバー情報
+      mem_num = 0
+      prj_params[:mems].map do |mem_param|
+        if mem_param[:del].blank? then
+          mem_num += 1
+          mem = Member.new()
+          mem.project_id = prj.id
+          mem.number = mem_num
+          mem.level = mem_param[:level]
+          mem.member_id = mem_param[:member_id]
+          mem.save!
+        end
+      end
+    end
+
+    render json: { status:200, message: "Create Success!"}
+
+  rescue => e
+
+    render json: { status:500, message: "Create Error"}
+
+  end
+
+  # プロジェクト外タスクグループ更新
+  def update_no_project
+    ActiveRecord::Base.transaction do
+
+      # プロジェクト情報
+      prj = Project.find(params[:id])
+      prj_param = prj_params[:prj]
+      prj.update_date = Date.today
+      prj.update_id = prj_param[:pl_id]
+      prj.development_period_fr = prj_param[:development_period_fr]
+      prj.development_period_to = prj_param[:development_period_to]
+      prj.remarks = prj_param[:remarks]
+      prj.save!
+
+      # タスク情報
+      task_num = 0
+      prj_params[:tasks].map do |task_param|
+        if task_param[:del].blank? then
+          task_num += 1
+          task = Task.find_or_initialize_by(id: task_param[:id])
+          task.phase_id = task_param[:phase_id]
+          task.number = task_num
+          task.name = task_param[:name]
+          task.planned_periodfr = prj_param[:development_period_fr]
+          task.planned_periodto = prj_param[:development_period_to]
+          task.save!
+        else
+          if task_param[:id].present? then
+            task = Task.find(task_param[:id])
+            task.destroy!
+          end
+        end
+      end
+
+      # メンバー情報
+      mem_num = 0
+      prj_params[:mems].map do |mem_param|
+        if mem_param[:del].blank? then
+          mem_num += 1
+          mem = Member.find_or_initialize_by(id: mem_param[:id])
+          mem.project_id = params[:id]
+          mem.number = mem_num
+          mem.level = mem_param[:level]
+          mem.member_id = mem_param[:member_id]
+          mem.save!
+        else
+          if mem_param[:id].present? then
+            mem = Member.find(mem_param[:id])
+            mem.destroy!
+          end
+        end
+      end
+
+    end
+
+    render json: { status:200, message: "Update Success!"}
+
+  rescue => e
+
+    render json: { status:500, message: "Update Error"}
+
+  end
+
+  # プロジェクト外タスクグループ詳細
+  def show_no_project
+    project = Project
+              .joins("LEFT OUTER JOIN employees AS aemps ON aemps.id=approval LEFT OUTER JOIN employees AS memps ON memps.id=make_id LEFT OUTER JOIN employees AS uemps ON uemps.id=update_id LEFT OUTER JOIN employees AS plemp ON plemp.id=pl_id")
+              .select("projects.*, aemps.name as approval_name, memps.name as make_name, uemps.name as update_name, plemp.name as pl_name")
+              .find(params[:id])
+    phase = Phase.find_by(project_id: params[:id])
+    tasks = Task
+            .joins(:phase)
+            .where("phases.project_id = ?", params[:id])
+            .order(:number)
+
+
+    sql = "select members.*, emps.name as member_name from members LEFT OUTER JOIN employees AS emps ON emps.id=member_id where project_id = :project_id and level = 'emp' "
+    sql += "union "
+    sql += "select members.*, divs.name as member_name from members LEFT OUTER JOIN divisions AS divs ON divs.id=member_id where project_id = :project_id and level = 'div' "
+    sql += "union "
+    sql += "select members.*, deps.name as member_name from members LEFT OUTER JOIN departments AS deps ON deps.id=member_id where project_id = :project_id and level = 'dep' "
+    sql += "order by number "
+    mems = Member.find_by_sql([sql, { project_id: params[:id] }])
+
+    render json: { status: 200, project: project, phase: phase, tasks: tasks, mems: mems }
+  end
+  
 # ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑　確認済み
 
   def index
@@ -294,8 +493,8 @@ class Api::V1::ProjectsController < ApplicationController
       risks: [:id, :project_id, :number, :contents, :del],
       goals: [:id, :project_id, :number, :contents, :del],
       mems: [:id, :project_id, :number, :level, :member_id, :del],
-      log: [:changer_id, :change_date, :contents]
-    
+      log: [:changer_id, :change_date, :contents],
+      tasks: [:id, :phase_id, :name, :del],
     )
   end
 end

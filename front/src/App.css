@@ -59,6 +59,7 @@ button.link-style-btn{
   cursor: pointer;
   border: none;
   background: none;
+  font-size: inherit;
   color: #0033cc;
 }
 button.link-style-btn:hover{
@@ -69,5 +70,5 @@ button.link-style-btn:hover{
 /* App.js固有 */
 .app-main {
   height: calc(100vh - 42px);
-  max-width: 1440px;
+  width: 100%;
 }

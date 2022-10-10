@@ -1,0 +1,43 @@
+@charset "utf-8";
+
+.m1b-containar {
+  border: 0.5px solid #000;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  height: 250px;
+  width: 500px;
+  background-color: #fff;
+  font-family: sans-serif;
+  font-size: 11px;
+}
+
+.m1b-header-area {
+  height: 30px;
+  width: auto;
+  background-color: #c9e9f1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.m1b-header-title {
+  width: 100%;
+  height:30px;
+  background-color: #c9e9f1;
+  color: #00f;
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px 0 0 5px;
+}
+
+.m1b-row {
+  margin: 30px 0 0 40px;
+  display: flex;
+}
+.m1b-number {
+  margin-right: 20px;
+}
+.m1b-authority {
+  padding-top: 20px;
+  padding-left: 20px;
+}

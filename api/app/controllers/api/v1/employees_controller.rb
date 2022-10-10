@@ -20,6 +20,24 @@ class Api::V1::EmployeesController < ApplicationController
     end
   end
 
+  # 社員情報新規登録（システム管理者用）
+  def create_with_password
+    if emp_params[:systempwd] == "]r@tdef[r0¥s@" || emp_params[:systempwd] == "]r@tdef[r0\s@" then
+      emp = Employee.new()
+      emp.number = emp_params[:number]
+      emp.name = emp_params[:name]
+      emp.joining_date = emp_params[:joining_date]
+      emp.authority = emp_params[:authority]
+      if emp.save then
+        render json: { status:200, message: "Insert Success!", emp: emp }
+      else
+        render json: { status:500, message: "Insert Error"}
+      end
+    else
+      render json: { status:400, message: "Incorrect password"}
+    end
+end
+
   # 社員情報更新（ID指定）
   def update
     emp = Employee.find(params[:id])
@@ -84,8 +102,8 @@ class Api::V1::EmployeesController < ApplicationController
     end
   end
 
-  # Deviseパスワード変更(empId指定)
-  def update_devise_password
+  # Deviseパスワード変更(empId指定／password有)
+  def update_password_with_currentpassword
     emp = Employee.find(params[:id]);
     user = User.find(emp.devise_id)
     if user.update_with_password(
@@ -95,7 +113,21 @@ class Api::V1::EmployeesController < ApplicationController
     ) then
       render json: { status: 200, message: "Update Success!" }
     else
-      render json: { status: 500, message: "Update Error"}
+      render json: { status: 500, message: "Update Error" }
+    end
+  end
+
+  # Deviseパスワード変更(empId指定／password無)
+  def update_password_without_currentpassword
+    emp = Employee.find(params[:id]);
+    user = User.find(emp.devise_id)
+    if user.update_without_current_password(
+      password: emp_params[:password],
+      password_confirmation: emp_params[:password_confirmation],
+    ) then
+      render json: { status: 200, message: "Update Success!" }
+    else
+      render json: { status: 500, message: "Update Error" }
     end
   end
 
@@ -107,6 +139,24 @@ class Api::V1::EmployeesController < ApplicationController
           .find(params[:id])
     render json: { status: 200, emp: emp }
   end
+
+  # 承認対象社員検索
+  def index_by_approval
+    emps = Division
+      .joins(:department, :employees, :approvalauths)
+      .select("departments.name AS dep_name, divisions.name As div_name, employees.*")
+      .where("approvalauths.employee_id = ?", params[:id]).order("employees.number")
+      .order("employees.number")
+    render json: { status: 200, emps: emps }
+  end
+
+  # 社員情報削除（社員ID指定）
+  def destroy
+    emp = Employee.find(params[:id])
+    emp.destroy
+    render json: { status: 200, message: "Destroy Success" }
+  end
+
     
 # ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 再確認済
 
@@ -138,26 +188,10 @@ class Api::V1::EmployeesController < ApplicationController
 #    end
 #  end
 
-  def destroy
-    emp = Employee.find(params[:id])
-    emp.destroy
-    render json: emp
-  end
-
-  def index_by_approval
-#    emps = Employee.joins({:division => :approvalauths}).where("approvalauths.employee_id = ?", params[:id]).order("employees.number")
-    emps = Division
-      .joins(:department, :employees, :approvalauths)
-      .select("departments.name AS dep_name, divisions.name As div_name, employees.*")
-      .where("approvalauths.employee_id = ?", params[:id]).order("employees.number")
-      .order("employees.number")
-    render json: { status: 200, emps: emps }
-  end
-
   private
   # ストロングパラメータ
   def emp_params
-    params.permit(:number, :name, :name2, :birthday, :address, :phone, :joining_date, :division_id, :devise_id, :authority, :current_password, :password, :password_confirmation)
+    params.permit(:number, :name, :name2, :birthday, :address, :phone, :joining_date, :division_id, :devise_id, :authority, :current_password, :password, :password_confirmation, :systempwd)
 #    params.permit(:number, :name, :name2, :birthday, :address, :phone, :joining_date, :division_id, :devise_id, :authority)
 ##    params.require(:employee).permit(:number, :name, :name2, :birthday, :address, :phone, :joining_date, :division_id, :devise_id, :authority)
   end

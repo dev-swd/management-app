@@ -46,6 +46,18 @@ class Api::V1::ProgressreportsController < ApplicationController
         pcopy.phase_id = phase.id
         pcopy.number = phase.number
         pcopy.name = phase.name
+        pcopy.planned_periodfr = phase.planned_periodfr
+        pcopy.planned_periodto = phase.planned_periodto
+        pcopy.actual_periodfr = phase.actual_periodfr
+        pcopy.actual_periodto = phase.actual_periodto
+        pcopy.planned_cost = phase.planned_cost
+        pcopy.planned_workload = phase.planned_workload
+        pcopy.planned_outsourcing_cost = phase.planned_outsourcing_cost
+        pcopy.planned_outsourcing_workload = phase.planned_outsourcing_workload
+        pcopy.actual_cost = phase.actual_cost
+        pcopy.actual_workload = phase.actual_workload
+        pcopy.actual_outsourcing_cost = phase.actual_outsourcing_cost
+        pcopy.actual_outsourcing_workload = phase.actual_outsourcing_workload
         pcopy.save!
       end
 
@@ -76,7 +88,7 @@ class Api::V1::ProgressreportsController < ApplicationController
 
       #*** プロジェクトレベルでのEVM計測 ***
       # BAC(完成時総予算)
-      bac = prj.planned_workload + prj.planned_outsourcing_workload
+      bac = (prj.planned_workload + prj.planned_outsourcing_workload) * 20
 
       # 計測起点を設定
       period_fr = prj.development_period_fr
@@ -1077,6 +1089,126 @@ class Api::V1::ProgressreportsController < ApplicationController
       evm.vac = bac - evm.eac
       # 保存
       evm.save!
+
+      # *** Task Actual ***
+      # 集計は外注タスク以外が対象
+      tasks = Taskcopy
+                .where(progressreport_id: prog.id)
+                .where(outsourcing: false)
+                .order(:number)
+      tasks.map do |t|
+
+        # 所定時間、時間外時間
+        act1 = Workreport
+                .where(task_id: t.task_id)
+                .select("sum(hour) as hour, sum(minute) as minute, sum(over_h) as over_h, sum(over_m) as over_m")
+        total_hour = 0
+        total_minute = 0
+        over_h = 0
+        over_m = 0
+        act1.map do |a1|
+          over_h = a1.over_h.to_f
+          over_m = a1.over_m.to_f
+          total_hour = a1.hour.to_f + over_h
+          total_minute = a1.minute.to_f + over_m
+        end
+  
+        # 完了後の所定時間、時間外時間
+        act2 = Workreport
+                .joins(:dailyreport)
+                .where(task_id: t.task_id)
+                .where("dailyreports.date > ?", t.actual_periodto)
+                .select("sum(hour) as hour, sum(minute) as minute, sum(workreports.over_h) as over_h, sum(workreports.over_m) as over_m")
+        after_total_hour = 0
+        after_total_minute = 0
+        after_over_h = 0
+        after_over_m = 0
+        act2.map do |a2|
+          after_over_h = a2.over_h.to_f
+          after_over_m = a2.over_m.to_f
+          after_total_hour = a2.hour.to_f + after_over_h
+          after_total_minute = a2.minute.to_f + after_over_m
+        end
+
+        # タスク実績登録
+        taskact = Taskactual.new(progressreport_id: prog.id, taskcopy_id: t.id)
+        taskact.total_workload = getWorkload(total_hour, total_minute)
+        taskact.overtime_workload = getWorkload(over_h, over_m)
+        taskact.after_total_workload = getWorkload(after_total_hour, after_total_minute)
+        taskact.after_overtime_workload = getWorkload(after_over_h, after_over_m)
+        taskact.save!
+      end
+
+      # *** Phase Actual ***
+      # 集計は外注タスク以外が対象
+      phases = Phasecopy
+                .where(progressreport_id: prog.id)
+                .order(:number)
+      phases.map do |ph|
+
+        taskact = Taskactual
+                    .joins(:taskcopy)
+                    .where("taskcopies.phase_id = ?", ph.phase_id)
+                    .select("sum(total_workload) as total_workload, sum(overtime_workload) as overtime_workload, sum(after_total_workload) as after_total_workload, sum(after_overtime_workload) as after_overtime_workload")
+        total_workload = 0
+        overtime_workload = 0
+        after_total_workload = 0
+        after_overtime_workload = 0
+        total_cost = 0
+        taskact.map do |ta|
+          total_workload = (ta.total_workload.to_f / 20).round(2)
+          overtime_workload = (ta.overtime_workload.to_f / 20).round(2)
+          after_total_workload = (ta.after_total_workload.to_f / 20).round(2)
+          after_overtime_workload = (ta.after_overtime_workload.to_f / 20).round(2)
+          total_cost = total_workload * (ph.planned_cost.to_f / ph.planned_workload.to_f).round
+        end
+
+        # 開始日
+        taskfr = Taskcopy
+                    .where(progressreport_id: prog.id)
+                    .where(phase_id: ph.phase_id)
+                    .where.not(actual_periodfr: nil)
+                    .select(:actual_periodfr)
+                    .order(:actual_periodfr)
+                    .limit(1)
+        periodfr = ""
+        taskfr.map do |fr|
+          if periodfr.blank? then
+            periodfr = fr.actual_periodfr
+          end
+        end
+
+        periodto = ""
+        if periodfr.present? then
+          # 終了日
+          if Taskcopy.exists?(progressreport_id: prog.id, phase_id: ph.phase_id, actual_periodto: nil) then
+            # 終了日未入力が１件でもある場合
+          else
+            # 終了日が全て入力されている場合
+            taskto = Taskcopy
+                      .where(progressreport_id: prog.id)
+                      .where(phase_id: ph.phase_id)
+                      .select(:actual_periodto)
+                      .order(actual_periodto: :desc)
+                      .limit(1)
+            taskto.map do |to|
+              periodto = to.actual_periodto
+            end
+          end
+        end
+
+        # 工程実績登録
+        phaseact = Phaseactual.new(progressreport_id: prog.id, phasecopy_id: ph.id)
+        phaseact.periodfr = periodfr
+        phaseact.periodto = periodto
+        phaseact.total_cost = total_cost
+        phaseact.total_workload = total_workload
+        phaseact.overtime_workload = overtime_workload
+        phaseact.after_total_workload = after_total_workload
+        phaseact.after_overtime_workload = after_overtime_workload
+        phaseact.save!
+        
+      end
 
     end # ActiveRecord
 

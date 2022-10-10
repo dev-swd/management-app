@@ -4,6 +4,8 @@
   width: 900px;
   height: 90%;
   background-color: #fff;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .m2f-header-area {

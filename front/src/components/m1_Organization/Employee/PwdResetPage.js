@@ -1,9 +1,7 @@
 // m1a
 import { useEffect, useState } from "react";
-import './DeviseResetPage.css';
-import { signUp } from "../../../lib/api/auth";
-import { getEmpWithDevise, updateEmp } from '../../../lib/api/employee';
-import { hankakuOnly } from '../../../lib/common/InputRegulation';
+import './PwdResetPage.css';
+import { getEmpWithDevise, updatePasswordReset } from '../../../lib/api/employee';
 import { isEmpty } from '../../../lib/common/isEmpty';
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
@@ -13,9 +11,9 @@ import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import TextField from '@mui/material/TextField';
 import ModalConfirm from '../../common/ModalConfirm';
 
-const initDevise = { name: "", email: "", password: "", passwordConfirmation: "" };
+const initDevise = { password: "", passwordConfirmation: "" };
 
-const DeviseResetPage = (props) => {
+const PwdResetPage = (props) => {
   const { empId, closeReset } = props;
   const [message, setMessage] = useState({ kbn: "", msg: "" });
   const [emp, setEmp] = useState({});
@@ -41,23 +39,15 @@ const DeviseResetPage = (props) => {
 
   // Devise情報入力時の処理
   const handleChangeDevise = (name, value) => {
-    if (name==="name") {
-      setDevise({
-        ...devise,
-        name: value,
-        email: value + "@example.com",
-      });
-    } else {
-      setDevise({
-        ...devise,
-        [name]: value,
-      });
-    }
+    setDevise({
+      ...devise,
+      [name]: value,
+    });
   }
 
   // 登録ボタン非活性制御
   const setDisabledSubmit = () => {
-    if (devise.name === "" || devise.password === "" || devise.passwordConfirmation ==="" ) {
+    if (devise.password === "" || devise.passwordConfirmation ==="" ) {
       return true;
     } else {
       return false;
@@ -68,7 +58,7 @@ const DeviseResetPage = (props) => {
   const handleSubmit = (e) => {
     setConfirm({
       ...confirm,
-      msg: "新しいログイン情報に書き換えます。よろしいですか？",
+      msg: "新しいパスワードに書き換えます。よろしいですか？",
       tag: "",
     });
   }
@@ -81,34 +71,21 @@ const DeviseResetPage = (props) => {
       tag: "",
     });
     try {
-      // Devise SignUp
-      const res = await signUp(up_params);
+      const res = await updatePasswordReset(empId, up_params);
       if (res.status === 200) {
-        // 正常にSignUpできた場合、社員情報登録
-        try {
-          const res2 = await updateEmp(empId, {devise_id: res.data.data.id});
-          if (res2.data.status === 500) {
-            setMessage({kbn: "error", msg: "社員情報更新エラー(500)"});
-          } else {
-            handleClose();
-          }
-        } catch (e) {
-          setMessage({kbn: "error", msg: "社員情報更新エラー"});
-        }
+        handleClose();
       } else {
-        setMessage({kbn: "error", msg: "ログインユーザ登録エラー(UserName重複の可能性があります)"});
+        setMessage({kbn: "error", msg: "パスワード更新エラー(500)"});
       }
     } catch (e) {
-      setMessage({kbn: "error", msg: "ログインユーザ登録エラー"});
+      setMessage({kbn: "error", msg: "パスワード更新エラー"});
     }
   }
 
-  // devise SignUpパラメータ
+  // devise パスワード更新パラメータ
   const up_params = {
-    name: devise.name,
-    email: devise.email,
     password: devise.password,
-    passwordConfirmation: devise.passwordConfirmation
+    password_confirmation: devise.passwordConfirmation,
   }
 
   // 確認ダイアログでキャンセルの場合の処理
@@ -135,7 +112,7 @@ const DeviseResetPage = (props) => {
         <div className="overlay">
           <div className="m1a-container">
             <div className="m1a-header-area">
-              <div className="m1a-header-title">ログインユーザリセット</div>
+              <div className="m1a-header-title">パスワードリセット</div>
               <IconButton color="primary" aria-label="Close" size="large" onClick={(e) => handleClose()}>
                 <CloseIcon fontSize="inherit" />
               </IconButton>
@@ -169,21 +146,7 @@ const DeviseResetPage = (props) => {
 
             {/* SignUp */}
             <div className="m1a-devise-area">
-              <div className="m1a-area-title">■新しいログイン情報</div>
-                <div className="m1a-text-pos">
-                <TextField
-                  id="signup-name"
-                  name="name"
-                  label="UserName*"
-                  value={devise.name}
-                  variant="standard"
-                  size="small"
-                  style={{width:150}}
-                  inputProps={{maxLength:15, style: {fontSize:11, fontFamily:"sans-serif"} }}
-                  InputLabelProps={{ style: {fontSize:11, fontFamily:"sans-serif"} }}
-                  onChange={(e) => handleChangeDevise(e.target.name, hankakuOnly(e.target.value))}
-                />
-              </div>
+              <div className="m1a-area-title">■新しいパスワード</div>
               <div className="m1a-text-pos">
                 <TextField 
                   type="password" 
@@ -227,4 +190,4 @@ const DeviseResetPage = (props) => {
   );
 
 }
-export default DeviseResetPage;
+export default PwdResetPage;

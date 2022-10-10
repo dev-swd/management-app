@@ -13,6 +13,7 @@
   width: 500px;
   height: 60px;
   text-align: center;
+  white-space: pre-wrap;
 }
 
 .confirm-container .confirm-button-area {

@@ -10,9 +10,15 @@ export const getTasks = (phaseId) => {
   return client.get(`/tasks/${phaseId}/index_by_phase/`);
 };
 
+//一覧（工程ID指定／一部工程情報も取得／外注タスク対象外）
+export const getTasksWithoutOutsourcing = (phaseId) => {
+  return client.get(`/tasks/${phaseId}/index_by_phase_without_outsourcing/`);
+};
 
-// ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑　再確認済
-
+// タスク別予実データ取得
+export const getTask_PlanAndActual = (progId, phaseId) => {
+  return client.get(`/tasks/index_plan_and_actual?prog_id=${progId}&phase_id=${phaseId}`);
+};
 
 // 更新
 export const updateTasksForPlan = (phase_id, params) => {

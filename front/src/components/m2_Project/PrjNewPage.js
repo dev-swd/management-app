@@ -19,6 +19,7 @@ import DatePicker from '@mui/lab/DatePicker';
 import DateAdapter from "@mui/lab/AdapterDateFns";
 import jaLocale from "date-fns/locale/ja";
 import ModalConfirm from '../common/ModalConfirm';
+import { isEmpty } from '../../lib/common/isEmpty';
 
 const today = new Date();
 
@@ -42,13 +43,13 @@ const styles = {
     }
   },
 }
-const PrjNewPage_v2 = (props) => {
+const PrjNewPage = (props) => {
   const { showFlg, closeWindow } = props;
   const { empInfo } = useContext(AuthContext);
   const [message, setMessage] = useState({ kbn: "", msg: "" });
   const [data, setData] = useState({});  
   const [options, setOptions] = useState([]);
-  const [pl, setPl] = useState({value: "", label: ""});
+  const [plId, setPlId] = useState({value: "", label: ""});
   const [approval, setApproval] = useState({value: "", label: ""});
   const [confirm, setConfirm] = useState({msg: "", tag: ""});
 
@@ -56,7 +57,7 @@ const PrjNewPage_v2 = (props) => {
   useEffect(() => {
     // 画面初期化
     setData({ number: "", name: "", approval_date: today });
-    setPl({value: "", label: ""});
+    setPlId({value: "", label: ""});
     setApproval({value: empInfo.id, label: empInfo.name});
     // 社員リスト取得
     handleGetEmps();
@@ -96,10 +97,14 @@ const PrjNewPage_v2 = (props) => {
 
   // 登録ボタン非活性制御
   const setDisabledSubmit = () => {
-    if (data.number === "" || data.name === "" || data.pl_id === "" || data.approval_data === "" || data.approval === "") {
+    if (isEmpty(data.number) || isEmpty(data.name) || isEmpty(plId) || isEmpty(data.approval_date) || isEmpty(approval)) {
       return true;
     } else {
-      return false;
+      if (isEmpty(plId.value) || isEmpty(approval.value)) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
@@ -120,7 +125,13 @@ const PrjNewPage_v2 = (props) => {
       tag: "",
     });
     try {
-      const res = await createPrj(setParam);
+      const res = await createPrj({prj: {number: data.number,
+                                    name: data.name,
+                                    pl_id: plId.value,
+                                    approval_date: data.approval_date,
+                                    approval: approval.value,
+                                    status: "計画未提出"
+                                  }});
       if (res.data.status === 500) {
         setMessage({kbn: "error", msg: "プロジェクト情報登録エラー(500)"});
       } else {
@@ -130,15 +141,6 @@ const PrjNewPage_v2 = (props) => {
       setMessage({kbn: "error", msg: "プロジェクト情報登録エラー"});
     }
   }
-
-  // プロジェクト登録パラメータ
-  const setParam = {prj: {number: data.number,
-                    name: data.name,
-                    pl_id: pl.value,
-                    approval_date: data.approval_date,
-                    approval: approval.value,
-                    status: "計画未提出"
-                  }}
 
   // 確認ダイアログでキャンセルの場合の処理
   const handleCofirmCancel = () => {
@@ -215,8 +217,8 @@ const PrjNewPage_v2 = (props) => {
           {/* PL */}
           <div className="m21-text-pos">
             <SelectPl
-              pl={pl}
-              setPl={setPl}
+              plId={plId}
+              setPlId={setPlId}
               options={options}
             />
           </div>
@@ -260,11 +262,11 @@ const PrjNewPage_v2 = (props) => {
   )
 
 }
-export default PrjNewPage_v2;
+export default PrjNewPage;
 
 // PLリストボックス
 const SelectPl = (props) => {
-  const { pl, setPl, options } = props;
+  const { plId, setPlId, options } = props;
 
   return (
     <Autocomplete
@@ -288,9 +290,9 @@ const SelectPl = (props) => {
           inputProps={{ ...params.inputProps, style: {fontSize:11, fontFamily:"sans-serif"}}}
         />
       )}
-      value={pl}
+      value={plId}
       onChange={(_event,newTerm) => {
-        setPl(newTerm);
+        setPlId(newTerm);
       }}
     />
   )

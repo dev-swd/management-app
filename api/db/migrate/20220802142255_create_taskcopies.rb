@@ -6,7 +6,7 @@ class CreateTaskcopies < ActiveRecord::Migration[6.1]
       t.bigint "phase_id"
       t.bigint "task_id"
       t.string "task_name"
-      t.bigint "worker_name"
+      t.string "worker_name"
       t.boolean "outsourcing", null: false, default: false
       t.decimal "planned_workload", precision: 6, scale: 2
       t.date "planned_periodfr"

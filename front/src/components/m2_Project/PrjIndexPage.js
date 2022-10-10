@@ -48,7 +48,7 @@ const PrjIndexPage = () => {
   // プロジェクト情報取得
   const handleGetPrjs = async () => {
     try {
-      const res = await getPrjsByConditional(selectedStatus,selectedPlId.value,selectedOrder,desc);
+      const res = await getPrjsByConditional(false,selectedStatus,selectedPlId.value,selectedOrder,desc);
       setData(res.data);
       setMessage({kbn: "", msg: ""});
     } catch (e) {
@@ -103,7 +103,7 @@ const PrjIndexPage = () => {
         <td className={'m20-date-td' + stylePeriod}>{formatDateZero(prj.development_period_fr, "YYYY年MM月DD日")}</td>
         <td className={'m20-date-td' + stylePeriod}>{formatDateZero(prj.development_period_to, "YYYY年MM月DD日")}</td>
         <td className={'m20-link-td' + stylePeriod}>
-          <IconButton aria-label="delete" size="small" onClick={() => handleDelPrj(prj)} disabled={!authInfo.prjdelete}>
+          <IconButton aria-label="delete" size="small" onClick={() => handleDelPrj(prj)} disabled={!authInfo.prjDelAddAuth}>
             <DeleteIcon fontSize="inherit" />
           </IconButton>
         </td>
@@ -270,7 +270,7 @@ const PrjIndexPage = () => {
         </div>
 
         <div className="m20-button-area">
-          {authInfo.prjnew && 
+          {authInfo.prjDelAddAuth && 
           <IconButton aria-label="Add" color="primary" size="large" onClick={() => handleNewPrj()}>
             <AddCircleIcon sx={{ fontSize : 40 }} />
           </IconButton>
@@ -298,7 +298,7 @@ const SelectPl = (props) => {
   // PL情報取得
   const handleGetPls = async () => {
     try {
-      const res = await getPls();
+      const res = await getPls(false);
       // リストボックス用変数
       const tmpOptions = res.data.pls.map(p => {
         const tmpOption = {};

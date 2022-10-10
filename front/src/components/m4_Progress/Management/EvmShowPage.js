@@ -78,9 +78,9 @@ const EvmShowPage = (props) => {
     return group;
   }
 
-  // パーセント計算
+  // パーセント計算（小数点以下第２位四捨五入）
   const setPercent = (v1, v2) => {
-    return Math.round((v1 / v2) * 100) / 100;
+    return Math.round((v1 / v2) * 10000) / 100;
   }
 
   // 画面編集
