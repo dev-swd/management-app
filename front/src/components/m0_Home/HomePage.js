@@ -317,7 +317,7 @@ const PrjToDo = (props) => {
           );
         } else {
           return (
-            <div className="m00-card">
+            <div className="m00-card-normal">
               {children}
             </div>
           );
