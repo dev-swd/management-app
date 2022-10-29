@@ -163,3 +163,11 @@
 .m34-approval_select {
   margin-top: 5px;
 }
+
+.m34-sunday {
+  background-color: #ffb6c1;
+}
+
+.m34-saturday {
+  background-color: #ffffe0;
+}

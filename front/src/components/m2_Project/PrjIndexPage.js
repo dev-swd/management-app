@@ -59,7 +59,7 @@ const PrjIndexPage = () => {
   // 明細行編集
   const SetRow = ({prj}) => {
 
-    // 開発期間が経過する場合は行を赤くスタイルする
+    // 開発期間が経過する場合は行を黄色にスタイルする
     const today = new Date();
     let stylePeriod = "";
     if (!isEmpty(prj.development_period_to)) {

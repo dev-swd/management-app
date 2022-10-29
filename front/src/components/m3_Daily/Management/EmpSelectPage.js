@@ -17,6 +17,8 @@ const DailySelectPage = () => {
   const [selectedDiv, setSelectedDiv] = useState("all");
   const [emps, setEmps] = useState([]);
   const [empId, setEmpId] = useState("");
+  const [empName, setEmpName] = useState("");
+  const [leftLock, setLeftLock] = useState(false);
 
   // 初期処理
   useEffect(() => {
@@ -38,6 +40,7 @@ const DailySelectPage = () => {
   // 社員情報取得
   const handleGetEmps = async () => {
     setEmpId("");
+    setEmpName("");
     try {
       if(selectedDiv==="all"){
         // 承認対象全社員
@@ -54,13 +57,17 @@ const DailySelectPage = () => {
   }
 
   // 表示リンククリック時の処理
-  const handleClickLink = (empId) => {
-    setEmpId(empId);
+  const handleClickLink = (emp) => {
+    setEmpId(emp.id);
+    setEmpName(emp.name);
+    setLeftLock(true);
   }
 
   // 勤怠一覧画面終了時の処理
   const closeDailyIndex = () => {
     setEmpId("");
+    setEmpName("");
+    setLeftLock(false);
   }
 
   // null／undefined対策
@@ -106,6 +113,7 @@ const DailySelectPage = () => {
                 variant="contained" 
                 endIcon={<SearchIcon />} 
                 sx={{height:25}}
+                disabled={leftLock}
                 onClick={(e) => handleGetEmps()}>
                 選択
               </Button>            
@@ -131,12 +139,16 @@ const DailySelectPage = () => {
                         <td className="m33-number-td">{toStr(emp.number)}</td>
                         <td className="m33-name-td">{toStr(emp.name)}</td>
                         <td className="m33-link-td">
-                          <button 
-                            className="link-style-btn" 
-                            type="button" 
-                            onClick={() => handleClickLink(emp.id)}>
-                            表示
-                          </button>
+                          { leftLock ?
+                            <div className="m33-link-disabled">表示</div>                        
+                          :
+                            <button 
+                              className="link-style-btn" 
+                              type="button" 
+                              onClick={() => handleClickLink(emp)}>
+                              表示
+                            </button>
+                          }
                         </td>
                       </tr>
                     )
@@ -149,7 +161,7 @@ const DailySelectPage = () => {
 
           </div>
           {/* 可変コンテナ */}
-          <DailyIndexPage empId={empId} closeDaily={closeDailyIndex}/>
+          <DailyIndexPage empId={empId} empName={empName} closeDaily={closeDailyIndex}/>
 
         </div>
 

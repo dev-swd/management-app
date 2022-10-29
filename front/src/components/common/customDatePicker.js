@@ -16,15 +16,20 @@ const CustomDatePicker = (props) => {
   }
 
   const handleChange = (d) => {
-    var year_str = d.getFullYear();
-    var month_str = d.getMonth() + 1;
-    var day_str = d.getDate();
-    var format_str = "YYYY-MM-DD 00:00:00";
-    month_str = ('0' + month_str).slice(-2);
-    day_str = ('0' + day_str).slice(-2);
-    format_str = format_str.replace(/YYYY/g, year_str);
-    format_str = format_str.replace(/MM/g, month_str);
-    format_str = format_str.replace(/DD/g, day_str);
+    var format_str;
+    if(d===undefined || d===null || d===""){
+      format_str = "";      
+    } else {
+      var year_str = d.getFullYear();
+      var month_str = d.getMonth() + 1;
+      var day_str = d.getDate();
+      format_str = "YYYY-MM-DD 00:00:00";
+      month_str = ('0' + month_str).slice(-2);
+      day_str = ('0' + day_str).slice(-2);
+      format_str = format_str.replace(/YYYY/g, year_str);
+      format_str = format_str.replace(/MM/g, month_str);
+      format_str = format_str.replace(/DD/g, day_str);
+    }
 
     if(name===undefined || name===null || name===""){
       if(index===undefined || index===null || index===""){

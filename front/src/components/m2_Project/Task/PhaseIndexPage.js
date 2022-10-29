@@ -79,10 +79,10 @@ const PhaseIndexPage = (props) => {
         ...data,
         prj: {number: res.data.prj.number,
               name: res.data.prj.name,
-              planned_work_cost: res.data.prj.planned_work_cost,
-              planned_workload: res.data.prj.planned_workload,
-              planned_outsourcing_cost: res.data.prj.planned_outsourcing_cost,
-              planned_outsourcing_workload: res.data.prj.planned_outsourcing_workload
+              planned_work_cost: toNum(res.data.prj.planned_work_cost),
+              planned_workload: toNum(res.data.prj.planned_workload),
+              planned_outsourcing_cost: toNum(res.data.prj.planned_outsourcing_cost),
+              planned_outsourcing_workload: toNum(res.data.prj.planned_outsourcing_workload)
         },
         phases: tmpPhases
       });

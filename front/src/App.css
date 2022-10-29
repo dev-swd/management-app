@@ -59,7 +59,7 @@ button.link-style-btn{
   cursor: pointer;
   border: none;
   background: none;
-  font-size: inherit;
+/*  font-size: inherit; */
   color: #0033cc;
 }
 button.link-style-btn:hover{

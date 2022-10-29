@@ -48,6 +48,7 @@
 
 .m33-select-division {
   height: 25px;
+  max-width: 320px;
   margin-right: 20px;
   margin-top: 1px;
 }
@@ -108,4 +109,9 @@
 .m33-link-td {
   width: 50px;
   text-align: center;
+}
+
+.m33-link-disabled {
+  font-weight: bold;
+  color: #a9a9a9;
 }

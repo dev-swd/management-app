@@ -159,3 +159,11 @@
 .m30-daily-request-btn {
   width: 56px;
 }
+
+.m30-sunday {
+  background-color: #ffb6c1;
+}
+
+.m30-saturday {
+  background-color: #ffffe0;
+}

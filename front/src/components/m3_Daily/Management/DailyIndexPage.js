@@ -16,7 +16,7 @@ import { isEmpty } from '../../../lib/common/isEmpty';
 const today = new Date();
 
 const DailyIndexPage = (props) => {
-  const { empId, closeDaily } = props;
+  const { empId, empName, closeDaily } = props;
   const { empInfo } = useContext(AuthContext)
   const [message, setMessage] = useState({ kbn: "", msg: "" });
   const months = [ "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" ];
@@ -38,7 +38,7 @@ const DailyIndexPage = (props) => {
       month: selectVal.month,
     });
     try {
-      const res = await getDailyReps(empInfo.id, selectVal.year, selectVal.month);
+      const res = await getDailyReps(empId, selectVal.year, selectVal.month);
       const tmpDailys = res.data.dailys.map(d => {
         const tmpDaily = {};
         tmpDaily.id = d.id;
@@ -139,6 +139,16 @@ const DailyIndexPage = (props) => {
     const {d,i} = props;
     var pd = Date.parse(d.date);
     var dt = new Date(pd);
+
+    // 土日の場合の背景色設定
+    var dayStyle = "";
+    if (dt.getDay() === 0) {
+      // 日曜
+      dayStyle = " m34-sunday";
+    } else if(dt.getDay() === 6) {
+      // 土曜
+      dayStyle = " m34-saturday";
+    }
 
     // 出社時間編集（通常出社と遅刻時間の比較より）
     const prescribedFrom = () => {
@@ -250,21 +260,21 @@ const DailyIndexPage = (props) => {
     // 行編集
     return (
       <tr key={"daily-" + i} className="body-tr">
-        <td className="m34-date-td">{('0' + dt.getDate()).slice(-2)}</td>
-        <td className="m34-day-td">{day_arr[dt.getDay()]}</td>
-        <td className="m34-kbn-td">{d.kbn}</td>
-        <td className="m34-time-td">{prescribedFrom()}</td>
-        <td className="m34-time-td">{prescribedTo()}</td>
-        <td className="m34-mark-td">{marking(d.late_h)}</td>
-        <td className="m34-mark-td">{marking(d.goout_frh)}</td>
-        <td className="m34-mark-td">{marking(d.early_h)}</td>
-        <td className="m34-time-td">{formatTime(d.prescribed_h,d.prescribed_m)}</td>
-        <td className="m34-time-td">{formatTime(d.over_h,d.over_m)}</td>
-        <td className="m34-time-td">{formatTime(d.midnight_h,d.midnight_m)}</td>
-        <td className="m34-status-td">{d.status}</td>
-        <td className="m34-link-td">{setDetail()}</td>
-        <td className="m34-link-td">{setApproval()}</td>
-        <td className="m34-checkbox-td">{setSelect()}</td>
+        <td className={'m34-date-td' + dayStyle}>{('0' + dt.getDate()).slice(-2)}</td>
+        <td className={'m34-day-td' + dayStyle}>{day_arr[dt.getDay()]}</td>
+        <td className={'m34-kbn-td' + dayStyle}>{d.kbn}</td>
+        <td className={'m34-time-td' + dayStyle}>{prescribedFrom()}</td>
+        <td className={'m34-time-td' + dayStyle}>{prescribedTo()}</td>
+        <td className={'m34-mark-td' + dayStyle}>{marking(d.late_h)}</td>
+        <td className={'m34-mark-td' + dayStyle}>{marking(d.goout_frh)}</td>
+        <td className={'m34-mark-td' + dayStyle}>{marking(d.early_h)}</td>
+        <td className={'m34-time-td' + dayStyle}>{formatTime(d.prescribed_h,d.prescribed_m)}</td>
+        <td className={'m34-time-td' + dayStyle}>{formatTime(d.over_h,d.over_m)}</td>
+        <td className={'m34-time-td' + dayStyle}>{formatTime(d.midnight_h,d.midnight_m)}</td>
+        <td className={'m34-status-td' + dayStyle}>{d.status}</td>
+        <td className={'m34-link-td' + dayStyle}>{setDetail()}</td>
+        <td className={'m34-link-td' + dayStyle}>{setApproval()}</td>
+        <td className={'m34-checkbox-td' + dayStyle}>{setSelect()}</td>
       </tr>
     );
   }
@@ -552,7 +562,7 @@ const DailyIndexPage = (props) => {
       { empId ? (
         <div className="m34-container">
           <div className="m34-header-area">
-            <div className="m34-header-title">日報承認</div>
+            <div className="m34-header-title">{"日報承認（" + empName + "）"}</div>
             <button 
               className="link-style-btn m34-link-return" 
               type="button" 

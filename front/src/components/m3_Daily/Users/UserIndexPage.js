@@ -91,6 +91,16 @@ const UserIndexPage = () => {
     const {d,i} = props;
     var pd = Date.parse(d.date);
     var dt = new Date(pd);
+    
+    // 土日の場合の背景色設定
+    var dayStyle = "";
+    if (dt.getDay() === 0) {
+      // 日曜
+      dayStyle = " m30-sunday";
+    } else if(dt.getDay() === 6) {
+      // 土曜
+      dayStyle = " m30-saturday";
+    }
 
     // 時刻表示編集
     const formatTime = (h,m) => {
@@ -241,22 +251,22 @@ const UserIndexPage = () => {
 
     return (
       <tr key={"daily-" + i}>
-        <td className="m30-daily-date-td">{('0' + dt.getDate()).slice(-2)}</td>
-        <td className="m30-daily-day-td">{day_arr[dt.getDay()]}</td>
-        <td className="m30-daily-kbn-td">{d.kbn}</td>
-        <td className="m30-daily-time-td">{prescribedFrom()}</td>
-        <td className="m30-daily-time-td">{prescribedTo()}</td>
-        <td className="m30-daily-mark-td">{marking(d.late_h)}</td>
-        <td className="m30-daily-mark-td">{marking(d.goout_frh)}</td>
-        <td className="m30-daily-mark-td">{marking(d.early_h)}</td>
-        <td className="m30-daily-time-td">{formatTime(d.prescribed_h,d.prescribed_m)}</td>
-        <td className="m30-daily-time-td">{formatTime(d.over_h,d.over_m)}</td>
-        <td className="m30-daily-time-td">{formatTime(d.midnight_h,d.midnight_m)}</td>
-        <td className="m30-daily-status-td">{d.status}</td>
-        <td className="m30-daily-link-td">{setDailyRep()}</td>
-        <td className="m30-daily-link-td">{setWorkRep()}</td>
-        <td className="m30-daily-request-td">{setRequest()}</td>
-        <td className="m30-daily-alert-td">{setAlert()}</td>
+        <td className={'m30-daily-date-td' + dayStyle}>{('0' + dt.getDate()).slice(-2)}</td>
+        <td className={'m30-daily-day-td' + dayStyle}>{day_arr[dt.getDay()]}</td>
+        <td className={'m30-daily-kbn-td' + dayStyle}>{d.kbn}</td>
+        <td className={'m30-daily-time-td' + dayStyle}>{prescribedFrom()}</td>
+        <td className={'m30-daily-time-td' + dayStyle}>{prescribedTo()}</td>
+        <td className={'m30-daily-mark-td' + dayStyle}>{marking(d.late_h)}</td>
+        <td className={'m30-daily-mark-td' + dayStyle}>{marking(d.goout_frh)}</td>
+        <td className={'m30-daily-mark-td' + dayStyle}>{marking(d.early_h)}</td>
+        <td className={'m30-daily-time-td' + dayStyle}>{formatTime(d.prescribed_h,d.prescribed_m)}</td>
+        <td className={'m30-daily-time-td' + dayStyle}>{formatTime(d.over_h,d.over_m)}</td>
+        <td className={'m30-daily-time-td' + dayStyle}>{formatTime(d.midnight_h,d.midnight_m)}</td>
+        <td className={'m30-daily-status-td' + dayStyle}>{d.status}</td>
+        <td className={'m30-daily-link-td' + dayStyle}>{setDailyRep()}</td>
+        <td className={'m30-daily-link-td' + dayStyle}>{setWorkRep()}</td>
+        <td className={'m30-daily-request-td' + dayStyle}>{setRequest()}</td>
+        <td className={'m30-daily-alert-td' + dayStyle}>{setAlert()}</td>
       </tr>
     );
   }
